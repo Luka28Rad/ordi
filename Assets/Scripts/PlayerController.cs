@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
-	[SerializeField] private Transform m_CeilingCheck;							// A position marking where to check for ceilings
+	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
+	[SerializeField] private ParticleSystem dashTrail;
 
 	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour
         if(canDash && dash && Time.time - timeSinceLastDash > 0.3f){
             canDash = false;
             timeSinceLastDash = Time.time;
+			dashTrail.Play();
 
             if(m_FacingRight){
                 m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
