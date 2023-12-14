@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
@@ -23,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private bool toJump = false;
     private bool toDash = false;
     private float timeSinceLastDash = 0f;
+	private float coyoteTimer = 0.2f;
+	private float coyoteTimerTemp = 0.2f;
 
 	private void Awake()
 	{
@@ -86,8 +89,14 @@ public class PlayerController : MonoBehaviour
             // ... flip the player.
             Flip();
         }
+		if(!m_Grounded){
+			coyoteTimerTemp -= Time.fixedDeltaTime;
+		}
+		if(m_Grounded){
+			coyoteTimerTemp = coyoteTimer;
+		}
 		// If the player should jump...
-		if (m_Grounded && jump)
+		if (m_Grounded && jump && coyoteTimerTemp > 0)
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
@@ -98,6 +107,7 @@ public class PlayerController : MonoBehaviour
             canDash = false;
             timeSinceLastDash = Time.time;
 			dashTrail.Play();
+			StartCoroutine(Dash());
 
             if(m_FacingRight){
                 m_Rigidbody2D.AddForce(new Vector2(m_DashForce, 0f));
@@ -119,5 +129,13 @@ public class PlayerController : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	IEnumerator Dash()
+	{
+		m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
+		m_Rigidbody2D.gravityScale = 0;
+		yield return new WaitForSeconds(.16f);
+		m_Rigidbody2D.gravityScale = 4;
 	}
 }
