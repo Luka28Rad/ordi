@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
         input = Input.GetAxisRaw("Horizontal");
-
+		Debug.Log(coyoteTimerTemp);
         if(Input.GetKeyDown(KeyCode.Space)){
             toJump = true;
         }
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
 			coyoteTimerTemp = coyoteTimer;
 		}
 		// If the player should jump...
-		if (m_Grounded && jump && coyoteTimerTemp > 0)
+		if ((m_Grounded || coyoteTimerTemp > 0) && jump)
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
