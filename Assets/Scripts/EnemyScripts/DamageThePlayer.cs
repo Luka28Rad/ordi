@@ -21,7 +21,7 @@ public class DamageThePlayer : MonoBehaviour
         if (collision.gameObject.layer == 3)    //CHECK IF PLAYER
         {
             collision.GetComponent<HealthManager>().TakeDamage();
-            
+            collision.GetComponent<Rigidbody2D>().AddForce(new Vector2(-collision.GetComponent<Rigidbody2D>().velocity.normalized.x, 0.2f) * 30f, ForceMode2D.Impulse);
         }
     }
 }

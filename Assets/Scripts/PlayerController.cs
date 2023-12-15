@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 
-        if(canDash && dash && Time.time - timeSinceLastDash > 0.3f){
+        if(canDash && dash && Time.time - timeSinceLastDash > 0.8f){
             canDash = false;
             timeSinceLastDash = Time.time;
 			dashTrail.Play();
