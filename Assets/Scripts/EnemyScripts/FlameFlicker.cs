@@ -7,6 +7,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 public class FlameFlicker : MonoBehaviour
 {
     Light2D light;
+    [SerializeField] int framesToDivide = 3;
     int frames;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class FlameFlicker : MonoBehaviour
     void FixedUpdate()
     {
         frames++;
-        if (frames % 3 == 0)
+        if (frames % framesToDivide == 0)
         {
             frames = 0;
             Frame10Update();

@@ -17,6 +17,7 @@ public class StompEnemy : MonoBehaviour
         }
         rb.constraints = RigidbodyConstraints2D.None;
         collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * 10f;
+        collision.GetComponent<HealthManager>().HealPlayer();
         collider.enabled = false;
         rb.velocity = Vector2.right * 5f + Vector2.up * 15f;
         rb.angularVelocity = -120f;

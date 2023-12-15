@@ -98,8 +98,9 @@ public class PlayerController : MonoBehaviour
 		// If the player should jump...
 		if ((m_Grounded || coyoteTimerTemp > 0) && jump)
 		{
-			// Add a vertical force to the player.
-			m_Grounded = false;
+			coyoteTimerTemp = 0;
+            // Add a vertical force to the player.
+            m_Grounded = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 

@@ -20,11 +20,11 @@ public class CandleBehaviour : MonoBehaviour
         bigFire.SetActive(false);
         smallFire.SetActive(true);
         fireAnimation.Play();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);  //small fire duration
         bigFire.SetActive(true);
         smallFire.SetActive(false);
         fireAnimation.Play();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(4f);    //big fire duration
         StartCoroutine(Fire());
     }
 
