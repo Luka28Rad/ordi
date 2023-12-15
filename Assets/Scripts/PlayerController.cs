@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
         input = Input.GetAxisRaw("Horizontal");
-		Debug.Log(coyoteTimerTemp);
+		
         if(Input.GetKeyDown(KeyCode.Space)){
             toJump = true;
         }

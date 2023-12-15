@@ -20,7 +20,12 @@ public class SpringShroomBoost : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Transform>().transform.position.y > transform.position.y)
+        if (collision.gameObject.layer != 3)    //CHECK IF NOT PLAYER
+        {
+            return;
+        }
+
+        if (collision.GetComponent<Transform>().transform.position.y > transform.position.y)
         {
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpStrength;
         }

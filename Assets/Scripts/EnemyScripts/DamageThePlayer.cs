@@ -21,6 +21,7 @@ public class DamageThePlayer : MonoBehaviour
         if (collision.gameObject.layer == 3)    //CHECK IF PLAYER
         {
             collision.GetComponent<HealthManager>().TakeDamage();
+            
         }
     }
 }
