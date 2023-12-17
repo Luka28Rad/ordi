@@ -7,10 +7,13 @@ public class CandleBehaviour : MonoBehaviour
     [SerializeField] GameObject bigFire;
     [SerializeField] GameObject smallFire;
     [SerializeField] Animation fireAnimation;
+
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         bigFire.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
         smallFire.SetActive(true);
         StartCoroutine(Fire());
     }
@@ -22,6 +25,7 @@ public class CandleBehaviour : MonoBehaviour
         fireAnimation.Play();
         yield return new WaitForSeconds(1.5f);  //small fire duration
         bigFire.SetActive(true);
+        audioSource.Play();
         smallFire.SetActive(false);
         fireAnimation.Play();
         yield return new WaitForSeconds(4f);    //big fire duration
