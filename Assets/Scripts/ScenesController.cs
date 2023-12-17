@@ -5,9 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class ScenesController : MonoBehaviour
 {
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "CreditsScene")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenuScene");
+            }
+        }
+    }
     public void LeaderboardButtonClicked()
     {
         SceneManager.LoadScene("LeaderboardScene");
+    }
+
+    public void CreditsButtonClicked()
+    {
+        SceneManager.LoadScene("CreditsScene");
     }
 
     public void SpeedRunButtonClicked()
