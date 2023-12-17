@@ -14,3 +14,13 @@ TestName 00:00:08.162
 TestName 00:00:05.000
 TestName 00:00:03.491
 TestName 00:00:05.454
+TestName 00:00:19.583
+TestName 00:00:03.884
+TestName 00:00:04.063
+TestName 00:00:04.223
+jurica 00:00:06.999
+jurica 00:00:04.877
+Unknown 00:00:03.608
+jura 00:00:06.832
+k 00:00:03.510
+TopResult 00:00:02.975

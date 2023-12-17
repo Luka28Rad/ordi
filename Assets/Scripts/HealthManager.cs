@@ -21,9 +21,11 @@ public class HealthManager : MonoBehaviour
         {
             if(Variables.gameMode == "Speedrun") {
                 SpeedrunTimer.SaveTime();
+            } else {
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
             }
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+
         }
         playerLight.shapeLightFalloffSize -= 3;
     }
