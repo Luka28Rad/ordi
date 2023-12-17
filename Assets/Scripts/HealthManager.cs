@@ -19,6 +19,9 @@ public class HealthManager : MonoBehaviour
         Debug.Log("OUCH");
         if(currentHealth <= 0)
         {
+            if(Variables.gameMode == "Speedrun") {
+                SpeedrunTimer.SaveTime();
+            }
             Scene scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name);
         }
