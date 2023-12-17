@@ -14,6 +14,7 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage()
     { 
+        if(Variables.gameMode == "Practice") return;
         currentHealth--;
         showHealth.UpdateHealth(currentHealth);
         Debug.Log("OUCH");
