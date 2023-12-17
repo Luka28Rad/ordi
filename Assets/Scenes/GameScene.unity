@@ -353,8 +353,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0001001358, y: -0.0061502457, z: 0}
-    m_Extent: {x: 20.509499, y: 20.49405, z: 0}
+    m_Center: {x: 0.0018005371, y: -0.00090026855, z: 0}
+    m_Extent: {x: 20.5002, y: 20.4979, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -13406,7 +13406,7 @@ GameObject:
   - component: {fileID: 1107075117}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19254,7 +19254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4461889415469704959, guid: 01186795f3c7f5b41b31faa906b9ca39, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 53.57868
+      value: 52.9
       objectReference: {fileID: 0}
     - target: {fileID: 4461889415469704959, guid: 01186795f3c7f5b41b31faa906b9ca39, type: 3}
       propertyPath: m_LocalPosition.y
