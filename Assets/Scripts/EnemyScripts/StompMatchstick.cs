@@ -6,6 +6,7 @@ public class StompMatchstick : MonoBehaviour
 {
     [SerializeField] BoxCollider2D collider;
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] MatchstickAI matchstickAI;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,5 +20,6 @@ public class StompMatchstick : MonoBehaviour
         rb.velocity = Vector2.right * 5f + Vector2.up * 4f;
         rb.angularVelocity = -200f;
         Destroy(gameObject);
+        matchstickAI.Die();
     }
 }

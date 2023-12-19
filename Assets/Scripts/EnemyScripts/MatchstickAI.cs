@@ -8,11 +8,17 @@ public class MatchstickAI : MonoBehaviour
     SpriteRenderer renderer;
     [SerializeField] GameObject fire;
     [SerializeField] GameObject smoke;
+    GameObject player;
+    GameObject attack;
     Animator animator;
+    bool canAttack = true;
+    float attackRange = 8;
+    float fireballSpeed = 12;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         smoke.SetActive(false);
         renderer = GetComponent<SpriteRenderer>();
@@ -21,12 +27,50 @@ public class MatchstickAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(canAttack && Vector2.Distance(player.transform.position, transform.position) < attackRange)
+        {
+            canAttack = false;
+            Extinguish();
+            Attack();
+            StartCoroutine(LightUp());
+        }
+
         if (Input.GetKeyDown(KeyCode.M))
         {
-            animator.enabled = false;
-            renderer.sprite = ugasen;
-            fire.SetActive(false);
-            smoke.SetActive(true);
+            Extinguish();
         }
+    }
+
+    void Extinguish()
+    {
+        animator.enabled = false;
+        renderer.sprite = ugasen;
+        fire.SetActive(false);
+        smoke.SetActive(true);
+    }
+
+    void Attack()
+    {
+        attack = Instantiate(fire, transform);
+        attack.SetActive(true);
+        attack.transform.parent = null;
+        attack.GetComponent<Rigidbody2D>().velocity = (player.transform.position - transform.position).normalized * fireballSpeed;
+        attack.GetComponent<FireballScript>().HasBeenFired();
+    }
+
+    public void Die()
+    {
+        canAttack = false;
+        Destroy(gameObject, 3);
+    }
+
+    IEnumerator LightUp()
+    {
+        yield return new WaitForSeconds(4);
+        animator.enabled = true;
+        fire.SetActive(true);
+        smoke.SetActive(false);
+        yield return new WaitForSeconds(1.5f); //cooldown
+        canAttack = true;    
     }
 }
