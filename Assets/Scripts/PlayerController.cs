@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private float timeSinceLastDash = 0f;
 	private float coyoteTimer = 0.2f;
 	private float coyoteTimerTemp = 0.2f;
+	private bool canMove = true;
 
 	private void Awake()
 	{
@@ -64,7 +65,10 @@ public class PlayerController : MonoBehaviour
                 canDash = true;
 			}
 		}
-        Move(input * Time.fixedDeltaTime * moveSpeed, toJump, toDash);
+		if (canMove)
+		{
+			Move(input * Time.fixedDeltaTime * moveSpeed, toJump, toDash);
+		}
         toJump = false;
         toDash = false;
 	}
@@ -132,7 +136,19 @@ public class PlayerController : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
-	IEnumerator Dash()
+	public void NoMove()
+	{
+		canMove = false;
+		StartCoroutine(MakeUnableToMove());
+	}
+
+    IEnumerator MakeUnableToMove()
+    {
+        yield return new WaitForSeconds(0.6f);
+        canMove = true;
+    }
+
+    IEnumerator Dash()
 	{
 		m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
 		m_Rigidbody2D.gravityScale = 0;

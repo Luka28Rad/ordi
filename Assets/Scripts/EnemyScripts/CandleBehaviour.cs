@@ -20,7 +20,7 @@ public class CandleBehaviour : MonoBehaviour
         bigFire.SetActive(false);
         smallFire.SetActive(true);
         fireAnimation.Play();
-        yield return new WaitForSeconds(1.5f);  //small fire duration
+        yield return new WaitForSeconds(2.5f);  //small fire duration
         bigFire.SetActive(true);
         smallFire.SetActive(false);
         fireAnimation.Play();
