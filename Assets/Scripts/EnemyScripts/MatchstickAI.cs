@@ -12,7 +12,7 @@ public class MatchstickAI : MonoBehaviour
     GameObject attack;
     Animator animator;
     bool canAttack = true;
-    float attackRange = 8;
+    float attackRange = 12;
     float fireballSpeed = 12;
 
     // Start is called before the first frame update
@@ -61,7 +61,8 @@ public class MatchstickAI : MonoBehaviour
     public void Die()
     {
         canAttack = false;
-        Destroy(gameObject, 3);
+        StopAllCoroutines();
+        Destroy(gameObject, 2);
     }
 
     IEnumerator LightUp()

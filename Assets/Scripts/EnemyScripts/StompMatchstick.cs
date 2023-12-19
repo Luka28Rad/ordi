@@ -19,7 +19,7 @@ public class StompMatchstick : MonoBehaviour
         collider.enabled = false;
         rb.velocity = Vector2.right * 5f + Vector2.up * 4f;
         rb.angularVelocity = -200f;
-        Destroy(gameObject);
         matchstickAI.Die();
+        Destroy(gameObject);
     }
 }
