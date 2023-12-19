@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e76259b2481e374e964ba443ee4d893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionForce: 5
+  attractionForce: 6
   attractionRadius: 3
   boostForce: 100
   boostAngle: 180
