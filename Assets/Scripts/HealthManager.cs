@@ -14,13 +14,19 @@ public class HealthManager : MonoBehaviour
 
     public void TakeDamage()
     { 
+        if(Variables.gameMode == "Practice") return;
         currentHealth--;
         showHealth.UpdateHealth(currentHealth);
         Debug.Log("OUCH");
         if(currentHealth <= 0)
         {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
+            if(Variables.gameMode == "Speedrun") {
+                SpeedrunTimer.SaveTime();
+            } else {
+                Scene scene = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(scene.name);
+            }
+
         }
         playerLight.shapeLightFalloffSize -= 3;
     }

@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator MakeUnableToMove()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         canMove = true;
     }
 

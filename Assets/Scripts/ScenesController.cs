@@ -5,9 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class ScenesController : MonoBehaviour
 {
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "CreditsScene")
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenuScene");
+            }
+        }
+    }
     public void LeaderboardButtonClicked()
     {
         SceneManager.LoadScene("LeaderboardScene");
+    }
+
+    public void CreditsButtonClicked()
+    {
+        SceneManager.LoadScene("CreditsScene");
+    }
+
+    public void SpeedRunButtonClicked()
+    {
+        Variables.gameMode = "Speedrun";
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void NewGameButtonClicked()
+    {
+        Variables.gameMode = "NewGame";
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void LoadGameButtonClicked()
+    {
+        Variables.gameMode = "LoadGame";
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void PracticeButtonClicked()
+    {
+        Variables.gameMode = "Practice";
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OptionsButtonClicked()
@@ -15,9 +55,12 @@ public class ScenesController : MonoBehaviour
         SceneManager.LoadScene("OptionsScene");
     }
 
-    public void PlayButtonClicked()
+    public void PlayButtonClicked(GameObject buttonsPanel)
     {
-        SceneManager.LoadScene("GameScene");
+        if(!buttonsPanel.activeSelf)
+            buttonsPanel.SetActive(true);
+        else 
+             buttonsPanel.SetActive(false);
     }
 
     public void MainMenuClicked()
