@@ -24,13 +24,17 @@ public class PlayerController : MonoBehaviour
     private bool toJump = false;
     private bool toDash = false;
     private float timeSinceLastDash = 0f;
-	private float coyoteTimer = 0.2f;
+	readonly private float coyoteTimer = 0.2f;
 	private float coyoteTimerTemp = 0.2f;
+	readonly private float jumpBuffer = 0.1f;
+	private float jumpBufferTemp = 0.1f;
 	private bool canMove = true;
+	private Animator m_animator;
 
 	private void Awake()
 	{
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		m_animator = GetComponent<Animator>();
 	}
 
     private void Update() {
@@ -38,6 +42,7 @@ public class PlayerController : MonoBehaviour
 		
         if(Input.GetKeyDown(KeyCode.Space)){
             toJump = true;
+			jumpBufferTemp = jumpBuffer;
         }
 
         if(Input.GetKeyDown(KeyCode.LeftShift)){
@@ -69,6 +74,10 @@ public class PlayerController : MonoBehaviour
 		{
 			Move(input * Time.fixedDeltaTime * moveSpeed, toJump, toDash);
 		}
+		else
+		{
+            m_animator.SetBool("isWalking", false);
+        }
         toJump = false;
         toDash = false;
 	}
@@ -95,12 +104,26 @@ public class PlayerController : MonoBehaviour
         }
 		if(!m_Grounded){
 			coyoteTimerTemp -= Time.fixedDeltaTime;
-		}
+			jumpBufferTemp -= Time.fixedDeltaTime;
+        }
 		if(m_Grounded){
 			coyoteTimerTemp = coyoteTimer;
+			if (jumpBufferTemp > 0)
+			{
+				jump = true;
+			}
 		}
-		// If the player should jump...
-		if ((m_Grounded || coyoteTimerTemp > 0) && jump)
+
+        if (Mathf.Abs(targetVelocity.x) > 0 && m_Grounded)
+        {
+            m_animator.SetBool("isWalking", true);
+        }
+		else
+		{
+            m_animator.SetBool("isWalking", false);
+        }
+        // If the player should jump...
+        if ((m_Grounded || coyoteTimerTemp > 0) && jump)
 		{
 			coyoteTimerTemp = 0;
             // Add a vertical force to the player.

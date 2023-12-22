@@ -105,6 +105,7 @@ MonoBehaviour:
   ugasen: {fileID: 21300000, guid: 59f5aab95f3a53c49be3de11b761b5d0, type: 3}
   fire: {fileID: 751692493464286686}
   smoke: {fileID: 3591817459837143469}
+  damagePoint: {fileID: 1977472533451417709}
 --- !u!50 &3117236955812621619
 Rigidbody2D:
   serializedVersion: 4

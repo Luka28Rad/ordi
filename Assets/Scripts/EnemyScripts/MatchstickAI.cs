@@ -8,12 +8,13 @@ public class MatchstickAI : MonoBehaviour
     SpriteRenderer renderer;
     [SerializeField] GameObject fire;
     [SerializeField] GameObject smoke;
+    [SerializeField] GameObject damagePoint;
     GameObject player;
     GameObject attack;
     Animator animator;
     bool canAttack = true;
-    float attackRange = 12;
-    float fireballSpeed = 12;
+    readonly float attackRange = 12;
+    readonly float fireballSpeed = 12;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +61,7 @@ public class MatchstickAI : MonoBehaviour
 
     public void Die()
     {
+        damagePoint.SetActive(false);
         canAttack = false;
         StopAllCoroutines();
         Destroy(gameObject, 2);

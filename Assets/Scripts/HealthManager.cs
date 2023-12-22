@@ -17,7 +17,6 @@ public class HealthManager : MonoBehaviour
         if(Variables.gameMode == "Practice") return;
         currentHealth--;
         showHealth.UpdateHealth(currentHealth);
-        Debug.Log("OUCH");
         if(currentHealth <= 0)
         {
             if(Variables.gameMode == "Speedrun") {
