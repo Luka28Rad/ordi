@@ -10,8 +10,12 @@ public class HealthManager : MonoBehaviour
     int currentHealth = 5;
     [SerializeField] ShowHealth showHealth;
     [SerializeField] Light2D playerLight;
+    CheckpointManager checkpointManager;
     // Start is called before the first frame update
-
+    private void Start()
+    {
+        checkpointManager = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
+    }
     public void TakeDamage()
     { 
         if(Variables.gameMode == "Practice") return;
@@ -23,7 +27,18 @@ public class HealthManager : MonoBehaviour
                 SpeedrunTimer.SaveTime();
             } else {
                 Scene scene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(scene.name);
+                if(checkpointManager.GetLastCheckpoint() != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Cleanse();
+                    transform.position = checkpointManager.GetLastCheckpoint();
+                    currentHealth = 5;
+                    playerLight.shapeLightFalloffSize = 20;
+                    showHealth.UpdateHealth(currentHealth);
+                }
+                else
+                {
+                    SceneManager.LoadScene(scene.name);
+                }
             }
 
         }

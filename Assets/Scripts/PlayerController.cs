@@ -160,6 +160,11 @@ public class PlayerController : MonoBehaviour
 		transform.localScale = theScale;
 	}
 
+	public void Cleanse()
+	{
+		m_Rigidbody2D.velocity = Vector2.zero;
+	}
+
 	public void NoMove()
 	{
 		canMove = false;

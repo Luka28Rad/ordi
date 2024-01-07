@@ -70,7 +70,7 @@ public class ScenesController : MonoBehaviour
 
     public void ExitButtonClicked()
     {
-        UnityEditor.EditorApplication.isPlaying = false; // ovu liniju treba maknuti prije buildanja jer ce inace stvarat error - omogucuje da se izade iz editora na klik
+        //UnityEditor.EditorApplication.isPlaying = false; // ovu liniju treba maknuti prije buildanja jer ce inace stvarat error - omogucuje da se izade iz editora na klik
         Application.Quit(); // ova logicno izlazi iz aplikacije
     }
 }
