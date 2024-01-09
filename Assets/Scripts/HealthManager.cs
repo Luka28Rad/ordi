@@ -21,7 +21,9 @@ public class HealthManager : MonoBehaviour
         if(Variables.gameMode == "Practice") return;
         currentHealth--;
         showHealth.UpdateHealth(currentHealth);
-        if(currentHealth <= 0)
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        StartCoroutine(BackToNormalColor(gameObject.GetComponent<SpriteRenderer>(), Color.white, 0.4f));
+        if (currentHealth <= 0)
         {
             if(Variables.gameMode == "Speedrun") {
                 SpeedrunTimer.SaveTime();
@@ -53,6 +55,16 @@ public class HealthManager : MonoBehaviour
             playerLight.shapeLightFalloffSize += 3;
         }
         showHealth.UpdateHealth(currentHealth);
+    }
+
+    
+
+    IEnumerator BackToNormalColor(SpriteRenderer renderer, Color targetColor, float delay)
+    {
+        gameObject.layer = 7;
+        yield return new WaitForSeconds(delay);
+        renderer.color = targetColor;
+        gameObject.layer = 3;
     }
 
 }

@@ -22,7 +22,7 @@ public class SpringShroomAI : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer != 3)    //CHECK IF NOT PLAYER
+        if (collision.gameObject.layer != 3 && collision.gameObject.layer != 7)    //CHECK IF NOT PLAYER
         {
             moveDir *= -1;
             Vector3 theScale = transform.localScale;
