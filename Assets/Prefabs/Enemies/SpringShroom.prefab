@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1540354181999812641}
   - component: {fileID: 34341376621133949}
   - component: {fileID: 4904439849668481349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpringshroomDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 7062643524891980857}
   - component: {fileID: 8834732942806811244}
   - component: {fileID: 8252446584059391875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpringshroomBoost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
