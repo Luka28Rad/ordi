@@ -29,25 +29,25 @@ public class ScenesController : MonoBehaviour
     public void SpeedRunButtonClicked()
     {
         Variables.gameMode = "Speedrun";
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void NewGameButtonClicked()
     {
         Variables.gameMode = "NewGame";
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void LoadGameButtonClicked()
     {
         Variables.gameMode = "LoadGame";
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void PracticeButtonClicked()
     {
         Variables.gameMode = "Practice";
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void OptionsButtonClicked()

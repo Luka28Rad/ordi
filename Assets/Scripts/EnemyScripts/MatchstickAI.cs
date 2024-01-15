@@ -28,7 +28,7 @@ public class MatchstickAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canAttack && Vector2.Distance(player.transform.position, transform.position) < attackRange)
+        if(player != null && canAttack && Vector2.Distance(player.transform.position, transform.position) < attackRange) // player != null dodao jer je tokom speedruna aktivna idalje skripta a nema playera, mislim da ne utjece na nista drugo
         {
             canAttack = false;
             Extinguish();
