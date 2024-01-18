@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 	[SerializeField] private ParticleSystem dashTrail;
 
-	const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+	const float k_GroundedRadius = .3f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
     private bool canDash;
 	const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
@@ -68,7 +68,8 @@ public class PlayerController : MonoBehaviour
 			{
 				m_Grounded = true;
                 canDash = true;
-			}
+                m_animator.SetBool("isJumping", false);
+            }
 		}
 		if (canMove)
 		{
@@ -107,7 +108,7 @@ public class PlayerController : MonoBehaviour
 			jumpBufferTemp -= Time.fixedDeltaTime;
         }
 		if(m_Grounded){
-			coyoteTimerTemp = coyoteTimer;
+            coyoteTimerTemp = coyoteTimer;
 			if (jumpBufferTemp > 0)
 			{
 				jump = true;
@@ -130,7 +131,8 @@ public class PlayerController : MonoBehaviour
             m_Grounded = false;
 			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-		}
+            m_animator.SetBool("isJumping", true);
+        }
 
 
         if(canDash && dash && Time.time - timeSinceLastDash > 0.8f){
