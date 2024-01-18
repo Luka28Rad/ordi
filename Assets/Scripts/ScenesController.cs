@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ScenesController : MonoBehaviour
 {
-
+    [SerializeField] GameObject buttonsToShow;
+    [SerializeField] GameObject buttonsToHide;
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "CreditsScene")
@@ -56,12 +57,19 @@ public class ScenesController : MonoBehaviour
         SceneManager.LoadScene("OptionsScene");
     }
 
-    public void PlayButtonClicked(GameObject buttonsPanel)
+    public void PlayButtonClicked()
     {
-        if(!buttonsPanel.activeSelf)
-            buttonsPanel.SetActive(true);
-        else 
-             buttonsPanel.SetActive(false);
+        if (!buttonsToShow.activeSelf)
+        {
+            buttonsToShow.SetActive(true);
+            buttonsToHide.SetActive(false);
+        }    
+        else
+        {
+            buttonsToShow.SetActive(false);
+            buttonsToHide.SetActive(true);
+        }
+            
     }
 
     public void MainMenuClicked()
