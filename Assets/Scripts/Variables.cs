@@ -5,6 +5,7 @@ using UnityEngine;
 public class Variables : MonoBehaviour
 {
     public static string gameMode = "";
+    public static int speedRunCollectiblesCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
