@@ -7,12 +7,13 @@ public class StarCoin : MonoBehaviour
     public float rotationSpeed = 150f;  
     public float movementRange = 0.35f; 
     public float movementSpeed = 4f;
-
+    private AudioSource audioSource;
     private float initialY;  
 
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         initialY = transform.position.y;
     }
 
@@ -28,13 +29,20 @@ public class StarCoin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
             string collectibleName = gameObject.name;
 
             if(Variables.gameMode == "Speedrun" || Variables.gameMode == "Practice") {
                 Variables.speedRunCollectiblesCounter++;
                 Collectibles.collectibleCounter++;
-                Destroy(gameObject);
+                if (!audioSource.isPlaying)
+                    {
+                        GetComponent<BoxCollider2D>().enabled = false;
+                        audioSource.Play();
+                        Color currentColor = GetComponent<Renderer>().material.color;
+                        currentColor.a = 0f;
+                        GetComponent<Renderer>().material.color =currentColor;
+                        Destroy(gameObject, audioSource.clip.length);
+                    }
                 Debug.Log("Collected " + gameObject.name);
             } else {
             if (PlayerPrefs.HasKey("collectibles"))
@@ -48,7 +56,15 @@ public class StarCoin : MonoBehaviour
                 PlayerPrefs.SetString("collectibles", collectibleName);
             }
             Collectibles.collectibleCounter++;
-            Destroy(gameObject);
+                if (!audioSource.isPlaying)
+                    {
+                        audioSource.Play();
+                        GetComponent<BoxCollider2D>().enabled = false;
+                        Color currentColor = GetComponent<Renderer>().material.color;
+                        currentColor.a = 0f;
+                        GetComponent<Renderer>().material.color =currentColor;
+                        Destroy(gameObject, audioSource.clip.length);
+                    }
             Debug.Log("Collected " + gameObject.name);
             }
         }
