@@ -13,7 +13,7 @@ public class MatchstickAI : MonoBehaviour
     GameObject attack;
     Animator animator;
     bool canAttack = true;
-    readonly float attackRange = 12;
+    readonly float attackRange = 9;
     readonly float fireballSpeed = 12;
     private bool m_FacingRight = false;
 

@@ -15,6 +15,10 @@ public class DashIndicatorFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Vector2.Distance(player.transform.position, transform.position) > 30)
+        {
+            transform.position = player.transform.position + new Vector3(0.7f, 0.4f, 0);
+        }
 
         if (player.transform.localScale.x < 0)
         {

@@ -8,6 +8,7 @@ public class DuskoAI : MonoBehaviour
     private bool m_FacingRight = true;
     readonly float speed = 7f;
     readonly float attackRange = 4f;
+    readonly float stalkRange = 40f;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,7 @@ public class DuskoAI : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
-        else
+        else if (Vector2.Distance(player.transform.position, transform.position) < stalkRange)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 0.5f * Time.deltaTime);
         }
