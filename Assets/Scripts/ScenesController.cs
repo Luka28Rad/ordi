@@ -29,6 +29,7 @@ public class ScenesController : MonoBehaviour
 
     public void SpeedRunButtonClicked()
     {
+        PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Speedrun";
         SceneManager.LoadScene("Level 1");
     }
@@ -37,6 +38,7 @@ public class ScenesController : MonoBehaviour
     {
         Variables.gameMode = "NewGame";
         PlayerPrefs.SetString("Checkpoint", "Start");
+        PlayerPrefs.SetString("collectibles", "");
         SceneManager.LoadScene("Level 1");
     }
 
@@ -48,6 +50,7 @@ public class ScenesController : MonoBehaviour
 
     public void PracticeButtonClicked()
     {
+        PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Practice";
         SceneManager.LoadScene("Level 1");
     }
