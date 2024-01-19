@@ -6,8 +6,8 @@ public class DuskoAI : MonoBehaviour
 {
     GameObject player;
     private bool m_FacingRight = true;
-    readonly float speed = 8f;
-    readonly float attackRange = 3.5f;
+    readonly float speed = 7f;
+    readonly float attackRange = 4f;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +35,7 @@ public class DuskoAI : MonoBehaviour
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 1.5f * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 0.5f * Time.deltaTime);
         }
     }
 
