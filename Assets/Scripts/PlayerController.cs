@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
 	[SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
 	[SerializeField] private ParticleSystem dashTrail;
+	[SerializeField] private GameObject dashIndicator;
 
 	const float k_GroundedRadius = .3f; // Radius of the overlap circle to determine if grounded
 	private bool m_Grounded;            // Whether or not the player is grounded.
@@ -67,7 +69,13 @@ public class PlayerController : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-                canDash = true;
+				if (Time.time - timeSinceLastDash > 0.8f)
+				{
+                    canDash = true;
+                    dashIndicator.GetComponent<Renderer>().enabled = true;
+                    dashIndicator.GetComponent<Light2D>().enabled = true;
+                }
+                
                 m_animator.SetBool("isJumping", false);
             }
 		}
@@ -135,7 +143,9 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(canDash && dash && Time.time - timeSinceLastDash > 0.8f){
+        if(canDash && dash){
+            dashIndicator.GetComponent<Renderer>().enabled = false;
+			dashIndicator.GetComponent<Light2D>().enabled = false;
             canDash = false;
             timeSinceLastDash = Time.time;
 			dashTrail.Play();
