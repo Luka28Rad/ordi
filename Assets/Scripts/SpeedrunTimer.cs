@@ -32,7 +32,7 @@ public class SpeedrunTimer : MonoBehaviour
         } else {
             currentTimeText.gameObject.SetActive(true);
             StartTimer();
-            currentTime = 0;
+            currentTime = PlayerPrefs.GetFloat("SpeedTime", 0);
         }
 
     }
@@ -47,6 +47,7 @@ public class SpeedrunTimer : MonoBehaviour
     {
         if(timerActive) {
             currentTime += Time.deltaTime;
+            PlayerPrefs.SetFloat("SpeedTime", currentTime);
         } else {
             nameInputPanel.SetActive(true);
         }
