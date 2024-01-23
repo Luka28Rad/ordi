@@ -52,10 +52,6 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift)){
             toDash = true;
         }
-
-        if(Input.GetKeyDown(KeyCode.P)){
-            transform.position = new Vector3(-7f, -3.5f, 0);
-        }
     }
 
 	private void FixedUpdate()
