@@ -32,5 +32,23 @@ public class ShowControlUsage : MonoBehaviour
         {
             keys[1].transform.GetComponent<SpriteRenderer>().sprite = sprites[2];
         }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            keys[2].transform.GetComponent<SpriteRenderer>().sprite = sprites[5];
+        }
+        else
+        {
+            keys[2].transform.GetComponent<SpriteRenderer>().sprite = sprites[4];
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            keys[3].transform.GetComponent<SpriteRenderer>().sprite = sprites[7];
+        }
+        else
+        {
+            keys[3].transform.GetComponent<SpriteRenderer>().sprite = sprites[6];
+        }
     }
 }
