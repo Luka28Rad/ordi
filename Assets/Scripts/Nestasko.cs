@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Nestasko : MonoBehaviour
@@ -15,7 +16,7 @@ public class Nestasko : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && isTileActive)
+        if (collision.gameObject.CompareTag("Player") && isTileActive && collision.gameObject.transform.position.y > transform.position.y + 0.5f)
         {
             Debug.Log("Bok");
             StartCoroutine(DisappearForSeconds(1f));
@@ -25,7 +26,7 @@ public class Nestasko : MonoBehaviour
     private IEnumerator DisappearForSeconds(float seconds)
     {
         float elapsedTime = 0f;
-        Color targetColor = Color.red;
+        Color targetColor = Color.clear;
 
         while (elapsedTime < seconds)
         {
