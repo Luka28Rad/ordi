@@ -16,7 +16,14 @@ public class HealthManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        checkpointManager = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
+        if (GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>() != null)
+        {
+            checkpointManager = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
+        }
+        else
+        {
+            checkpointManager = null;
+        }
     }
 
     private void Update()
@@ -41,7 +48,7 @@ public class HealthManager : MonoBehaviour
                 SceneManager.LoadScene("Level 1");
             } else {
                 Scene scene = SceneManager.GetActiveScene();
-                if(checkpointManager.GetLastCheckpoint() != null)
+                if(checkpointManager != null)
                 {
                     GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Cleanse();
                     transform.position = checkpointManager.GetLastCheckpoint();
