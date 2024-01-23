@@ -50,9 +50,8 @@ public class NextLevel : MonoBehaviour
                     SceneManager.LoadScene("Level 2");
                     break;
                 case 2:
-                //SpeedrunTimer.SaveTime();
                 PlayerPrefs.SetString("Level", "Level 3");
-                    SceneManager.LoadScene("Level 3");
+                    SceneManager.LoadScene("Bossfight");
                     break;
                 case 3: 
                 if(Variables.gameMode == "Speedrun") {

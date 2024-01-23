@@ -89,22 +89,6 @@ public class WizardAI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         laser = true;
-        yield return new WaitForSeconds(1.5f);
-        Pew();
-        yield return new WaitForSeconds(0.7f);
-        Pew();
-        yield return new WaitForSeconds(0.7f);
-        Pew();
-        yield return new WaitForSeconds(0.7f);
-        laser = false;
-        lineRenderer.enabled = false;
-        
-    }
-
-    IEnumerator AttackLaserFast()
-    {
-        yield return new WaitForSeconds(0.3f);
-        laser = true;
         yield return new WaitForSeconds(1f);
         Pew();
         yield return new WaitForSeconds(0.2f);
@@ -119,6 +103,30 @@ public class WizardAI : MonoBehaviour
         Pew();
         yield return new WaitForSeconds(0.2f);
         Pew();
+        yield return new WaitForSeconds(0.7f);
+        laser = false;
+        lineRenderer.enabled = false;
+
+    }
+
+    IEnumerator AttackLaserFast()
+    {
+        yield return new WaitForSeconds(0.3f);
+        laser = true;
+        yield return new WaitForSeconds(1f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
+        yield return new WaitForSeconds(0.2f);
+        PewBuff();
         yield return new WaitForSeconds(0.7f);
         laser = false;
         lineRenderer.enabled = false;
@@ -148,7 +156,8 @@ public class WizardAI : MonoBehaviour
         Pew();
         yield return new WaitForSeconds(0.2f);
         Pew();
-        yield return new WaitForSeconds(1.5f);
+        StartCoroutine(DecideRandomPosition());
+        yield return new WaitForSeconds(0.2f);
         Pew();
         yield return new WaitForSeconds(0.2f);
         Pew();
@@ -168,6 +177,28 @@ public class WizardAI : MonoBehaviour
         attack.SetActive(true);
         attack.transform.parent = null;
         attack.GetComponent<Rigidbody2D>().velocity = (player.transform.position - attackPoint.transform.position).normalized * attackSpeed;
+        attack.transform.right = player.transform.position - attack.transform.position;
+        Destroy(attack, 2f);
+    }
+
+    void PewBuff()
+    {
+        attack = Instantiate(laserAttack, attackPoint.transform);
+        attack.SetActive(true);
+        attack.transform.parent = null;
+        attack.GetComponent<Rigidbody2D>().velocity = (player.transform.position - attackPoint.transform.position).normalized * attackSpeed;
+        attack.transform.right = player.transform.position - attack.transform.position;
+        Destroy(attack, 2f);
+        attack = Instantiate(laserAttack, attackPoint.transform);
+        attack.SetActive(true);
+        attack.transform.parent = null;
+        attack.GetComponent<Rigidbody2D>().velocity = (player.transform.position - attackPoint.transform.position + new Vector3(0, 3, 0)).normalized * attackSpeed;
+        attack.transform.right = player.transform.position - attack.transform.position;
+        Destroy(attack, 2f);
+        attack = Instantiate(laserAttack, attackPoint.transform);
+        attack.SetActive(true);
+        attack.transform.parent = null;
+        attack.GetComponent<Rigidbody2D>().velocity = (player.transform.position - attackPoint.transform.position + new Vector3(0, -3, 0)).normalized * attackSpeed;
         attack.transform.right = player.transform.position - attack.transform.position;
         Destroy(attack, 2f);
     }
