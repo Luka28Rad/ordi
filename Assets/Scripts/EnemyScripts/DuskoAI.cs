@@ -6,13 +6,17 @@ public class DuskoAI : MonoBehaviour
 {
     GameObject player;
     private bool m_FacingRight = true;
-    readonly float speed = 7f;
-    readonly float attackRange = 4f;
+    readonly float speed = 6f;
+    readonly float attackRange = 6f;
     readonly float stalkRange = 40f;
+    private bool hasAttacked = false;
+    SpriteRenderer spriteRenderer;
+    [SerializeField] GameObject deathEffect;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -32,10 +36,15 @@ public class DuskoAI : MonoBehaviour
     {
         if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
         {
+            hasAttacked = true;
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
         else if (Vector2.Distance(player.transform.position, transform.position) < stalkRange)
         {
+            if (hasAttacked)
+            {
+                StartCoroutine(Disappear(1f));
+            }
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 0.5f * Time.deltaTime);
         }
     }
@@ -57,7 +66,30 @@ public class DuskoAI : MonoBehaviour
         {
             collision.GetComponent<HealthManager>().TakeDamage();
             //Napravi da player bude imun na damge neko kratko vrijeme dodaj coroutine u damage the player
+            Instantiate(deathEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator Disappear(float seconds)
+    {
+        float elapsedTime = 0f;
+        Color targetColor = Color.clear;
+
+        while (elapsedTime < seconds)
+        {
+            spriteRenderer.color = Color.Lerp(Color.white, targetColor, elapsedTime / seconds);
+
+            yield return null;
+            elapsedTime += Time.deltaTime;
+        }
+
+        spriteRenderer.color = targetColor;
+
+        spriteRenderer.enabled = false;
+        Instantiate(deathEffect, transform.position, transform.rotation);
+        Destroy(gameObject);
+        yield return new WaitForSeconds(1f);
+        
     }
 }
