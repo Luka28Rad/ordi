@@ -29,6 +29,7 @@ public class ScenesController : MonoBehaviour
 
     public void SpeedRunButtonClicked()
     {
+        PlayerPrefs.SetFloat("SpeedTime", 0);
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Speedrun";
         SceneManager.LoadScene("Level 1");
