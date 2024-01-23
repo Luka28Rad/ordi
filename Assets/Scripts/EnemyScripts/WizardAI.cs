@@ -6,6 +6,9 @@ public class WizardAI : MonoBehaviour
 {
     [SerializeField] GameObject attackPoint;
     [SerializeField] GameObject laserAttack;
+    [SerializeField] GameObject[] teleportPoints;
+    [SerializeField] GameObject poof;
+    [SerializeField] GameObject damageTaken;
     GameObject player;
     GameObject attack;
     private bool m_FacingRight = false;
@@ -15,6 +18,13 @@ public class WizardAI : MonoBehaviour
     float movementSpeed = 5;
     float movementRange = 0.2f;
     float initialY;
+    float timeToWait = 9f;
+    float elapsedTime = 5;
+    int hp = 3;
+    int currentPosition = 0;
+    float immunityTime = 0.7f;
+    float elapsedImmunityTime = 1f;
+    int exPos = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +33,21 @@ public class WizardAI : MonoBehaviour
         lineRenderer.enabled = false;
         attackPoint.SetActive(false);
         initialY = transform.position.y;
+        transform.position = teleportPoints[0].transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        elapsedTime += Time.deltaTime;
+        elapsedImmunityTime += Time.deltaTime;
+        if (elapsedTime >= timeToWait)
+        {
+            elapsedTime = 0;
+            DecideAttack();
+        }
+
+        Bob();
         if (player.transform.position.x > transform.position.x && !m_FacingRight)
         {
             Flip();
@@ -36,6 +56,8 @@ public class WizardAI : MonoBehaviour
         {
             Flip();
         }
+
+        //visuals for laser attack
         if (laser)
         {
             attackPoint.SetActive(true);
@@ -46,11 +68,7 @@ public class WizardAI : MonoBehaviour
         else
         {
             attackPoint.SetActive(false);
-            Bob();
-        }
-        if (Input.GetKeyDown(KeyCode.N) && !laser)
-        {
-            StartCoroutine(AttackLaser());
+            
         }
         
     }
@@ -68,17 +86,79 @@ public class WizardAI : MonoBehaviour
 
     IEnumerator AttackLaser()
     {
+        yield return new WaitForSeconds(0.3f);
         laser = true;
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1.5f);
         Pew();
         yield return new WaitForSeconds(0.7f);
         Pew();
         yield return new WaitForSeconds(0.7f);
         Pew();
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.7f);
         laser = false;
         lineRenderer.enabled = false;
         
+    }
+
+    IEnumerator AttackLaserFast()
+    {
+        yield return new WaitForSeconds(0.3f);
+        laser = true;
+        yield return new WaitForSeconds(1f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.7f);
+        laser = false;
+        lineRenderer.enabled = false;
+
+    }
+
+    IEnumerator AttackLaserUltimate()
+    {
+        yield return new WaitForSeconds(0.3f);
+        laser = true;
+        yield return new WaitForSeconds(1f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        StartCoroutine(DecideRandomPosition());
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        StartCoroutine(DecideRandomPosition());
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        StartCoroutine(DecideRandomPosition());
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(1.5f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        StartCoroutine(DecideRandomPosition());
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        yield return new WaitForSeconds(0.2f);
+        Pew();
+        laser = false;
+        lineRenderer.enabled = false;
+
     }
 
     void Pew()
@@ -95,5 +175,76 @@ public class WizardAI : MonoBehaviour
     {
         float verticalMovement = Mathf.Sin(Time.time * movementSpeed) * movementRange;
         transform.position = new Vector3(transform.position.x, initialY + verticalMovement, transform.position.z);
+    }
+
+    void DecideAttack()
+    {
+        if (hp == 3)
+        {
+            StartCoroutine(DecideRandomPosition());
+            StartCoroutine(AttackLaser());
+        }
+
+        if (hp == 2)
+        {
+            timeToWait = 8;
+            StartCoroutine(DecideRandomPosition());
+            StartCoroutine(AttackLaserFast());
+        }
+
+        if (hp == 1)
+        {
+            timeToWait = 7;
+            StartCoroutine(DecideRandomPosition());
+            StartCoroutine(AttackLaserUltimate());
+        }
+    }
+
+    IEnumerator DecideRandomPosition()
+    {
+        Instantiate(poof, transform.position + new Vector3(0, 0, -1), transform.rotation);
+        int decidedPos = currentPosition;
+        while (decidedPos == currentPosition || decidedPos == exPos)
+        {
+            decidedPos = Random.Range(0, 5);
+        }
+        exPos = currentPosition;
+        currentPosition = decidedPos;
+        yield return new WaitForSeconds(0.05f);
+        transform.position = teleportPoints[decidedPos].transform.position;
+        initialY = transform.position.y;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer != 3)    //CHECK IF NOT PLAYER
+        {
+            return;
+        }
+        collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * 15;
+        if (elapsedImmunityTime < immunityTime)
+        {
+            return;
+        }
+        elapsedImmunityTime = 0;
+        hp -= 1;
+        Instantiate(damageTaken, transform.position + new Vector3(0, 0.5f, -1), transform.rotation);
+        if (hp > 0)
+        {
+            elapsedTime = 0;
+            StopAllCoroutines();
+            DecideAttack();
+        }
+        
+        if (hp <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        Debug.Log("POBJEDA");
+        Destroy(gameObject);
     }
 }

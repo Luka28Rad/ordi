@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-				if (Time.time - timeSinceLastDash > 0.8f)
+				if (Time.time - timeSinceLastDash > 0.4f)
 				{
                     canDash = true;
                     dashIndicator.GetComponent<Renderer>().enabled = true;
