@@ -37,7 +37,8 @@ public class HealthManager : MonoBehaviour
         if (currentHealth <= 0)
         {
             if(Variables.gameMode == "Speedrun") {
-                SpeedrunTimer.SaveTime();
+                PlayerPrefs.SetString("collectiblesSpeedRun","");
+                SceneManager.LoadScene("Level 1");
             } else {
                 Scene scene = SceneManager.GetActiveScene();
                 if(checkpointManager.GetLastCheckpoint() != null)

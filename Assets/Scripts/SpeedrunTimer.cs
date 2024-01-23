@@ -5,6 +5,7 @@ using System;
 using TMPro;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SpeedrunTimer : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class SpeedrunTimer : MonoBehaviour
             currentTimeText.gameObject.SetActive(false);
             enabled = false;
         } else {
+            if(SceneManager.GetActiveScene().name == "Level 1") PlayerPrefs.SetFloat("SpeedTime", 0);
             currentTimeText.gameObject.SetActive(true);
             StartTimer();
             currentTime = PlayerPrefs.GetFloat("SpeedTime", 0);
@@ -70,7 +72,15 @@ public class SpeedrunTimer : MonoBehaviour
         TMP_InputField nameInputField = nameInputPanel.GetComponentInChildren<TMP_InputField>();
         string name = nameInputField.text;
         if(name == "") name = "Unknown";
-        string text = "\n" +name+ " "+ currentTimeText.text;
+        int collectC = 0;
+        string collectiblesString = PlayerPrefs.GetString("collectiblesSpeedRun", "0");
+        if (!string.IsNullOrEmpty(collectiblesString))
+        {
+        string[] collectiblesArray = collectiblesString.Split(','); 
+        collectC = collectiblesArray.Length;
+        }
+        
+        string text = "\n" +name+ " "+ currentTimeText.text + " " + collectC;
         try
         {        
             saveButton.gameObject.SetActive(false);

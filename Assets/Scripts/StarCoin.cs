@@ -34,6 +34,18 @@ public class StarCoin : MonoBehaviour
             if(Variables.gameMode == "Speedrun" || Variables.gameMode == "Practice") {
                 Variables.speedRunCollectiblesCounter++;
                 Collectibles.collectibleCounter++;
+
+            if (PlayerPrefs.HasKey("collectiblesSpeedRun"))
+            {
+                string currentCollectibles = PlayerPrefs.GetString("collectiblesSpeedRun");
+                    currentCollectibles += "," + collectibleName;
+                    PlayerPrefs.SetString("collectiblesSpeedRun", currentCollectibles);
+            }
+            else
+            {
+                PlayerPrefs.SetString("collectiblesSpeedRun", collectibleName);
+            }
+
                 if (!audioSource.isPlaying)
                     {
                         GetComponent<BoxCollider2D>().enabled = false;

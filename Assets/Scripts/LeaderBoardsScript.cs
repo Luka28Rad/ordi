@@ -20,14 +20,18 @@ public class LeaderBoardsScript : MonoBehaviour
         foreach (string line in lines)
         {
             string[] parts = line.Split(' ');
-            if (parts.Length == 2)
+            if (parts.Length >= 2)
             {
                 string name = parts[0];
                 string timeStr = parts[1];
+                string collect = "0";
+                if(parts.Length > 2) {
+                    collect = parts[2];
+                }
 
                 if (TimeSpan.TryParseExact(timeStr, "hh\\:mm\\:ss\\.fff", null, out TimeSpan time))
                 {
-                    records.Add(new Record(name, time));
+                    records.Add(new Record(name, time, collect));
                 }
                 else
                 {
@@ -49,12 +53,16 @@ public class LeaderBoardsScript : MonoBehaviour
             GameObject instance = Instantiate(recordPrefab,contentTransform);
 
             Transform iconHolderTransform = instance.transform.Find("IconHolder");
+            Transform collectHolderHolderTransform = instance.transform.Find("CollectHolder");
             Transform placeHolderTransform = instance.transform.Find("PlaceHolder");
             Transform timeHolderTransform = instance.transform.Find("TimeHolder");
             Transform playerNameHolderTransform = instance.transform.Find("PlayerName");
 
             TextMeshProUGUI placeHolderText = placeHolderTransform.GetComponent<TextMeshProUGUI>();
             placeHolderText.text = i + "";
+
+            TextMeshProUGUI collectHolderText = collectHolderHolderTransform.GetComponent<TextMeshProUGUI>();
+            collectHolderText.text = record.Collect;
 
             TextMeshProUGUI timeHolderText = timeHolderTransform.GetComponent<TextMeshProUGUI>();
             timeHolderText.text = record.Time.ToString("hh\\:mm\\:ss\\.fff");
@@ -72,10 +80,13 @@ public class LeaderBoardsScript : MonoBehaviour
         public string Name { get; }
         public TimeSpan Time { get; }
 
-        public Record(string name, TimeSpan time)
+        public string Collect { get; }
+
+        public Record(string name, TimeSpan time, string collect)
         {
             Name = name;
             Time = time;
+            Collect=collect;
         }
     }
 }

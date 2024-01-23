@@ -32,8 +32,12 @@ public class Collectibles : MonoBehaviour
                 }
             }
         }
+         collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
+        } else {
+            collectibleCounter = 0;
+            collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
         }
-        collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
+       
     }
 
     void Update()

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float m_JumpForce = 600f;							// Amount of force added when the player jumps.
     [SerializeField] private float m_DashForce = 600f;	
     [SerializeField] private float moveSpeed = 10f;
+	[SerializeField] private float starDustBoostSpeed = 150f;
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private LayerMask m_WhatIsGround;							// A mask determining what is ground to the character
 	[SerializeField] private Transform m_GroundCheck;							// A position marking where to check if the player is grounded.
@@ -198,4 +199,49 @@ public class PlayerController : MonoBehaviour
 		yield return new WaitForSeconds(.16f);
 		m_Rigidbody2D.gravityScale = 4;
 	}
+
+	private float originalSpeed = 40f;    
+	private Coroutine speedChangeCoroutine;
+	private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Box entered");
+        if (other.CompareTag("StarDust"))
+        {
+            Debug.Log("Stardust entered");
+            if (speedChangeCoroutine != null)
+            {
+                StopCoroutine(speedChangeCoroutine);
+            }
+            moveSpeed = starDustBoostSpeed;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("StarDust"))
+        {
+            Debug.Log("Stardust exited");
+            if (speedChangeCoroutine != null)
+            {
+                StopCoroutine(speedChangeCoroutine);
+            }
+            speedChangeCoroutine = StartCoroutine(SmoothSpeedChange(originalSpeed));
+        }
+    }
+
+	    private System.Collections.IEnumerator SmoothSpeedChange(float targetSpeed)
+    {
+        float duration = 1f;
+        float elapsedTime = 0f;
+        float initialSpeed = moveSpeed;
+
+        while (elapsedTime < duration)
+        {
+            moveSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        moveSpeed = targetSpeed;
+    }
 }
