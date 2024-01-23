@@ -47,6 +47,7 @@ public class SpeedrunTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!Variables.paused) {
         if(timerActive) {
             currentTime += Time.deltaTime;
             PlayerPrefs.SetFloat("SpeedTime", currentTime);
@@ -55,6 +56,9 @@ public class SpeedrunTimer : MonoBehaviour
         }
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
         currentTimeTextStatic.text = time.ToString(@"hh\:mm\:ss\.fff");
+        } else {
+            
+        }
     }
 
     public void StartTimer() {

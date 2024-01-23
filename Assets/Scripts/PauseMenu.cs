@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     bool isPaused = false;
@@ -25,12 +25,15 @@ public class PauseMenu : MonoBehaviour
     {
         if (isPaused)
         {
+            Variables.paused = false;
             menu.SetActive(false);
             isPaused = false;
             Time.timeScale = 1;
+            
         }
         else
         {
+            Variables.paused = true;
             menu.SetActive(true);
             isPaused = true;
             Time.timeScale = 0;
@@ -39,7 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Exit()
     {
-        //tu ide kod za sejvanje il sta vec
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void Continue()
