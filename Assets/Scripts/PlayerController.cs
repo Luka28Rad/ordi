@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour
     private void Update() {
         input = Input.GetAxisRaw("Horizontal");
 		
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
+        {
             toJump = true;
 			jumpBufferTemp = jumpBuffer;
         }

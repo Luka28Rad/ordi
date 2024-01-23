@@ -34,7 +34,7 @@ public class HealthManager : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Cleanse();
                     transform.position = checkpointManager.GetLastCheckpoint();
                     currentHealth = 5;
-                    playerLight.shapeLightFalloffSize = 20;
+                    playerLight.shapeLightFalloffSize = 18;
                     showHealth.UpdateHealth(currentHealth);
                 }
                 else
