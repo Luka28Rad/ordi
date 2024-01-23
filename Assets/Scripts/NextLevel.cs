@@ -40,6 +40,7 @@ public class NextLevel : MonoBehaviour
     private void LoadNextLevel()
     {
         string levelName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
             switch (levelName)
             {
                 case "Level 1":
