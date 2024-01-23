@@ -20,7 +20,7 @@ public class LoadGameScript : MonoBehaviour
         Debug.Log("Collectibles: " + numberOfCollectibles);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(checkpointName != "Start") player.transform.position = GameObject.Find(checkpointName).transform.position;
+        if(checkpointName != "StartCheckpoint") player.transform.position = GameObject.Find(checkpointName).transform.position;
         } else {
 
         }
