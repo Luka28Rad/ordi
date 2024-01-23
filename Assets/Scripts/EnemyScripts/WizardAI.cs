@@ -9,6 +9,7 @@ public class WizardAI : MonoBehaviour
     [SerializeField] GameObject[] teleportPoints;
     [SerializeField] GameObject poof;
     [SerializeField] GameObject damageTaken;
+    [SerializeField] GameObject teleportGate;
     GameObject player;
     GameObject attack;
     private bool m_FacingRight = false;
@@ -245,6 +246,7 @@ public class WizardAI : MonoBehaviour
     void Death()
     {
         Debug.Log("POBJEDA");
+        teleportGate.SetActive(true);
         Destroy(gameObject);
     }
 }
