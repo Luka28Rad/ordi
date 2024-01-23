@@ -32,8 +32,21 @@ public class Collectibles : MonoBehaviour
                 }
             }
         }
+         collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
+        } else {
+            Debug.Log("Bok");
+            string collectiblesString = PlayerPrefs.GetString("collectiblesSpeedRun");
+            if (!string.IsNullOrEmpty(collectiblesString))
+            {
+                string[] collectiblesArray = collectiblesString.Split(',');
+                collectibleCounter = collectiblesArray.Length;
+            } else {
+                collectibleCounter = 0;
+            }
+
+            collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
         }
-        collectiblesUI.text = collectibleCounter + "/" + totalCollectibles;
+       
     }
 
     void Update()

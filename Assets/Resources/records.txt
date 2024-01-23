@@ -1,29 +1,4 @@
-Dunja 00:26:42.031
-Matej 00:28:31.923
-Luka 00:28:54.426
-Jurica 00:29:04.001
-Zvjezdan 00:24:12.420
-Gljivan 00:27:34.690
-EvilWizard 02:25:22.212
-Pingvin 00:33:33.333
-TestName 00:00:03.333
-TestName 00:00:08.905
-TestName 00:00:03.634
-TestName 00:00:03.311
-TestName 00:00:08.162
-TestName 00:00:05.000
-TestName 00:00:03.491
-TestName 00:00:05.454
-TestName 00:00:19.583
-TestName 00:00:03.884
-TestName 00:00:04.063
-TestName 00:00:04.223
-jurica 00:00:06.999
-jurica 00:00:04.877
-Unknown 00:00:03.608
-jura 00:00:06.832
-k 00:00:03.510
-TopResult 00:00:02.975
-a 00:00:14.728
-AAA 00:00:24.753
-LukaGas 00:00:11.007
+Dunja 00:26:42.031 5
+Matej 00:28:31.923 4
+Luka 00:28:54.426 3
+Jurica 00:29:04.001 2

@@ -50,8 +50,16 @@ public class NextLevel : MonoBehaviour
                     SceneManager.LoadScene("Level 2");
                     break;
                 case 2:
-                PlayerPrefs.SetString("Level", "Level 3");
-                    SceneManager.LoadScene("Level 3");
+                SpeedrunTimer.SaveTime();
+                /*PlayerPrefs.SetString("Level", "Level 3");
+                    SceneManager.LoadScene("Level 3");*/
+                    break;
+                case 3: 
+                if(Variables.gameMode == "Speedrun") {
+                    SpeedrunTimer.SaveTime();
+                } else {
+                    SceneManager.LoadScene("MainMenuScene");
+                }
                     break;
                 default:
                     Debug.LogWarning("Level 1");
