@@ -39,21 +39,22 @@ public class NextLevel : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        int levelNumber;
-        if (int.TryParse(currentSceneName.Replace("Level ", ""), out levelNumber))
-        {
-            switch (levelNumber)
+        string levelName = SceneManager.GetActiveScene().name;
+            switch (levelName)
             {
-                case 1:
+                case "Level 1":
                 PlayerPrefs.SetString("Level", "Level 2");
                     SceneManager.LoadScene("Level 2");
                     break;
-                case 2:
+                case "Level 2":
                 PlayerPrefs.SetString("Level", "Level 3");
+                    SceneManager.LoadScene("Level 3");
+                    break;
+                case "Level 3":
+                PlayerPrefs.SetString("Level", "Bossfight");
                     SceneManager.LoadScene("Bossfight");
                     break;
-                case 3: 
+                case "Bossfigt": 
                 if(Variables.gameMode == "Speedrun") {
                     SpeedrunTimer.SaveTime();
                 } else {
@@ -61,14 +62,11 @@ public class NextLevel : MonoBehaviour
                 }
                     break;
                 default:
-                    Debug.LogWarning("Level 1");
+                    Debug.LogWarning("Error");
+                    SceneManager.LoadScene("MainMenuScene");
                     break;
             }
-        }
-        else
-        {
-            Debug.LogWarning("Error.");
-        }
+
     }
 
 
