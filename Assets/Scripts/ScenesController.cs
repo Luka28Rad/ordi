@@ -39,13 +39,15 @@ public class ScenesController : MonoBehaviour
         Variables.gameMode = "NewGame";
         PlayerPrefs.SetString("Checkpoint", "Start");
         PlayerPrefs.SetString("collectibles", "");
+        PlayerPrefs.SetString("Level", "Level 1");
         SceneManager.LoadScene("Level 1");
     }
 
     public void LoadGameButtonClicked()
     {
         Variables.gameMode = "LoadGame";
-        SceneManager.LoadScene("Level 1");
+        string level = PlayerPrefs.GetString("Level", "Level 1");
+        SceneManager.LoadScene(level);
     }
 
     public void PracticeButtonClicked()
