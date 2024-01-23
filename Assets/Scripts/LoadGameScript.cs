@@ -16,9 +16,7 @@ public class LoadGameScript : MonoBehaviour
         checkpointName = PlayerPrefs.GetString("Checkpoint", "Start");
         numberOfCollectibles = PlayerPrefs.GetInt("Collectibles", 0);
 
-        // Display retrieved data (you can replace this with your actual game logic)
         Debug.Log("Checkpoint: " + checkpointName);
-        Debug.Log("Lives: " + numberOfLives);
         Debug.Log("Collectibles: " + numberOfCollectibles);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");

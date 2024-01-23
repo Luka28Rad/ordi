@@ -44,7 +44,7 @@ public class StarCoin : MonoBehaviour
                         Destroy(gameObject, audioSource.clip.length);
                     }
                 Debug.Log("Collected " + gameObject.name);
-            } else {
+            } else if(Variables.gameMode == "NewGame") {
             if (PlayerPrefs.HasKey("collectibles"))
             {
                 string currentCollectibles = PlayerPrefs.GetString("collectibles");
@@ -66,6 +66,17 @@ public class StarCoin : MonoBehaviour
                         Destroy(gameObject, audioSource.clip.length);
                     }
             Debug.Log("Collected " + gameObject.name);
+            } else {
+                                if (!audioSource.isPlaying)
+                    {
+                        audioSource.Play();
+                        GetComponent<BoxCollider2D>().enabled = false;
+                        Color currentColor = GetComponent<Renderer>().material.color;
+                        currentColor.a = 0f;
+                        GetComponent<Renderer>().material.color =currentColor;
+                        Destroy(gameObject, audioSource.clip.length);
+                    }
+                Debug.Log("Just the sound.");
             }
         }
     }
