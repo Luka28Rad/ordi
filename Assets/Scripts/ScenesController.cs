@@ -38,7 +38,7 @@ public class ScenesController : MonoBehaviour
     public void NewGameButtonClicked()
     {
         Variables.gameMode = "NewGame";
-        PlayerPrefs.SetString("Checkpoint", "Start");
+        PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
         PlayerPrefs.SetString("collectibles", "");
         PlayerPrefs.SetString("Level", "Level 1");
         SceneManager.LoadScene("Level 1");
