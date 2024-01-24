@@ -13,10 +13,12 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(Variables.gameMode != "Speedrun" && Variables.gameMode != "Practice") {
         Debug.Log("Level " +  SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("Level", SceneManager.GetActiveScene().name);
         Debug.Log("Aktiviran chekpoint: " + gameObject.name);
         PlayerPrefs.SetString("Checkpoint", gameObject.name);
         GetComponent<Collider2D>().enabled = false;
+        }
     }
 }
