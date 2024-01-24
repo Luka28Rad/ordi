@@ -69,7 +69,6 @@ public class WizardAI : MonoBehaviour
         else
         {
             attackPoint.SetActive(false);
-            
         }
         
     }
@@ -254,7 +253,7 @@ public class WizardAI : MonoBehaviour
             return;
         }
         collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * 15;
-        if (elapsedImmunityTime < immunityTime)
+        if (elapsedImmunityTime <= immunityTime)
         {
             return;
         }
@@ -263,9 +262,9 @@ public class WizardAI : MonoBehaviour
         Instantiate(damageTaken, transform.position + new Vector3(0, 0.5f, -1), transform.rotation);
         if (hp > 0)
         {
-            elapsedTime = 0;
+            elapsedTime = 5;
             StopAllCoroutines();
-            DecideAttack();
+            StartCoroutine(GoToPosAfterHit());
         }
         
         if (hp <= 0)
@@ -278,6 +277,15 @@ public class WizardAI : MonoBehaviour
     {
         Debug.Log("POBJEDA");
         teleportGate.SetActive(true);
+        StopAllCoroutines();
         Destroy(gameObject);
+    }
+
+    IEnumerator GoToPosAfterHit()
+    {
+        Instantiate(poof, transform.position + new Vector3(0, 0, -1), transform.rotation);
+        yield return new WaitForSeconds(0.05f);
+        transform.position = teleportPoints[5].transform.position;
+        initialY = transform.position.y;
     }
 }
