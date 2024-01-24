@@ -110,6 +110,7 @@ MonoBehaviour:
   m_JumpForce: 800
   m_DashForce: 2200
   moveSpeed: 40
+  starDustBoostSpeed: 100
   m_MovementSmoothing: 0.04
   m_WhatIsGround:
     serializedVersion: 2
@@ -311,8 +312,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0025997162, y: -0.011899948, z: 0}
-    m_Extent: {x: 20.5087, y: 20.4951, z: 0}
+    m_Center: {x: -0.0013999939, y: -0.008200645, z: 0}
+    m_Extent: {x: 20.5039, y: 20.4971, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

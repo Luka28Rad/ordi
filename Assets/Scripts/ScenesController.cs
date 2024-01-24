@@ -55,6 +55,9 @@ public class ScenesController : MonoBehaviour
             case "LoadGame":
                 LoadGameButtonClicked();
                 break;
+            case "Practice":
+                PracticeLevelClicked(PlayerPrefs.GetInt("PracticeLevel", 1));
+                break;
             default:
             SceneManager.LoadScene("MainMenuScene");
             break;
@@ -92,6 +95,7 @@ public class ScenesController : MonoBehaviour
     public void PracticeLevelClicked(int level) {
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Practice";
+        PlayerPrefs.SetInt("PracticeLevel", level);
         SceneManager.LoadScene("Level " + level);
     }
 
