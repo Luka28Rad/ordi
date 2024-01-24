@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ScenesController : MonoBehaviour
 {
     [SerializeField] GameObject buttonsToShow;
     [SerializeField] GameObject buttonsToHide;
+
+    [SerializeField] GameObject levelButtons;
+    [SerializeField] GameObject panel;
+    [SerializeField] GameObject title;
+    [SerializeField] Sprite panelImageNormal;
+    [SerializeField] Sprite panelImageLevels;
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "CreditsScene")
@@ -53,9 +60,21 @@ public class ScenesController : MonoBehaviour
 
     public void PracticeButtonClicked()
     {
+        if(buttonsToShow.activeSelf) {
+            panel.GetComponent<Image>().sprite = panelImageLevels;
+        levelButtons.SetActive(true);
+        buttonsToShow.SetActive(false);
+        } else {
+            panel.GetComponent<Image>().sprite = panelImageNormal;
+        levelButtons.SetActive(false);
+        buttonsToShow.SetActive(true);
+        }
+    }
+
+    public void PracticeLevelClicked(int level) {
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Practice";
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Level " + level);
     }
 
     public void OptionsButtonClicked()
@@ -67,11 +86,13 @@ public class ScenesController : MonoBehaviour
     {
         if (!buttonsToShow.activeSelf)
         {
+            title.SetActive(false);
             buttonsToShow.SetActive(true);
             buttonsToHide.SetActive(false);
         }    
         else
         {
+            title.SetActive(true);
             buttonsToShow.SetActive(false);
             buttonsToHide.SetActive(true);
         }
