@@ -9,7 +9,6 @@ public class Checkpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        checkpointManager = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,7 +17,6 @@ public class Checkpoint : MonoBehaviour
         PlayerPrefs.SetString("Level", SceneManager.GetActiveScene().name);
         Debug.Log("Aktiviran chekpoint: " + gameObject.name);
         PlayerPrefs.SetString("Checkpoint", gameObject.name);
-        checkpointManager.ActivateCheckpoint(transform);
         GetComponent<Collider2D>().enabled = false;
     }
 }

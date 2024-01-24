@@ -40,6 +40,7 @@ public class NextLevel : MonoBehaviour
     private void LoadNextLevel()
     {
         string levelName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
             switch (levelName)
             {
                 case "Level 1":
@@ -54,7 +55,7 @@ public class NextLevel : MonoBehaviour
                 PlayerPrefs.SetString("Level", "Bossfight");
                     SceneManager.LoadScene("Bossfight");
                     break;
-                case "Bossfigt": 
+                case "Bossfight": 
                 if(Variables.gameMode == "Speedrun") {
                     SpeedrunTimer.SaveTime();
                 } else {

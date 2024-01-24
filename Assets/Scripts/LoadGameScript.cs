@@ -13,14 +13,14 @@ public class LoadGameScript : MonoBehaviour
     {
         if(Variables.gameMode == "LoadGame") 
         {
-        checkpointName = PlayerPrefs.GetString("Checkpoint", "Start");
+        checkpointName = PlayerPrefs.GetString("Checkpoint", "StartCheckpoint");
         numberOfCollectibles = PlayerPrefs.GetInt("Collectibles", 0);
 
         Debug.Log("Checkpoint: " + checkpointName);
         Debug.Log("Collectibles: " + numberOfCollectibles);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(checkpointName != "Start") player.transform.position = GameObject.Find(checkpointName).transform.position;
+        if(checkpointName != "StartCheckpoint") player.transform.position = GameObject.Find(checkpointName).transform.position;
         } else {
 
         }
