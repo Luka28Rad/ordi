@@ -13,6 +13,7 @@ public class Collectibles : MonoBehaviour
     {
         totalCollectibles = transform.childCount;
         if(Variables.gameMode == "LoadGame") {
+            collectibleCounter = 0;
             string collectiblesString = PlayerPrefs.GetString("collectibles");
         if (!string.IsNullOrEmpty(collectiblesString))
         {
@@ -20,6 +21,7 @@ public class Collectibles : MonoBehaviour
 
             foreach (string collectibleName in collectiblesArray)
             {
+                Debug.Log(collectibleName + " aaa");
                 if (!string.IsNullOrEmpty(collectibleName))
                 {
                     GameObject collectibleObject = GameObject.Find(collectibleName);

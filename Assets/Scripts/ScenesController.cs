@@ -42,6 +42,22 @@ public class ScenesController : MonoBehaviour
         SceneManager.LoadScene("Level 1");
     }
 
+    public void ReplayButtonClicked() {
+        switch(Variables.gameMode) {
+            case "NewGame":
+                LoadGameButtonClicked();
+                break;
+            case "Speedrun":
+                SpeedRunButtonClicked();
+                break;
+            case "LoadGame":
+                LoadGameButtonClicked();
+                break;
+            default:
+            SceneManager.LoadScene("MainMenuScene");
+            break;
+        }
+    }
     public void NewGameButtonClicked()
     {
         Variables.gameMode = "NewGame";

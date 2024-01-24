@@ -37,7 +37,7 @@ public class HealthManager : MonoBehaviour
         {
             if(Variables.gameMode == "Speedrun") {
                 PlayerPrefs.SetString("collectiblesSpeedRun","");
-                SceneManager.LoadScene("Level 1");
+                SceneManager.LoadScene("DeathScene");
             } else {
                 Scene scene = SceneManager.GetActiveScene();
                 string checkpointName = PlayerPrefs.GetString("Checkpoint", "StartCheckpoint");
@@ -46,6 +46,7 @@ public class HealthManager : MonoBehaviour
                     currentHealth = 5;
                     playerLight.shapeLightFalloffSize = 20;
                     showHealth.UpdateHealth(currentHealth);
+                    SceneManager.LoadScene("DeathScene");
             }
 
         }
