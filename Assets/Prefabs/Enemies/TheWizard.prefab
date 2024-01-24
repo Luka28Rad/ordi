@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5249220440345188859}
   - component: {fileID: 4790506952563347389}
   - component: {fileID: 4588086540309782620}
+  - component: {fileID: 4570730992919660876}
   m_Layer: 0
   m_Name: TheWizard
   m_TagString: Untagged
@@ -108,6 +109,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  poof: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+  damageTaken: {fileID: 6855314210357232287, guid: 7c2a9b83b809a0848915fabd9596b68b, type: 3}
+  teleportGate: {fileID: 0}
 --- !u!61 &4588086540309782620
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -140,7 +145,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.04537964, y: 0.70906377}
+  m_Offset: {x: -0.10251522, y: 0.70906377}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -151,8 +156,23 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7074852, y: 0.33310103}
+  m_Size: {x: 1.0841541, y: 0.33310103}
   m_EdgeRadius: 0
+--- !u!111 &4570730992919660876
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2479974411704230423}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: e4fe3e1afd6bc5443a53f0f97f133bf1, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4509600968062444888
 GameObject:
   m_ObjectHideFlags: 0
