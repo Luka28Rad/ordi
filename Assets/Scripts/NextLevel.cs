@@ -59,7 +59,7 @@ public class NextLevel : MonoBehaviour
                 if(Variables.gameMode == "Speedrun") {
                     SpeedrunTimer.SaveTime();
                 } else {
-                    SceneManager.LoadScene("MainMenuScene");
+                    SceneManager.LoadScene("CreditsScene");
                 }
                     break;
                 default:

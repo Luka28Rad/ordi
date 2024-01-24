@@ -29,11 +29,11 @@ public class MatchstickAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.x > transform.position.x && !m_FacingRight)
+        if (player!= null && player.transform.position.x > transform.position.x && !m_FacingRight)
         {
             Flip();
         }
-        else if (player.transform.position.x < transform.position.x && m_FacingRight)
+        else if (player!= null && player.transform.position.x < transform.position.x && m_FacingRight)
         {
             Flip();
         }
