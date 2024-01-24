@@ -29,7 +29,6 @@ public class Sound : MonoBehaviour
     void PlayAudioBasedOnScene()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-
         switch (sceneName)
         {
             case "Level 1":
@@ -55,6 +54,7 @@ public class Sound : MonoBehaviour
     {
         if (clip != null)
         {
+            audioSource.volume = PlayerPrefs.GetFloat("Volume", 1f);
             audioSource.clip = clip;
             audioSource.Play();
         }

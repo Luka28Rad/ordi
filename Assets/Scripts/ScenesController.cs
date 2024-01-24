@@ -12,8 +12,10 @@ public class ScenesController : MonoBehaviour
     [SerializeField] GameObject levelButtons;
     [SerializeField] GameObject panel;
     [SerializeField] GameObject title;
+    [SerializeField] GameObject settingsButtons;
     [SerializeField] Sprite panelImageNormal;
     [SerializeField] Sprite panelImageLevels;
+    
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "CreditsScene")
@@ -95,7 +97,13 @@ public class ScenesController : MonoBehaviour
 
     public void OptionsButtonClicked()
     {
-        SceneManager.LoadScene("OptionsScene");
+        if(settingsButtons.activeSelf) {
+            settingsButtons.SetActive(false);
+            buttonsToHide.SetActive(true);
+        } else {
+            settingsButtons.SetActive(true);
+            buttonsToHide.SetActive(false);
+        }
     }
 
     public void PlayButtonClicked()
