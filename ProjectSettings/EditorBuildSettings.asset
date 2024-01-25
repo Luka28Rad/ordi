@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: bf16e207b902d2f48b7744accb20b345
+  - enabled: 1
+    path: Assets/Scenes/CreditsScene.unity
+    guid: a18ae9a28dcb19846add12b7a49060f8
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/LeaderboardScene.unity
     guid: 9db9cb8355d6ff240be4fb10368fd791
-  - enabled: 1
-    path: Assets/Scenes/CreditsScene.unity
-    guid: a18ae9a28dcb19846add12b7a49060f8
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: 956a569cba76fa044acd621495d5e4b7
@@ -21,12 +24,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 3.unity
     guid: 58195bf8109514549aa9601176c64ad5
   - enabled: 1
-    path: Assets/Scenes/MainMenuScene.unity
-    guid: bf16e207b902d2f48b7744accb20b345
-  - enabled: 1
     path: Assets/Scenes/Bossfight.unity
     guid: 908bec9ebdad1174b9551286c55199b0
   - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: c4f58fcf8104d124b803cfbbdc88ed36
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 0d6592afc8bd4de44b6b40ff3b06ad95
   m_configObjects: {}

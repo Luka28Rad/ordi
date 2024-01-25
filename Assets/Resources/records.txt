@@ -1,1 +1,9 @@
-DevZir 00:11:05.656 17
+DevZir 00:15:06.215 18
+TestTime 00:31:22.321 4
+Impossible 00:00:00.001 18
+TooSlow 22:42:35.216 2
+How 00:22:34.424 10
+Zvjezdan 00:05:55.555 5
+Gljivan 00:06:06.666 6
+Svjetlana 00:07:07.777 7
+Dusko 00:08:08.888 8

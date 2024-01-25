@@ -2088,7 +2088,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (5)
+      value: StarCoin (6)
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46981,7 +46981,7 @@ Transform:
   m_GameObject: {fileID: 1068700842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.199999, y: -11.099999, z: -10}
+  m_LocalPosition: {x: 118.5, y: 18.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47651,8 +47651,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0018000603, y: -0.008000135, z: 0}
-    m_Extent: {x: 7.5017, y: 7.4921, z: 0}
+    m_Center: {x: 0.010400057, y: 0.00045013428, z: 0}
+    m_Extent: {x: 7.5010996, y: 7.49645, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -53722,11 +53722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.199999
+      value: 118.5
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.099999
+      value: 18.2
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.z
@@ -53807,11 +53807,11 @@ PrefabInstance:
       objectReference: {fileID: 1947485444}
     - target: {fileID: 5042824917605920488, guid: e8dd2405741747940b0abfe400223c82, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.7
+      value: 117
       objectReference: {fileID: 0}
     - target: {fileID: 5042824917605920488, guid: e8dd2405741747940b0abfe400223c82, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.9
+      value: 15.4
       objectReference: {fileID: 0}
     - target: {fileID: 5042824917605920488, guid: e8dd2405741747940b0abfe400223c82, type: 3}
       propertyPath: m_LocalPosition.z
