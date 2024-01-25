@@ -10,6 +10,7 @@ public class DamageThePlayer : MonoBehaviour
         { 
             collision.GetComponent<HealthManager>().TakeDamage();
             //Napravi da player bude imun na damge neko kratko vrijeme dodaj coroutine u damage the player
+            collision.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.GetComponent<Rigidbody2D>().velocity.x, 0);
         }
     }
 

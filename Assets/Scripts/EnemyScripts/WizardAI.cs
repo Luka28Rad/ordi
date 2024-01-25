@@ -12,7 +12,7 @@ public class WizardAI : MonoBehaviour
     [SerializeField] GameObject teleportGate;
     GameObject player;
     GameObject attack;
-    private bool m_FacingRight = false;
+    private bool m_FacingRight = true;
     LineRenderer lineRenderer;
     bool laser = false;
     float attackSpeed = 20f;
@@ -20,7 +20,7 @@ public class WizardAI : MonoBehaviour
     float movementRange = 0.2f;
     float initialY;
     float timeToWait = 9f;
-    float elapsedTime = 5;
+    float elapsedTime = 7;
     int hp = 3;
     int currentPosition = 0;
     float immunityTime = 0.7f;
