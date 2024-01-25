@@ -17,6 +17,8 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(Variables.gameMode != "Speedrun" && Variables.gameMode != "Practice") {
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.color = Color.white;
         Debug.Log("Level " +  SceneManager.GetActiveScene().name);
         PlayerPrefs.SetString("Level", SceneManager.GetActiveScene().name);
         Debug.Log("Aktiviran chekpoint: " + gameObject.name);
