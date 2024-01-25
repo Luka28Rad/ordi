@@ -44,6 +44,9 @@ public class Sound : MonoBehaviour
             case "Bossfight":
                 PlayAudio(bossFightClip);
                 break;
+            case "CreditsScene":
+                PlayAudio(defaultClip);
+                break;
             default:
                 PlayAudio(defaultClip);
                 break;
