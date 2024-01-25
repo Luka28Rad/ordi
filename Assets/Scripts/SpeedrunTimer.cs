@@ -72,7 +72,7 @@ public class SpeedrunTimer : MonoBehaviour
 
     public void SaveRecordClicked()
     {
-        string filePath = Path.Combine(Application.dataPath, "Resources/" + fileName);
+        string filePath = Path.Combine(Application.dataPath,fileName);
         TMP_InputField nameInputField = nameInputPanel.GetComponentInChildren<TMP_InputField>();
         string name = nameInputField.text;
         if(name == "") name = "Unknown";

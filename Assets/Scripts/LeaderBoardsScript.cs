@@ -13,9 +13,8 @@ public class LeaderBoardsScript : MonoBehaviour
     public List<Sprite> spriteList = new List<Sprite>();
     void Start()
     {
-        string filePath = "Assets/Resources/records.txt";
-        //string fileName = "records.txt";
-        //string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        //string filePath = "Assets/Resources/records.txt";
+        string filePath = Path.Combine(Application.persistentDataPath, "records.txt");
 
         string[] lines = File.ReadAllLines(filePath);
         List<Record> records = new List<Record>();
@@ -78,6 +77,7 @@ public class LeaderBoardsScript : MonoBehaviour
             imageComponent.sprite = randomSprite;
         }
     }
+
     public class Record
     {
         public string Name { get; }
