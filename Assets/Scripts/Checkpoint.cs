@@ -9,6 +9,9 @@ public class Checkpoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+                if((Variables.gameMode == "Speedrun" || Variables.gameMode == "Practice")) {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
