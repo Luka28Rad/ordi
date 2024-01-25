@@ -14,6 +14,9 @@ public class LeaderBoardsScript : MonoBehaviour
     void Start()
     {
         string filePath = "Assets/Resources/records.txt";
+        //string fileName = "records.txt";
+        //string filePath = Path.Combine(Application.persistentDataPath, fileName);
+
         string[] lines = File.ReadAllLines(filePath);
         List<Record> records = new List<Record>();
 

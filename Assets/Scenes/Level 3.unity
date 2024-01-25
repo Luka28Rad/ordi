@@ -90523,7 +90523,7 @@ Transform:
   m_GameObject: {fileID: 1068700842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.800001, y: 21.5, z: -10}
+  m_LocalPosition: {x: -29.8, y: 21.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -91432,8 +91432,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0016498566, y: -0.005199909, z: 0}
-    m_Extent: {x: 7.50485, y: 7.5031, z: 0}
+    m_Center: {x: -0.0018999577, y: -0.009000063, z: 0}
+    m_Extent: {x: 7.5036, y: 7.4996996, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -97590,7 +97590,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.800001
+      value: -29.8
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.y
@@ -97630,7 +97630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8750375106503712370, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
