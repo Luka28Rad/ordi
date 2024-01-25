@@ -180,8 +180,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Level 1 Jurica \u017Dirovi\u0107 & Luka Kova\u010Di\u0107\nLevel 2 Matej
-    Kova\u010Di\u0107\nLevel 3 Jurica \u017Dirovi\u0107\nBossfight Luka Rado\u0161evi\u0107"
+  m_text: "Level 1 Luka Rado\u0161evi\u0107 & Jurica \u017Dirovi\u0107\nLevel 2 Matej
+    Kova\u010Di\u0107 & Jurica \u017Dirovi\u0107\nLevel 3 Jurica \u017Dirovi\u0107\nBossfight
+    Luka Rado\u0161evi\u0107"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
   m_sharedMaterial: {fileID: -732646012778544257, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
@@ -1902,7 +1903,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Luka Rado\u0161evi\u0107\nJurica \u017Dirovi\u0107\nManuel Mathis\r\nAntonio
-    Bernobi\u0107\r\nLeonard Niki\u0107"
+    Bernobi\u0107\r\nLeonard Niki\u0107\nVladimir \u017Dirovi\u0107"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
   m_sharedMaterial: {fileID: -732646012778544257, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
@@ -49229,8 +49230,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.27475, y: 0.6953001, z: 0}
-    m_Extent: {x: 6.9865503, y: 8.5879, z: 0}
+    m_Center: {x: 0.27625012, y: 0.6891997, z: 0}
+    m_Extent: {x: 6.99065, y: 8.5907, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -79155,8 +79156,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.004699707, y: -0.0005493164, z: 0}
-    m_Extent: {x: 20.5002, y: 20.49555, z: 0}
+    m_Center: {x: -0.002049446, y: -0.0048999786, z: 0}
+    m_Extent: {x: 20.50735, y: 20.4975, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
