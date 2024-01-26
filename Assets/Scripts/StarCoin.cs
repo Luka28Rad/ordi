@@ -56,7 +56,7 @@ public class StarCoin : MonoBehaviour
                         Destroy(gameObject, audioSource.clip.length);
                     }
                 Debug.Log("Collected " + gameObject.name);
-            } else if(Variables.gameMode == "NewGame") {
+            } else if(Variables.gameMode == "NewGame" || Variables.gameMode == "LoadGame") {
             if (PlayerPrefs.HasKey("collectibles"))
             {
                 string currentCollectibles = PlayerPrefs.GetString("collectibles");

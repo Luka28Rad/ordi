@@ -2088,7 +2088,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (6)
+      value: StarCoin2.6
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2803,7 +2803,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (5)
+      value: StarCoin2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4278,7 +4278,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (4)
+      value: StarCoin2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4994,7 +4994,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (2)
+      value: StarCoin2.2
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46558,7 +46558,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (1)
+      value: StarCoin2.1
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47651,8 +47651,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0076999664, y: 0.00084996223, z: 0}
-    m_Extent: {x: 7.4993, y: 7.4999504, z: 0}
+    m_Center: {x: 0.0051498413, y: 0.0039498806, z: 0}
+    m_Extent: {x: 7.50245, y: 7.4984503, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -48272,7 +48272,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (3)
+      value: StarCoin2.3
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53702,23 +53702,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: orthographic size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.0010934937
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.0022396417
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.99726623
+      value: 0.9995129
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9944009
+      value: 0.9982669
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.x

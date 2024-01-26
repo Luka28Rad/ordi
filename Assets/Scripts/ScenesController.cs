@@ -47,12 +47,15 @@ public class ScenesController : MonoBehaviour
     public void ReplayButtonClicked() {
         switch(Variables.gameMode) {
             case "NewGame":
+                Variables.gameMode = "LoadGame";
                 LoadGameButtonClicked();
                 break;
             case "Speedrun":
+            Variables.gameMode = "Speedrun";
                 SpeedRunButtonClicked();
                 break;
             case "LoadGame":
+            Variables.gameMode = "LoadGame";
                 LoadGameButtonClicked();
                 break;
             case "Practice":

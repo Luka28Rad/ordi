@@ -89963,7 +89963,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (5)
+      value: StarCoin3.6
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91145,7 +91145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (2)
+      value: StarCoin3.3
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -91432,8 +91432,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0018999577, y: -0.009000063, z: 0}
-    m_Extent: {x: 7.5036, y: 7.4996996, z: 0}
+    m_Center: {x: -0.00364995, y: -0.00274992, z: 0}
+    m_Extent: {x: 7.5033503, y: 7.49925, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -92347,7 +92347,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin
+      value: StarCoin3.1
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -94093,7 +94093,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (4)
+      value: StarCoin3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -94692,7 +94692,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (6)
+      value: StarCoin3.7
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -94754,7 +94754,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (1)
+      value: StarCoin3.2
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -94940,7 +94940,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
-      value: StarCoin (3)
+      value: StarCoin3.4
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -97570,23 +97570,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: orthographic size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.0011166946
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.0025157232
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.9960916
+      value: 0.9995129
       objectReference: {fileID: 0}
     - target: {fileID: 2998793926288014668, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9962264
+      value: 0.9982669
       objectReference: {fileID: 0}
     - target: {fileID: 7090249550263467906, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_LocalPosition.x
