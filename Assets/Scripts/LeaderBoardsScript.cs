@@ -15,12 +15,13 @@ public class LeaderBoardsScript : MonoBehaviour
     {
         //string filePath = "Assets/Resources/records.txt";
         string filePath = Path.Combine(Application.persistentDataPath, "records.txt");
-
+        Debug.Log(filePath);
         string[] lines = File.ReadAllLines(filePath);
         List<Record> records = new List<Record>();
 
         foreach (string line in lines)
         {
+            if(line == "") continue;
             string[] parts = line.Split(' ');
             if (parts.Length >= 2)
             {
