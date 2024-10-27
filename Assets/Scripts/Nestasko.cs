@@ -20,6 +20,7 @@ public class Nestasko : MonoBehaviour
         {
             Debug.Log("Bok");
             StartCoroutine(DisappearForSeconds(1f));
+            Achievements.UnlockCloudThroughAchievement();
         }
     }
 

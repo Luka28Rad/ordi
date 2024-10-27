@@ -39,24 +39,44 @@ public class NextLevel : MonoBehaviour
 
     private void LoadNextLevel()
     {
+        Achievements.UnlockUseTeleportAchievement();
         string levelName = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
             switch (levelName)
             {
                 case "Level 1":
+                if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
+                    if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl1Achievement();
+                    Achievements.UnlockFinishLvl1Achievement();
+                }
                 PlayerPrefs.SetString("Level", "Level 2");
                     SceneManager.LoadScene("Level 2");
                     break;
                 case "Level 2":
+                if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
+                    if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl2Achievement();
+                    Achievements.UnlockFinishLvl2Achievement();
+                }
                 PlayerPrefs.SetString("Level", "Level 3");
                     SceneManager.LoadScene("Level 3");
                     break;
                 case "Level 3":
+                if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
+                    if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl3Achievement();
+                    Achievements.UnlockFinishLvl3Achievement();
+                }
                 PlayerPrefs.SetString("Level", "Bossfight");
                     SceneManager.LoadScene("Bossfight");
                     break;
                 case "Bossfight": 
+                if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
+                    if(Variables.healthCount == 5) Achievements.UnlockFullLifeBfAchievement();
+                    Achievements.UnlockGameFinishAchievement();
+                } else if(Variables.gameMode == "Practice") {
+                    Achievements.UnlockPracticeFinishAchievement();
+                }
                 if(Variables.gameMode == "Speedrun") {
+                    Achievements.UnlockFinishSpeedrunAchievement();
                     SpeedrunTimer.SaveTime();
                 } else {
                     SceneManager.LoadScene("EndScene");
@@ -64,6 +84,7 @@ public class NextLevel : MonoBehaviour
                     break;
                 default:
                     Debug.LogWarning("Error");
+                    Debug.Log("MOzda");
                     SceneManager.LoadScene("MainMenuScene");
                     break;
             }

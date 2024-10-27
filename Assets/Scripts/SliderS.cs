@@ -16,7 +16,7 @@ public class SliderS : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-        musicVolume = PlayerPrefs.GetFloat("Volume", 1f);
+        musicVolume = PlayerPrefs.GetFloat("Volume", 0.5f);
         sliderSound.value = musicVolume;
         sliderSound.onValueChanged.AddListener(VolumeUpdate);
     }
@@ -30,5 +30,7 @@ public class SliderS : MonoBehaviour
 
     public void VolumeUpdate(float volume) {
         musicVolume = volume;
+        if(musicVolume == 0f) Achievements.UnlockMusicOffAchievement(); 
+        if(musicVolume == 1f) Achievements.UnlockMusicFullAchievement(); 
     }
 }

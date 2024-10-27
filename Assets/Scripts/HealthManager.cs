@@ -24,19 +24,23 @@ public class HealthManager : MonoBehaviour
     }
     public void TakeDamage()
     {
+        Debug.Log("Auch");
         if (elapsedTime < immunityTime)
         {
             return;
         }
-        if(Variables.gameMode == "Practice") return;
+        if(Variables.gameMode == "Practice") {Achievements.UnlockPracticeDamageAchievement(); return;}
         currentHealth--;
+        Achievements.UnlockLoseLifeAchievement();
         showHealth.UpdateHealth(currentHealth);
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         StartCoroutine(BackToNormalColor(gameObject.GetComponent<SpriteRenderer>(), Color.white, 0.4f));
         if (currentHealth <= 0)
         {
+            Achievements.UnlockDieAchievement();
             if(Variables.gameMode == "Speedrun") {
                 PlayerPrefs.SetString("collectiblesSpeedRun","");
+                Achievements.UnlockDieSpeedrunAchievement();
                 SceneManager.LoadScene("DeathScene");
             } else {
                 Scene scene = SceneManager.GetActiveScene();
@@ -60,7 +64,10 @@ public class HealthManager : MonoBehaviour
         {
             currentHealth++;
             playerLight.shapeLightFalloffSize += 3;
+            Achievements.UnlockGainLifeAchievement();
+            if(currentHealth == maxHealth) Achievements.UnlockRestoreFullHealthAchievement();
         }
+        Variables.healthCount = currentHealth;
         showHealth.UpdateHealth(currentHealth);
     }
 

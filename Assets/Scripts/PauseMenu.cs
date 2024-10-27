@@ -33,6 +33,7 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
+            Achievements.UnlockPressPauseAchievement();
             Variables.paused = true;
             menu.SetActive(true);
             isPaused = true;
@@ -46,6 +47,7 @@ public class PauseMenu : MonoBehaviour
             menu.SetActive(false);
             isPaused = false;
             Time.timeScale = 1;
+            Debug.Log("Mozda");
         SceneManager.LoadScene("MainMenuScene");
     }
 

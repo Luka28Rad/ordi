@@ -29,7 +29,24 @@ public class DuskoAI : MonoBehaviour
         else if (player.transform.position.x < transform.position.x && m_FacingRight)
         {
             Flip();
+        }
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the enemy!");
         }     
+    }
+
+    private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= attackRange) {
+                Achievements.UnlockSpotDuskoAchievement();
+                return true;
+            }
+        }
+        return false;
     }
 
     private void LateUpdate()
@@ -65,6 +82,7 @@ public class DuskoAI : MonoBehaviour
         if (collision.gameObject.layer == 3)    //CHECK IF PLAYER
         {
             collision.GetComponent<HealthManager>().TakeDamage();
+            Achievements.UnlockDuskoDamageAchievement();
             //Napravi da player bude imun na damge neko kratko vrijeme dodaj coroutine u damage the player
             Instantiate(deathEffect, transform.position, transform.rotation);
             Destroy(gameObject);
@@ -73,6 +91,7 @@ public class DuskoAI : MonoBehaviour
 
     private IEnumerator Disappear(float seconds)
     {
+        Achievements.UnlockDuskoKillAchievement();
         float elapsedTime = 0f;
         Color targetColor = Color.clear;
 

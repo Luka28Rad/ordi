@@ -37,9 +37,25 @@ public class WizardAI : MonoBehaviour
         transform.position = teleportPoints[0].transform.position;
     }
 
+        private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 5f) {
+                Achievements.UnlockSpotWizardAchievement();
+                return true;
+            }
+        }
+        return false;
+    }
     // Update is called once per frame
     void Update()
     {
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the boss!");
+        } 
         elapsedTime += Time.deltaTime;
         elapsedImmunityTime += Time.deltaTime;
         if (elapsedTime >= timeToWait)
@@ -259,6 +275,7 @@ public class WizardAI : MonoBehaviour
         }
         elapsedImmunityTime = 0;
         hp -= 1;
+        Achievements.UnlockDamageWizardAchievement();
         Instantiate(damageTaken, transform.position + new Vector3(0, 0.5f, -1), transform.rotation);
         if (hp > 0)
         {

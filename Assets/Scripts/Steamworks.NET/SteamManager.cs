@@ -26,19 +26,19 @@ public class SteamManager : MonoBehaviour {
 
 	protected static SteamManager s_instance;
 	protected static SteamManager Instance {
-		get {
-			if (s_instance == null) {
-				return new GameObject("SteamManager").AddComponent<SteamManager>();
-			}
-			else {
-				return s_instance;
-			}
-		}
-	}
+    get {
+        if (s_instance == null) {
+            Debug.LogError("SteamManager instance is null; ensure it is loaded in the initial scene.");
+        }
+        return s_instance;
+    }
+}
+
 
 	protected bool m_bInitialized = false;
 	public static bool Initialized {
 		get {
+			Debug.Log("Inicijalizirano");
 			return Instance.m_bInitialized;
 		}
 	}
@@ -61,6 +61,9 @@ public class SteamManager : MonoBehaviour {
 #endif
 
 	protected virtual void Awake() {
+		if (s_instance == this && m_bInitialized) {
+        SteamAPI.RunCallbacks();
+    }
 		// Only one instance of SteamManager at a time!
 		if (s_instance != null) {
 			Destroy(gameObject);

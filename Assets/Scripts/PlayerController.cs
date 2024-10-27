@@ -190,6 +190,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Dash()
 	{
+        Debug.Log("Dashed");
+        Achievements.UnlockDashAchievement();
 		m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0f);
 		m_Rigidbody2D.gravityScale = 0;
 		yield return new WaitForSeconds(.16f);
@@ -203,6 +205,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Box entered");
         if (other.CompareTag("StarDust"))
         {
+            Achievements.UnlockEnterStardustAchievement();
             Debug.Log("Stardust entered");
             if (speedChangeCoroutine != null)
             {

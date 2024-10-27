@@ -8,9 +8,30 @@ public class BlackHole : MonoBehaviour
     public float attractionRadius = 5f; // Radijus privlačenja
     public float boostForce = 20f; // Snaga boosta
     public float boostAngle = 180f; // Kut u stupnjevima unutar kojeg će se dodijeliti boost (polukrug)
+    GameObject player;
 
+    void Start(){
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 5f) {
+                Achievements.UnlockSpotBlackHoleAchievement();
+                return true;
+            }
+        }
+        return false;
+    }
     void FixedUpdate()
     {
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the enemy!");
+        } 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attractionRadius);
 
         foreach (Collider2D collider in colliders)
@@ -24,7 +45,7 @@ public class BlackHole : MonoBehaviour
 
                     // Primijeni gravitacijsku silu za privlačenje igrača
                     rb.AddForce(attractionForce * forceDirection.normalized);
-
+                    Achievements.UnlockEnterBlackHoleAchievement();
                     // Odredi kut između igrača i središta crne rupe
                     float angle = Vector2.Angle(Vector2.up, forceDirection);
 

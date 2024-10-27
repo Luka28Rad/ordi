@@ -8,18 +8,6 @@ public class SpringShroomBoost : MonoBehaviour
     public AudioClip[] jumpSoundEffects;
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         int randomIndex = Random.Range(0, jumpSoundEffects.Length);
@@ -33,7 +21,9 @@ public class SpringShroomBoost : MonoBehaviour
         if (collision.GetComponent<Transform>().transform.position.y > transform.position.y)
         {
             audioSource.Play();
+            Debug.Log("SKOOCI");
             collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpStrength;
+            Achievements.UnlockHelpGljivanAchievement();
         }
     }
 }

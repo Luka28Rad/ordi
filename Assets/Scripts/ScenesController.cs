@@ -22,6 +22,7 @@ public class ScenesController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                Debug.Log("Mozda2");
                 SceneManager.LoadScene("MainMenuScene");
             }
         }
@@ -62,6 +63,7 @@ public class ScenesController : MonoBehaviour
                 PracticeLevelClicked(PlayerPrefs.GetInt("PracticeLevel", 1));
                 break;
             default:
+            Debug.Log("Mozda3");
             SceneManager.LoadScene("MainMenuScene");
             break;
         }
@@ -132,6 +134,8 @@ public class ScenesController : MonoBehaviour
 
     public void MainMenuClicked()
     {
+        Debug.Log("Mozda3");
+        Achievements.UnlockWatchCreditsAchievement();
         SceneManager.LoadScene("MainMenuScene");
     }
 

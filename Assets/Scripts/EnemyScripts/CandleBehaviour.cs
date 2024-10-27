@@ -9,15 +9,36 @@ public class CandleBehaviour : MonoBehaviour
     [SerializeField] Animation fireAnimation;
 
     private AudioSource audioSource;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         bigFire.SetActive(false);
         audioSource = GetComponent<AudioSource>();
         smallFire.SetActive(true);
         StartCoroutine(Fire());
     }
 
+    void Update(){
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the enemy!");
+        } 
+    }
+
+    private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 5f) {
+                Achievements.UnlockSpotSvjetlanaAchievement();
+                return true;
+            }
+        }
+        return false;
+    }
     IEnumerator Fire()
     {
         bigFire.SetActive(false);
@@ -34,6 +55,7 @@ public class CandleBehaviour : MonoBehaviour
 
     public void Death()
     {
+        Achievements.UnlockSvjetlanaKillAchievement();
         Destroy(gameObject, 3);
         bigFire.SetActive(false);
         smallFire.SetActive(false);

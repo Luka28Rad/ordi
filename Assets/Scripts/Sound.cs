@@ -57,7 +57,7 @@ public class Sound : MonoBehaviour
     {
         if (clip != null)
         {
-            audioSource.volume = PlayerPrefs.GetFloat("Volume", 1f);
+            audioSource.volume = PlayerPrefs.GetFloat("Volume", 0.5f);
             audioSource.clip = clip;
             audioSource.Play();
         }

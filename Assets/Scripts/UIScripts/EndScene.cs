@@ -8,6 +8,7 @@ public class EndScene : MonoBehaviour
 {
     public void GoToMenu()
     {
+        Debug.Log("myb");
         SceneManager.LoadScene("MainMenuScene");
     }
 }

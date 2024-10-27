@@ -45,6 +45,23 @@ public class MatchstickAI : MonoBehaviour
             Attack();
             StartCoroutine(LightUp());
         }
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the enemy!");
+        } 
+    }
+
+        private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 5f) {
+                Achievements.UnlockSpotBrunoAchievement();
+                return true;
+            }
+        }
+        return false;
     }
 
     void Extinguish()
@@ -66,6 +83,7 @@ public class MatchstickAI : MonoBehaviour
 
     public void Die()
     {
+        Achievements.UnlockBrunoKillAchievement();
         damagePoint.SetActive(false);
         canAttack = false;
         StopAllCoroutines();
