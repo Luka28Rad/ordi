@@ -16,6 +16,7 @@ public class HealthManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        Variables.healthCount = currentHealth;
     }
 
     private void Update()
@@ -31,6 +32,7 @@ public class HealthManager : MonoBehaviour
         }
         if(Variables.gameMode == "Practice") {Achievements.UnlockPracticeDamageAchievement(); return;}
         currentHealth--;
+        Variables.healthCount = currentHealth;
         Achievements.UnlockLoseLifeAchievement();
         showHealth.UpdateHealth(currentHealth);
         gameObject.GetComponent<SpriteRenderer>().color = Color.red;

@@ -268,6 +268,7 @@ public class WizardAI : MonoBehaviour
         {
             return;
         }
+        collision.GetComponent<HealthManager>().HealPlayer();
         collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * 15;
         if (elapsedImmunityTime <= immunityTime)
         {
