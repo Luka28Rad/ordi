@@ -14,9 +14,17 @@ public class Achievements : MonoBehaviour
     {
         if (SteamManager.Initialized)
         {
-            SteamUserStats.SetAchievement (ach_ID);
-            SteamUserStats.StoreStats();
-            Debug.Log("Achievement " + ach_ID + " unlocked!");
+            bool achievementUnlocked;
+            // Check if the achievement is already unlocked
+            SteamUserStats.GetAchievement(ach_ID, out achievementUnlocked);
+            if (!achievementUnlocked)
+            {
+                SteamUserStats.SetAchievement (ach_ID);
+                SteamUserStats.StoreStats();
+                Debug.Log("Achievement " + ach_ID + " unlocked!");
+            } else {
+                Debug.Log("Achievement " + ach_ID + " already unlocked.");
+            }
         }
         else
         {
@@ -219,6 +227,51 @@ public class Achievements : MonoBehaviour
     public static void UnlockMusicFullAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("MUSIC_FULL_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatZvjezdanAchievement()
+    {
+        SetAchievement("SPEEDRUN_ZVJEZDAN_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatGljivanAchievement()
+    {
+        SetAchievement("SPEEDRUN_GLJIVAN_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatDuskoAchievement()
+    {
+        SetAchievement("SPEEDRUN_DUSKO_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatSvjetlanaAchievement()
+    {
+        SetAchievement("SPEEDRUN_SVJETLANA_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatBrunoAchievement()
+    {
+        SetAchievement("SPEEDRUN_BRUNO_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatDarkoAchievement()
+    {
+        SetAchievement("SPEEDRUN_DARKO_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatNestaskoAchievement()
+    {
+        SetAchievement("SPEEDRUN_NESTASKO_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatZirAchievement()
+    {
+        SetAchievement("SPEEDRUN_ZIR_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatYourselfAchievement()
+    {
+        SetAchievement("SPEEDRUN_USER_ACHIEVEMENT");
     }
 
 }

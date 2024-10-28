@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: bc36472ba4304e24680c2b8e111c65f8, type: 3}
+  m_Texture: {fileID: 2800000, guid: fb519eca64090c546bda9d90beb6b1fa, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -49291,8 +49291,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.2709, y: 0.7004502, z: 0}
-    m_Extent: {x: 6.9921, y: 8.59125, z: 0}
+    m_Center: {x: 0.2816, y: 0.6998999, z: 0}
+    m_Extent: {x: 6.9881, y: 8.5906, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -79217,8 +79217,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.005299568, y: -0.004599571, z: 0}
-    m_Extent: {x: 20.500301, y: 20.4917, z: 0}
+    m_Center: {x: 0.0025997162, y: -0.00009918213, z: 0}
+    m_Extent: {x: 20.4993, y: 20.5021, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

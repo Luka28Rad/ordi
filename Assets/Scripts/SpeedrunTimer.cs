@@ -39,9 +39,23 @@ public class SpeedrunTimer : MonoBehaviour
 
     }
 
+public static long ConvertToMilliseconds(string timeString)
+{
+    if (TimeSpan.TryParseExact(timeString, @"hh\:mm\:ss\.fff", null, out TimeSpan time))
+    {
+        return (long)time.TotalMilliseconds;
+    }
+    else
+    {
+        Debug.LogError("Invalid time format. Ensure it is in 'hh:mm:ss.fff' format.");
+        return -1; // Indicate an error with a negative value
+    }
+}
+
     void Awake() {
         recordTimeStatic = recordTime;
         currentTimeTextStatic = currentTimeText;
+        prevRecordStatic = prevRecord;
     }
 
     // Update is called once per frame
@@ -56,9 +70,7 @@ public class SpeedrunTimer : MonoBehaviour
         }
         TimeSpan time = TimeSpan.FromSeconds(currentTime);
         currentTimeTextStatic.text = time.ToString(@"hh\:mm\:ss\.fff");
-        } else {
-            
-        }
+        } 
     }
 
     public void StartTimer() {
@@ -69,7 +81,7 @@ public class SpeedrunTimer : MonoBehaviour
         timerActive = false;
     }
 
-
+    public TextMeshPro errText;
     public void SaveRecordClicked()
     {
         string filePath = Path.Combine(Application.dataPath,fileName);
@@ -83,7 +95,52 @@ public class SpeedrunTimer : MonoBehaviour
         string[] collectiblesArray = collectiblesString.Split(','); 
         collectC = collectiblesArray.Length;
         }
-        
+        long rec = ConvertToMilliseconds(currentTimeText.text);
+        resultsText.gameObject.SetActive(true);
+        try{
+            if(rec<=0) {
+                 resultsText.text = "Why are you cheating? :(";
+            } else if(rec<=180000){
+                resultsText.text = "Why are you cheating? :(";
+            } else if(rec<=360000){
+                resultsText.text = "A little suspicious but i will allow it!!! :(";
+                SteamLeaderboardManager.UpdateScore((int)rec);
+            } else {
+            SteamLeaderboardManager.UpdateScore((int)rec);
+            }
+        } catch (System.Exception e) {
+            resultsText.text = "Saving score failed, please try again. " + e.Message;
+            return;
+        }
+        compareRec = rec;
+    
+        var achievements = new List<System.Action> {
+                    Achievements.UnlockBeatZirAchievement,
+                    Achievements.UnlockBeatZvjezdanAchievement,
+                    Achievements.UnlockBeatGljivanAchievement,
+                    Achievements.UnlockBeatDuskoAchievement,
+                    Achievements.UnlockBeatSvjetlanaAchievement,
+                    Achievements.UnlockBeatBrunoAchievement,
+                    Achievements.UnlockBeatNestaskoAchievement,
+                    Achievements.UnlockBeatDarkoAchievement
+                };
+
+                int threshold = rec switch {
+                    <= 480000 => 8,
+                    <= 600000 => 7,
+                    <= 720000 => 6,
+                    <= 900000 => 5,
+                    <= 1080000 => 4,
+                    <= 1200000 => 3,
+                    <= 1500000 => 2,
+                    <= 1800000 => 1,
+                    _ => 0
+                };
+
+                for (int i = 0; i < threshold; i++) {
+                    achievements[i].Invoke();
+                }
+        //resultsText.text = "Press continue to save results. (*Only faster time will be saved.)";
         string text = "\n" +name+ " "+ currentTimeText.text + " " + collectC;
         try
         {        
@@ -92,7 +149,7 @@ public class SpeedrunTimer : MonoBehaviour
             mainMenuButton.gameObject.SetActive(true);
             nameInputField.gameObject.SetActive(false);
             resultsText.gameObject.SetActive(true);
-            File.AppendAllText(filePath, text);
+            //File.AppendAllText(filePath, text);
             Debug.Log("Text appended to file: " + filePath);
             Debug.Log("Record added: " + text);
         }
@@ -102,12 +159,24 @@ public class SpeedrunTimer : MonoBehaviour
             Debug.LogError("Error writing to file: " + e.Message);
         }
     }
+    private static long compareRec = 999999999999999999;
+    public TextMeshProUGUI prevRecord;
+    public static TextMeshProUGUI prevRecordStatic;
 
     public static void SaveTime()
     {
+        long checkRecord = SteamLeaderboardDisplay.userPreviousRecord;
+        if(checkRecord == -404) {
+            prevRecordStatic.text = "No previous time!";
+        } else if(checkRecord < 0){
+            prevRecordStatic.text = "Error loading previous time..";
+        } else {
+            if(compareRec < checkRecord) Achievements.UnlockBeatYourselfAchievement();
+            prevRecordStatic.text = "Your last best time:\n"+SteamLeaderboardDisplay.FormatTimeFromMilliseconds(checkRecord);
+        }
         GameObject playerObject = GameObject.FindWithTag("Player");
         Destroy(playerObject);
-        recordTimeStatic.text = "Time: " +currentTimeTextStatic.text;
+        recordTimeStatic.text = "Current time:\n" +currentTimeTextStatic.text;
         StopTimer();
     }
 }
