@@ -44,6 +44,10 @@ public class Collectibles : MonoBehaviour
 
     void Update()
     {
-        collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles;
+        if(Variables.gameMode == "Speedrun") {
+            collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles +"\n1 coin = -2s at the end";
+        } else {
+            collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles;
+        }
     }
 }

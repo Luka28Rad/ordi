@@ -82,13 +82,14 @@ public static long ConvertToMilliseconds(string timeString)
     }
 
     public TextMeshPro errText;
+    private int collectC = 0;
     public void SaveRecordClicked()
     {
         string filePath = Path.Combine(Application.dataPath,fileName);
         TMP_InputField nameInputField = nameInputPanel.GetComponentInChildren<TMP_InputField>();
         string name = nameInputField.text;
         if(name == "") name = "Unknown";
-        int collectC = 0;
+        collectC = 0;
         string collectiblesString = PlayerPrefs.GetString("collectiblesSpeedRun", "0");
         if (!string.IsNullOrEmpty(collectiblesString))
         {
@@ -96,16 +97,18 @@ public static long ConvertToMilliseconds(string timeString)
         collectC = collectiblesArray.Length;
         }
         long rec = ConvertToMilliseconds(currentTimeText.text);
+        rec = rec - CollectiblesBonus(collectC);
         resultsText.gameObject.SetActive(true);
         try{
             if(rec<=0) {
                  resultsText.text = "Why are you cheating? :(";
             } else if(rec<=180000){
                 resultsText.text = "Why are you cheating? :(";
-            } else if(rec<=360000){
+            } else if(rec<=300000){
                 resultsText.text = "A little suspicious but i will allow it!!! :(";
                 SteamLeaderboardManager.UpdateScore((int)rec);
             } else {
+                //Debug.Log("REC JE " + rec);
             SteamLeaderboardManager.UpdateScore((int)rec);
             }
         } catch (System.Exception e) {
@@ -158,6 +161,11 @@ public static long ConvertToMilliseconds(string timeString)
             resultsText.text = "Error storing results...";
             Debug.LogError("Error writing to file: " + e.Message);
         }
+    }
+    private int bonusAmount = 2;
+
+    private int CollectiblesBonus(int collectC) {
+        return collectC * bonusAmount * 1000; // za svaki prikupljeni coin oduzmi 2 sekunde vremena
     }
     private static long compareRec = 999999999999999999;
     public TextMeshProUGUI prevRecord;
