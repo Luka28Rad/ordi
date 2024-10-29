@@ -229,49 +229,63 @@ public class Achievements : MonoBehaviour
         SetAchievement("MUSIC_FULL_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatZvjezdanAchievement()
+    public static void UnlockBeatZvjezdanAchievement()  ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_ZVJEZDAN_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatGljivanAchievement()
+    public static void UnlockBeatGljivanAchievement()   ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_GLJIVAN_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatDuskoAchievement()
+    public static void UnlockBeatDuskoAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_DUSKO_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatSvjetlanaAchievement()
+    public static void UnlockBeatSvjetlanaAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_SVJETLANA_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatBrunoAchievement()
+    public static void UnlockBeatBrunoAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_BRUNO_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatDarkoAchievement()
+    public static void UnlockBeatDarkoAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_DARKO_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatNestaskoAchievement()
+    public static void UnlockBeatNestaskoAchievement()  ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_NESTASKO_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatZirAchievement()
+    public static void UnlockBeatZirAchievement()   ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_ZIR_ACHIEVEMENT");
     }
 
-    public static void UnlockBeatYourselfAchievement()
+    public static void UnlockBeatYourselfAchievement()  ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_USER_ACHIEVEMENT");
+    }
+
+        public static void UnlockBeatCrnaRupaAchievement()  ///////////////////////////////////////////////////////////////////////
+    {
+        SetAchievement("SPEEDRUN_BLACKHOLE_ACHIEVEMENT");
+    }
+
+    public static void UnlockBeatEveryoneAchievement()  ///////////////////////////////////////////////////////////////////////
+    {
+        SetAchievement("SPEEDRUN_EVERYONE_ACHIEVEMENT");
+    }
+
+    public static void UnlockCheckLeaderboardsAchievement(){
+        SetAchievement("CHECK_LEADERBOARDS_ACHIEVEMENT");
     }
 
 }

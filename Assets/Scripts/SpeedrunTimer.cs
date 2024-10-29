@@ -98,12 +98,15 @@ public static long ConvertToMilliseconds(string timeString)
         }
         long rec = ConvertToMilliseconds(currentTimeText.text);
         rec = rec - CollectiblesBonus(collectC);
+        recordTimeStatic.text = "Current time:\n" +SteamLeaderboardDisplay.FormatTimeFromMilliseconds(rec);
         resultsText.gameObject.SetActive(true);
         try{
             if(rec<=0) {
                  resultsText.text = "Why are you cheating? :(";
+                 return;
             } else if(rec<=180000){
                 resultsText.text = "Why are you cheating? :(";
+                return;
             } else if(rec<=300000){
                 resultsText.text = "A little suspicious but i will allow it!!! :(";
                 SteamLeaderboardManager.UpdateScore((int)rec);
@@ -116,22 +119,36 @@ public static long ConvertToMilliseconds(string timeString)
             return;
         }
         compareRec = rec;
+
+        long checkRecord = SteamLeaderboardDisplay.userPreviousRecord;
+        if(checkRecord == -404) {
+            prevRecordStatic.text = "No previous time!";
+        } else if(checkRecord < 0){
+            prevRecordStatic.text = "Error loading previous time..";
+        } else {
+            if(compareRec < checkRecord) Achievements.UnlockBeatYourselfAchievement();
+            Debug.Log("Ehh");
+            prevRecordStatic.text = "Your last best time:\n"+SteamLeaderboardDisplay.FormatTimeFromMilliseconds(checkRecord);
+        }
     
         var achievements = new List<System.Action> {
-                    Achievements.UnlockBeatZirAchievement,
-                    Achievements.UnlockBeatZvjezdanAchievement,
-                    Achievements.UnlockBeatGljivanAchievement,
-                    Achievements.UnlockBeatDuskoAchievement,
-                    Achievements.UnlockBeatSvjetlanaAchievement,
-                    Achievements.UnlockBeatBrunoAchievement,
+                    Achievements.UnlockBeatDarkoAchievement,
                     Achievements.UnlockBeatNestaskoAchievement,
-                    Achievements.UnlockBeatDarkoAchievement
+                    Achievements.UnlockBeatCrnaRupaAchievement,
+                    Achievements.UnlockBeatBrunoAchievement,
+                    Achievements.UnlockBeatSvjetlanaAchievement,
+                    Achievements.UnlockBeatDuskoAchievement,
+                    Achievements.UnlockBeatGljivanAchievement,
+                    Achievements.UnlockBeatZvjezdanAchievement,
+                    Achievements.UnlockBeatZirAchievement,
+                    Achievements.UnlockBeatEveryoneAchievement
                 };
 
                 int threshold = rec switch {
-                    <= 480000 => 8,
-                    <= 600000 => 7,
-                    <= 720000 => 6,
+                    <= 450628 => 10,
+                    <= 600000 => 8,
+                    <= 660000 => 7,
+                    <= 780000 => 6,
                     <= 900000 => 5,
                     <= 1080000 => 4,
                     <= 1200000 => 3,
@@ -179,12 +196,11 @@ public static long ConvertToMilliseconds(string timeString)
         } else if(checkRecord < 0){
             prevRecordStatic.text = "Error loading previous time..";
         } else {
-            if(compareRec < checkRecord) Achievements.UnlockBeatYourselfAchievement();
             prevRecordStatic.text = "Your last best time:\n"+SteamLeaderboardDisplay.FormatTimeFromMilliseconds(checkRecord);
         }
         GameObject playerObject = GameObject.FindWithTag("Player");
         Destroy(playerObject);
-        recordTimeStatic.text = "Current time:\n" +currentTimeTextStatic.text;
+        recordTimeStatic.text = "";
         StopTimer();
     }
 }

@@ -29,6 +29,7 @@ public class SteamLeaderboardDisplay : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "LeaderboardScene")
         {
+            Achievements.UnlockCheckLeaderboardsAchievement();
             scoreUserTextStatic = scoreUserText;
             rankUserTextStatic = rankUserText;
         }
