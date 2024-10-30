@@ -1,40 +1,75 @@
 using Steamworks;
 using UnityEngine;
+using System.Collections;
 
 public class SkinStore : MonoBehaviour
 {
     private Callback<SteamInventoryRequestPricesResult_t> m_RequestPricesCallback;
     private Callback<SteamInventoryStartPurchaseResult_t> m_PurchaseResultCallback;
 
-    private void Start()
+private void Start()
+{
+    if (SteamManager.Initialized)
     {
-        if (SteamManager.Initialized)
-        {
-            // Initialize callbacks for handling Steam Inventory events
-            m_RequestPricesCallback = Callback<SteamInventoryRequestPricesResult_t>.Create(OnPricesResult);
-            m_PurchaseResultCallback = Callback<SteamInventoryStartPurchaseResult_t>.Create(OnPurchaseResult);
+        Debug.Log("SteamManager initialized. Setting up callbacks and requesting prices.");
+        m_RequestPricesCallback = Callback<SteamInventoryRequestPricesResult_t>.Create(OnPricesResult);
+        m_PurchaseResultCallback = Callback<SteamInventoryStartPurchaseResult_t>.Create(OnPurchaseResult);
 
-            // Request item prices from Steam
-            SteamInventory.RequestPrices();
-        } 
-        else 
+        SteamInventory.RequestPrices();
+        Debug.Log("Price request sent.");
+
+        // Start a coroutine to check for a response timeout
+        StartCoroutine(CheckForPricesTimeout());
+    } 
+    else 
+    {
+        Debug.Log("Steam not initialized.");
+    }
+}
+
+private IEnumerator CheckForPricesTimeout()
+{
+    yield return new WaitForSeconds(5);  // Wait 5 seconds to see if the callback fires
+    Debug.Log("Timeout reached, no response received.");
+}
+
+private void OnPricesResult(SteamInventoryRequestPricesResult_t result)
+{
+    Debug.Log("Entered OnPricesResult callback.");
+    if (result.m_result == EResult.k_EResultOK)
+    {
+        Debug.Log("Prices retrieved successfully.");
+        DisplayAvailableItems();
+    }
+    else
+    {
+        Debug.LogError("Failed to retrieve prices from Steam.");
+    }
+}
+
+
+  private void DisplayAvailableItems()
+{
+    // Define arrays for item definitions, prices, and base prices
+    SteamItemDef_t[] itemDefs = new SteamItemDef_t[128];  // Adjust size if you expect more or fewer items
+    ulong[] prices = new ulong[itemDefs.Length];
+    ulong[] basePrices = new ulong[itemDefs.Length];
+    uint arrayLength = (uint)itemDefs.Length;
+
+    // Retrieve items with prices from SteamInventory
+    if (SteamInventory.GetItemsWithPrices(itemDefs, prices, basePrices, arrayLength))
+    {
+        for (int i = 0; i < itemDefs.Length; i++)
         {
-            Debug.Log("Steam not initialized.");
+            Debug.Log($"Item ID: {itemDefs[i].m_SteamItemDef}, Price: {prices[i] / 100.0f} USD, Base Price: {basePrices[i] / 100.0f} USD");
         }
     }
-
-    private void OnPricesResult(SteamInventoryRequestPricesResult_t result)
+    else
     {
-        if (result.m_result == EResult.k_EResultOK)
-        {
-            Debug.Log("Prices retrieved successfully.");
-            // Use SteamInventory.GetResultItems or similar methods to get items and display their prices
-        }
-        else
-        {
-            Debug.LogError("Failed to retrieve prices from Steam.");
-        }
+        Debug.LogError("Failed to retrieve items with prices.");
     }
+}
+
 
     public void PurchaseSkin(int itemDefID)
     {

@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1812365889}
         m_TargetAssemblyTypeName: ScenesController, Assembly-CSharp
-        m_MethodName: OptionsButtonClicked
+        m_MethodName: EndlessScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

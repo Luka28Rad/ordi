@@ -32,6 +32,10 @@ public class ScenesController : MonoBehaviour
         SceneManager.LoadScene("LeaderboardScene");
     }
 
+    public void EndlessScene(){
+        SceneManager.LoadScene("EndlessLevel");
+    }
+
     public void CreditsButtonClicked()
     {
         SceneManager.LoadScene("CreditsScene");
