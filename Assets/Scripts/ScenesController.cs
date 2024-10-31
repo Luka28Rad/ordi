@@ -33,6 +33,7 @@ public class ScenesController : MonoBehaviour
     }
 
     public void EndlessScene(){
+        Variables.gameMode = "Endless";
         SceneManager.LoadScene("EndlessLevel");
     }
 

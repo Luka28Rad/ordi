@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FxTemporaire
   - StarDust
+  - BorderTile
   layers:
   - Default
   - TransparentFX
