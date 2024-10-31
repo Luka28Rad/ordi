@@ -23,6 +23,7 @@ public class EndlessTiles : MonoBehaviour
 
     private void Start()
     {
+        Achievements.UnlockStartEndlessAchievement();
         score = 0;
         scoreText.text = "";
         currentHeight = 0;
@@ -43,6 +44,7 @@ public class EndlessTiles : MonoBehaviour
             SpawnRow(currentHeight);
 
             score++;
+            CheckTrophies(score);
             UpdateScoreText();
         }
 
@@ -121,5 +123,12 @@ public class EndlessTiles : MonoBehaviour
     private void UpdateScoreText()
     {   if(score%100 == 0) dangerLine.IncreaseSpeed();
         scoreText.text = score.ToString();
+    }
+    private void CheckTrophies(int number){
+        if(number > 101 || number < 10) return;
+        if(number == 10) Achievements.UnlockTileTenAchievement();
+        else if(number == 51) Achievements.UnlockTile51Achievement();
+        else if(number == 66) Achievements.UnlockTile66Achievement();
+        else if(number == 101) Achievements.UnlockTile101Achievement();
     }
 }

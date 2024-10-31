@@ -284,8 +284,36 @@ public class Achievements : MonoBehaviour
         SetAchievement("SPEEDRUN_EVERYONE_ACHIEVEMENT");
     }
 
-    public static void UnlockCheckLeaderboardsAchievement(){
+    public static void UnlockCheckLeaderboardsAchievement(){    ///////////////////////////////////////////////////////////////////////
         SetAchievement("CHECK_LEADERBOARDS_ACHIEVEMENT");
     }
+
+    public static void UnlockTileTenAchievement(){      ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_10_ACHIEVEMENT");
+    }
+
+    public static void UnlockTile51Achievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_51_ACHIEVEMENT");
+    }
+
+    public static void UnlockTile101Achievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_101_ACHIEVEMENT");
+    }
+
+    public static void UnlockTile66Achievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_66_ACHIEVEMENT");
+    }
+    public static void UnlockendlessDeathAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_DEATH_ACHIEVEMENT");
+    }
+
+    public static void UnlockendlessRunAwayAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_RUNAWAY_ACHIEVEMENT");
+    }
+
+    public static void UnlockStartEndlessAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_START_ACHIEVEMENT");
+    }
+
 
 }

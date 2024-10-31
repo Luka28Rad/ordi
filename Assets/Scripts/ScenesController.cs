@@ -140,7 +140,7 @@ public class ScenesController : MonoBehaviour
     public void MainMenuClicked()
     {
         Debug.Log("Mozda3");
-        Achievements.UnlockWatchCreditsAchievement();
+        if(SceneManager.GetActiveScene().name == "LeaderboardScene")Achievements.UnlockWatchCreditsAchievement();
         SceneManager.LoadScene("MainMenuScene");
     }
 

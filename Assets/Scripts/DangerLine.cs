@@ -107,6 +107,7 @@ public class DangerLine : MonoBehaviour
         distance = distance / 3; // Adjust based on platform height
         // Update the TextMeshPro text with the current distance
         distanceText.text = distance.ToString("F0"); // "F1" for one decimal place
+        if(distanceText.text == "10") {Achievements.UnlockendlessRunAwayAchievement();}
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -124,6 +125,7 @@ public class DangerLine : MonoBehaviour
         Debug.Log("Player has been killed by the danger line!");
         Destroy(player);
         alive = false;
+        Achievements.UnlockendlessDeathAchievement();
         // Optionally, trigger a respawn, end the game, etc.
     }
 }
