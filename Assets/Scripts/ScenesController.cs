@@ -122,6 +122,7 @@ public class ScenesController : MonoBehaviour
     }
     public void MultiplayerButtonClicked(){
         Debug.Log("MultiplayerButtonClicked");
+        SceneManager.LoadScene("HostLobbyScene");
     }
 
     public void PlayButtonClicked()
