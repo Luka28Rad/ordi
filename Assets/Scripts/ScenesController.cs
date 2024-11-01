@@ -8,6 +8,7 @@ public class ScenesController : MonoBehaviour
 {
     [SerializeField] GameObject buttonsToShow;
     [SerializeField] GameObject buttonsToHide;
+    [SerializeField] GameObject buttonsToShowSingleplayer;
 
     [SerializeField] GameObject levelButtons;
     [SerializeField] GameObject panel;
@@ -119,22 +120,36 @@ public class ScenesController : MonoBehaviour
             buttonsToHide.SetActive(false);
         }
     }
+    public void MultiplayerButtonClicked(){
+        Debug.Log("MultiplayerButtonClicked");
+    }
 
     public void PlayButtonClicked()
     {
-        if (!buttonsToShow.activeSelf)
-        {
-            title.SetActive(false);
-            buttonsToShow.SetActive(true);
-            buttonsToHide.SetActive(false);
-        }    
-        else
+        if (buttonsToShow.activeSelf)
         {
             title.SetActive(true);
             buttonsToShow.SetActive(false);
             buttonsToHide.SetActive(true);
+        }    
+        else if(buttonsToShowSingleplayer.activeSelf)
+        {
+            title.SetActive(false);
+            buttonsToShow.SetActive(true);
+            buttonsToShowSingleplayer.SetActive(false);
+        } else if(buttonsToHide.activeSelf){
+            title.SetActive(false);
+            buttonsToShow.SetActive(true);
+            buttonsToHide.SetActive(false);
         }
             
+    }
+
+    public void SinglePlayerButtonClicked()
+    {
+        title.SetActive(false);
+        buttonsToShowSingleplayer.SetActive(true);
+        buttonsToShow.SetActive(false);
     }
 
     public void MainMenuClicked()
