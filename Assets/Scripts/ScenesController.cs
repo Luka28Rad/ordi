@@ -165,4 +165,20 @@ public class ScenesController : MonoBehaviour
         //UnityEditor.EditorApplication.isPlaying = false; // ovu liniju treba maknuti prije buildanja jer ce inace stvarat error - omogucuje da se izade iz editora na klik
         Application.Quit(); // ova logicno izlazi iz aplikacije
     }
+
+    //potrebna funkcija za multiplayer
+        public void CallPersistentObjectFunction()
+    {
+        // Find the persistent object in the scene
+        SteamLobby persistentObj = FindObjectOfType<SteamLobby>();
+
+        if (persistentObj != null)
+        {
+            persistentObj.HostLobby();
+        }
+        else
+        {
+            Debug.LogWarning("PersistentObject not found in the scene.");
+        }
+    }
 }
