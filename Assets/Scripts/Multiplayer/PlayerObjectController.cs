@@ -13,6 +13,9 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar(hook=nameof(PlayerReadyUpdate))] public bool Ready;
     private CustomNetworkManager manager;
 
+    private void Start(){
+        DontDestroyOnLoad(this.gameObject);
+    }
     private void PlayerReadyUpdate(bool oldValue, bool newValue) {
         if(isServer){
             this.Ready = newValue;
@@ -71,5 +74,14 @@ public class PlayerObjectController : NetworkBehaviour
         if(isClient){
             LobbyController.Instance.UpdatePlayerList();
         }
+    }
+    public void CanStartGame(string sceneName){
+        if(isOwned){
+            CmdCanStartGame(sceneName);
+        }
+    }
+    [Command]
+    public void CmdCanStartGame(string sceneName){
+        manager.StartGame(sceneName);
     }
 }

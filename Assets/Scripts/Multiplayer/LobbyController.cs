@@ -29,6 +29,10 @@ public class LobbyController : MonoBehaviour
             return manager = CustomNetworkManager.singleton as CustomNetworkManager;
         }
     }
+
+    public void StartGame(string sceneName) {
+        LocalPlayerController.CanStartGame(sceneName);
+    }
     void Awake() {
         if(Instance == null) {Instance = this;}
     }
@@ -57,7 +61,7 @@ public class LobbyController : MonoBehaviour
         }
 
         if(allReady) {
-            if(LocalPlayerController.PlayerIdNumber == 1) {
+            if(LocalPlayerController && LocalPlayerController.PlayerIdNumber != null && LocalPlayerController.PlayerIdNumber == 1) {
                 StartGameButton.interactable = true;
             } else {
                 StartGameButton.interactable = false;

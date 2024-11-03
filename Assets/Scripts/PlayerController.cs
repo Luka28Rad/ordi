@@ -2,8 +2,10 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
+using Mirror;
+using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
 	[SerializeField] private float m_JumpForce = 600f;							// Amount of force added when the player jumps.
     [SerializeField] private float m_DashForce = 600f;	
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
 	}
 
     private void Update() {
+        if(SceneManager.GetActiveScene().name == "MultiplayerLevel" && !isOwned) return;
         input = Input.GetAxisRaw("Horizontal");
 		
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
@@ -56,6 +59,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+        if(SceneManager.GetActiveScene().name == "MultiplayerLevel" && !isOwned) return;
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
