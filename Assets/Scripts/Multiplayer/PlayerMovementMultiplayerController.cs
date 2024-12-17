@@ -9,6 +9,8 @@ public class PlayerMovementMultiplayerController : NetworkBehaviour
            public float speed = 0.1f;
 
         public GameObject playerModel;
+        public SpriteRenderer PlayerMesh;
+        public Sprite[] PlayerColors;
 
         void Start(){
             playerModel.SetActive(false);
@@ -16,7 +18,7 @@ public class PlayerMovementMultiplayerController : NetworkBehaviour
 
     void Update(){
         if(SceneManager.GetActiveScene().name == "MultiplayerLevel"){
-            if(playerModel.activeSelf == false){SetPosition(); playerModel.SetActive(true); }
+            if(playerModel.activeSelf == false){SetPosition(); playerModel.SetActive(true); PlayerCosmeticsSetup();}
             if(isOwned) Movement();
         } 
     }
@@ -34,4 +36,8 @@ public class PlayerMovementMultiplayerController : NetworkBehaviour
             transform.position += dir.normalized * (Time.deltaTime * speed);
             //transofrm.position += dir * speed;
         }
+    
+    public void PlayerCosmeticsSetup(){
+        PlayerMesh.sprite = PlayerColors[GetComponent<PlayerObjectController>().PlayerColor];
+    }
 }

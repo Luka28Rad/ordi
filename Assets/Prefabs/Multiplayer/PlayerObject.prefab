@@ -286,6 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8114a30fbed364c9bc0dca8e2d6b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   m_JumpForce: 800
   m_DashForce: 2200
   moveSpeed: 40
@@ -465,6 +468,7 @@ MonoBehaviour:
   PlayerSteamId: 0
   PlayerName: 
   Ready: 0
+  PlayerColor: 0
 --- !u!114 &8398222788151130367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +486,11 @@ MonoBehaviour:
   syncInterval: 0
   speed: 0.1
   playerModel: {fileID: 2224400312596695052}
+  PlayerMesh: {fileID: 659539571900306917}
+  PlayerColors:
+  - {fileID: 21300000, guid: 4bdd731d92abe9742882601003e39ae1, type: 3}
+  - {fileID: 21300000, guid: 18ca3a7c7dbcd13419318b88d9369266, type: 3}
+  - {fileID: -1474893583, guid: c67c9cafffe805f4e87b68f5e5aaf75d, type: 3}
 --- !u!114 &1074939446118750653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5489,8 +5498,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0017995834, y: -0.00034999847, z: 0}
-    m_Extent: {x: 20.5024, y: 20.496449, z: 0}
+    m_Center: {x: 0.004149437, y: -0.009550095, z: 0}
+    m_Extent: {x: 20.50175, y: 20.49385, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

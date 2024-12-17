@@ -11,6 +11,7 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar]public ulong PlayerSteamId;
     [SyncVar(hook=nameof(PlayerNameUpdate))] public string PlayerName;
     [SyncVar(hook=nameof(PlayerReadyUpdate))] public bool Ready;
+    [SyncVar(hook=nameof(SendPlayerColor))] public int PlayerColor;
     private CustomNetworkManager manager;
 
     private void Start(){
@@ -83,5 +84,23 @@ public class PlayerObjectController : NetworkBehaviour
     [Command]
     public void CmdCanStartGame(string sceneName){
         manager.StartGame(sceneName);
+    }
+
+    [Command]
+    public void CmdUpdatePlayerColor(int newValue){
+        SendPlayerColor(PlayerColor, newValue);
+    }
+
+    public void SendPlayerColor(int oldValue, int newValue){
+        if(isServer) {
+            PlayerColor = newValue;
+        }
+        if(isClient && (oldValue != newValue)){
+            UpdateColor(newValue);
+        }
+    }
+
+    void UpdateColor(int message){
+        PlayerColor = message;
     }
 }
