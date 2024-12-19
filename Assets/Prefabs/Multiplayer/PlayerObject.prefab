@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5505916628386955154}
   - component: {fileID: 6368636972447045639}
   - component: {fileID: 2607452222174083935}
-  - component: {fileID: 3007015554302100794}
+  - component: {fileID: 3787921944884072102}
   m_Layer: 0
   m_Name: dash indicator
   m_TagString: Untagged
@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616871831511696201}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.73, y: 18.76, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3966919337055969530}
+  m_Father: {fileID: 5443499244006332794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6368636972447045639
 SpriteRenderer:
@@ -136,7 +136,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &3007015554302100794
+--- !u!114 &3787921944884072102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,9 +145,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 616871831511696201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f374cdd3ad00e9d43822b53b45acf363, type: 3}
+  m_Script: {fileID: 11500000, guid: 47fece1dd6a61274b8cc02813405602f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &1118071639374053508
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +180,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5505916628386955154}
   - {fileID: 5443499244006332794}
   m_Father: {fileID: 8865229043417599447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -215,6 +217,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5505916628386955154}
   - {fileID: 9185647762878412746}
   - {fileID: 2912449848046238862}
   - {fileID: 6461970566876666003}
@@ -5498,8 +5501,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0063495636, y: -0.0006494522, z: 0}
-    m_Extent: {x: 20.50205, y: 20.50085, z: 0}
+    m_Center: {x: 0.008700371, y: -0.009600639, z: 0}
+    m_Extent: {x: 20.5043, y: 20.4931, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
