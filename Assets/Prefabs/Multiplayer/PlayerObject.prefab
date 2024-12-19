@@ -509,7 +509,7 @@ MonoBehaviour:
   target: {fileID: 8865229043417599447}
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   onlySyncOnChange: 1
   compressRotation: 1
   interpolatePosition: 1
@@ -542,7 +542,7 @@ MonoBehaviour:
   target: {fileID: 5443499244006332794}
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   onlySyncOnChange: 1
   compressRotation: 1
   interpolatePosition: 1
@@ -5498,8 +5498,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.004149437, y: -0.009550095, z: 0}
-    m_Extent: {x: 20.50175, y: 20.49385, z: 0}
+    m_Center: {x: 0.0063495636, y: -0.0006494522, z: 0}
+    m_Extent: {x: 20.50205, y: 20.50085, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
