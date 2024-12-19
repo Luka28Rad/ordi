@@ -32,7 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5443499244006332794}
+  m_Father: {fileID: 3966919337055969530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6368636972447045639
 SpriteRenderer:
@@ -180,6 +180,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5505916628386955154}
   - {fileID: 5443499244006332794}
   m_Father: {fileID: 8865229043417599447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -217,7 +218,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5505916628386955154}
   - {fileID: 9185647762878412746}
   - {fileID: 2912449848046238862}
   - {fileID: 6461970566876666003}
@@ -5501,8 +5501,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.008700371, y: -0.009600639, z: 0}
-    m_Extent: {x: 20.5043, y: 20.4931, z: 0}
+    m_Center: {x: 0.004650116, y: -0.0049495697, z: 0}
+    m_Extent: {x: 20.50425, y: 20.50065, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

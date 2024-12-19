@@ -11,7 +11,7 @@ public class DashIndicatorMP : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = transform.parent.gameObject;
+        player = transform.parent.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
