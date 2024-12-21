@@ -109,24 +109,6 @@ public class PlayerControllerMP : NetworkBehaviour
         {
             m_animator.SetBool("isWalking", false);
         }
-        if (canMove)
-        {
-            bool walking = Mathf.Abs(input) > 0 && m_Grounded;
-            if (walking != isWalking)
-            {
-                CmdUpdateWalkingState(walking);
-            }
-        }
-
-        if (m_Grounded || coyoteTimerTemp > 0)
-        {
-            bool jumping = !m_Grounded && toJump;
-            if (jumping != isJumping)
-            {
-                CmdUpdateJumpingState(jumping);
-            }
-}
-
         
         toJump = false;
         toDash = false;
@@ -151,35 +133,6 @@ public class PlayerControllerMP : NetworkBehaviour
     {
         isDashIndicatorVisible = visible;
     }
-
-    [Command]
-    private void CmdUpdateWalkingState(bool walking)
-    {
-        isWalking = walking;
-    }
-
-    [Command]
-    private void CmdUpdateJumpingState(bool jumping)
-    {
-        isJumping = jumping;
-    }
-
-    [SyncVar(hook = nameof(OnWalkingStateChanged))]
-    private bool isWalking;
-
-    [SyncVar(hook = nameof(OnJumpingStateChanged))]
-    private bool isJumping;
-
-    private void OnWalkingStateChanged(bool oldValue, bool newValue)
-    {
-        m_animator.SetBool("isWalking", newValue);
-    }
-
-    private void OnJumpingStateChanged(bool oldValue, bool newValue)
-    {
-        m_animator.SetBool("isJumping", newValue);
-    }
-
 
     public void Move(float move, bool jump, bool dash)
     {
