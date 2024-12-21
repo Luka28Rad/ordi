@@ -194,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5443499244006332794}
   - component: {fileID: 659539571900306917}
-  - component: {fileID: 5525951256768945564}
+  - component: {fileID: 7433576162141149308}
   - component: {fileID: 2924509123961807076}
   - component: {fileID: 538783998946541176}
   - component: {fileID: 1812500015819550456}
@@ -277,7 +277,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5525951256768945564
+--- !u!114 &7433576162141149308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2224400312596695052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a8114a30fbed364c9bc0dca8e2d6b1f, type: 3}
+  m_Script: {fileID: 11500000, guid: e8c8b16441da78545a946fb262f718e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
@@ -5501,8 +5501,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.004650116, y: -0.0049495697, z: 0}
-    m_Extent: {x: 20.50425, y: 20.50065, z: 0}
+    m_Center: {x: 0.0010499954, y: 0.002500534, z: 0}
+    m_Extent: {x: 20.501251, y: 20.4953, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
