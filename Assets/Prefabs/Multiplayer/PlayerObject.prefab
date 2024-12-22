@@ -304,6 +304,7 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 2912449848046238862}
   dashTrail: {fileID: 70025956008850955}
   dashIndicator: {fileID: 616871831511696201}
+  maxJumps: 2
 --- !u!50 &2924509123961807076
 Rigidbody2D:
   serializedVersion: 4

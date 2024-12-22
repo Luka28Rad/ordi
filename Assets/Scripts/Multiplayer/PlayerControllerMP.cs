@@ -35,6 +35,10 @@ public class PlayerControllerMP : NetworkBehaviour
     private float jumpBufferTemp = 0.1f;
     private bool canMove = true;
     private Animator m_animator;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private int maxJumps = 2;
+    private int remainingJumps;
+    private bool springshroomDoubleJump = false;
 
     [SyncVar(hook = nameof(OnDashIndicatorStateChanged))]
     private bool isDashIndicatorVisible = true;
@@ -43,6 +47,21 @@ public class PlayerControllerMP : NetworkBehaviour
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom")) 
+        {
+            springshroomDoubleJump = true;
+        }
+        remainingJumps = maxJumps;
+    }
+
+    private void Start(){
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom")) 
+        {
+            springshroomDoubleJump = true;
+        }
+        remainingJumps = maxJumps;
     }
 
     public override void OnStartClient()
@@ -201,6 +220,7 @@ public class PlayerControllerMP : NetworkBehaviour
         }
         if(m_Grounded){
             coyoteTimerTemp = coyoteTimer;
+            remainingJumps = maxJumps;
             if (jumpBufferTemp > 0)
             {
                 jump = true;
@@ -216,14 +236,21 @@ public class PlayerControllerMP : NetworkBehaviour
             m_animator.SetBool("isWalking", false);
         }
 
-        if ((m_Grounded || coyoteTimerTemp > 0) && jump)
+        bool canJump = (m_Grounded || coyoteTimerTemp > 0 || 
+                      (springshroomDoubleJump && remainingJumps > 0));
+        
+        if (canJump && jump)
         {
             coyoteTimerTemp = 0;
             m_Grounded = false;
+            remainingJumps--;
+            
+            // Reset vertical velocity before applying jump force
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             m_animator.SetBool("isJumping", true);
         }
+
 
         if(canDash && dash)
         {
