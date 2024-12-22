@@ -72,11 +72,15 @@ public class PlayerControllerMP : NetworkBehaviour
             UpdateDashIndicatorVisibility(isDashIndicatorVisible);
         }
     }
-
+    private bool set = false;
     private void Update()
     {
         if(SceneManager.GetActiveScene().name == "MultiplayerLevel" && !isOwned) return;
-        
+        if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom") && !set) 
+        {
+            springshroomDoubleJump = true;
+            set = true;
+        }
         input = Input.GetAxisRaw("Horizontal");
         
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
