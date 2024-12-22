@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Mirror;
 
-public class EndlessTilesMp : NetworkBehaviour
-{/*
+public class NetworkedEndlessTiles : NetworkBehaviour
+{
     public Tilemap tilemap;
     public Tilemap borderTileMap;
     public TileBase tile;
@@ -17,22 +17,25 @@ public class EndlessTilesMp : NetworkBehaviour
     private float borderTopHeight;
     private float currentHeight;
     
-    // SyncVar to track the highest player position
+    // Reference to the CustomNetworkManager
+    private CustomNetworkManager networkManager;
+
     [SyncVar]
     private float highestPlayerY;
 
-    // Keep track of the last generated platform position
     private int prevStart = -50;
     private int prevLength = -50;
 
     public override void OnStartServer()
     {
+        networkManager = (CustomNetworkManager)NetworkManager.singleton;
+        
         // Initialize on server
-        currentHeight = 0;
-        borderTopHeight = -2;
+        currentHeight = -5;
+        borderTopHeight = -11;
         
         // Initial platform generation up to height 30
-        for (float height = 0; height <= 30; height += Random.Range(rowMinDistance, rowMaxDistance))
+        for (float height = -8; height <= 30; height += 2)
         {
             SpawnRow(height);
         }
@@ -44,10 +47,9 @@ public class EndlessTilesMp : NetworkBehaviour
     {
         if (!isServer) return;
 
-        // Find the highest player
-        UpdateHighestPlayerPosition();
-
         // Generate new platforms if needed
+        UpdateHighestPlayerPosition();
+        
         if (highestPlayerY > currentHeight - 2)
         {
             currentHeight += Random.Range(rowMinDistance, rowMaxDistance);
@@ -63,13 +65,16 @@ public class EndlessTilesMp : NetworkBehaviour
 
     private void UpdateHighestPlayerPosition()
     {
+        if (networkManager == null) return;
+
         float maxHeight = float.MinValue;
-        foreach (NetworkGamePlayer player in NetworkManager.singleton.conn)
+        foreach (PlayerObjectController player in networkManager.GamePlayers)
         {
-            if (player != null && player.playerObject != null)
+            if (player != null && player.gameObject != null)
             {
-                float playerHeight = player.playerObject.transform.position.y;
+                float playerHeight = player.gameObject.transform.GetChild(0).GetChild(1).transform.position.y;
                 maxHeight = Mathf.Max(maxHeight, playerHeight);
+                //Debug.Log("AAA "+ player.name);
             }
         }
         if (maxHeight != float.MinValue)
@@ -129,5 +134,5 @@ public class EndlessTilesMp : NetworkBehaviour
     {
         borderTileMap.SetTile(new Vector3Int(-6, height, 0), tile);
         borderTileMap.SetTile(new Vector3Int(6, height, 0), tile);
-    }*/
+    }
 }
