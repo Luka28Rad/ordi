@@ -21,6 +21,7 @@ public class PlayerControllerMP : NetworkBehaviour
     const float k_GroundedRadius = .3f;
     private bool m_Grounded;            
     private bool canDash;
+    private bool canDoubleJump;
     const float k_CeilingRadius = .2f;
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  
@@ -29,6 +30,7 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool toJump = false;
     private bool toDash = false;
     private float timeSinceLastDash = 0f;
+    private float timeSinceLastDoubleJump = 0f;
     readonly private float coyoteTimer = 0.2f;
     private float coyoteTimerTemp = 0.2f;
     readonly private float jumpBuffer = 0.1f;
@@ -40,8 +42,8 @@ public class PlayerControllerMP : NetworkBehaviour
     private int remainingJumps;
     private bool springshroomDoubleJump = false;
 
-    [SyncVar(hook = nameof(OnDashIndicatorStateChanged))]
-    private bool isDashIndicatorVisible = true;
+    [SyncVar(hook = nameof(OnIndicatorStateChanged))]
+    private bool isIndicatorVisible = true;
 
     private void Awake()
     {
@@ -53,6 +55,7 @@ public class PlayerControllerMP : NetworkBehaviour
             springshroomDoubleJump = true;
         }
         remainingJumps = maxJumps;
+        canDoubleJump = true;
     }
 
     private void Start(){
@@ -62,6 +65,7 @@ public class PlayerControllerMP : NetworkBehaviour
             springshroomDoubleJump = true;
         }
         remainingJumps = maxJumps;
+        canDoubleJump = true;
     }
 
     public override void OnStartClient()
@@ -69,9 +73,10 @@ public class PlayerControllerMP : NetworkBehaviour
         base.OnStartClient();
         if (dashIndicator != null)
         {
-            UpdateDashIndicatorVisibility(isDashIndicatorVisible);
+            UpdateIndicatorVisibility(isIndicatorVisible);
         }
     }
+
     private bool set = false;
     private void Update()
     {
@@ -107,17 +112,36 @@ public class PlayerControllerMP : NetworkBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 m_Grounded = true;
-                if (Time.time - timeSinceLastDash > 0.4f)
+                if (springshroomDoubleJump)
                 {
-                    if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                    if (Time.time - timeSinceLastDoubleJump > 0.4f)
                     {
-                        CmdSetDashIndicatorState(true);
-                        canDash = true;
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canDoubleJump = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canDoubleJump = true;
+                        }
                     }
-                    else 
+                }
+                else
+                {
+                    if (Time.time - timeSinceLastDash > 0.4f)
                     {
-                        UpdateDashIndicatorVisibility(true);
-                        canDash = true;
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canDash = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canDash = true;
+                        }
                     }
                 }
                 m_animator.SetBool("isJumping", false);
@@ -132,6 +156,7 @@ public class PlayerControllerMP : NetworkBehaviour
         {
             m_animator.SetBool("isWalking", false);
         }
+        
         if (canMove)
         {
             bool walking = Mathf.Abs(input) > 0 && m_Grounded;
@@ -148,14 +173,13 @@ public class PlayerControllerMP : NetworkBehaviour
             {
                 CmdUpdateJumpingState(jumping);
             }
-}
-
+        }
         
         toJump = false;
         toDash = false;
     }
 
-    private void UpdateDashIndicatorVisibility(bool visible)
+    private void UpdateIndicatorVisibility(bool visible)
     {
         if (dashIndicator != null)
         {
@@ -164,15 +188,15 @@ public class PlayerControllerMP : NetworkBehaviour
         }
     }
 
-    private void OnDashIndicatorStateChanged(bool oldValue, bool newValue)
+    private void OnIndicatorStateChanged(bool oldValue, bool newValue)
     {
-        UpdateDashIndicatorVisibility(newValue);
+        UpdateIndicatorVisibility(newValue);
     }
 
     [Command]
-    private void CmdSetDashIndicatorState(bool visible)
+    private void CmdSetIndicatorState(bool visible)
     {
-        isDashIndicatorVisible = visible;
+        isIndicatorVisible = visible;
     }
 
     [Command]
@@ -202,7 +226,6 @@ public class PlayerControllerMP : NetworkBehaviour
     {
         m_animator.SetBool("isJumping", newValue);
     }
-
 
     public void Move(float move, bool jump, bool dash)
     {
@@ -241,30 +264,43 @@ public class PlayerControllerMP : NetworkBehaviour
         }
 
         bool canJump = (m_Grounded || coyoteTimerTemp > 0 || 
-                      (springshroomDoubleJump && remainingJumps > 0));
+                      (springshroomDoubleJump && remainingJumps > 0 && canDoubleJump));
         
         if (canJump && jump)
         {
+            if (!m_Grounded && coyoteTimerTemp <= 0 && springshroomDoubleJump)
+            {
+                // This is a double jump
+                if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+                {
+                    CmdSetIndicatorState(false);
+                }
+                else 
+                {
+                    UpdateIndicatorVisibility(false);
+                }
+                canDoubleJump = false;
+                timeSinceLastDoubleJump = Time.time;
+            }
+            
             coyoteTimerTemp = 0;
             m_Grounded = false;
             remainingJumps--;
             
-            // Reset vertical velocity before applying jump force
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             m_animator.SetBool("isJumping", true);
         }
 
-
-        if(canDash && dash)
+        if(!springshroomDoubleJump && canDash && dash)
         {
             if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
             {
-                CmdSetDashIndicatorState(false);
+                CmdSetIndicatorState(false);
             }
             else 
             {
-                UpdateDashIndicatorVisibility(false);
+                UpdateIndicatorVisibility(false);
             }
             
             canDash = false;

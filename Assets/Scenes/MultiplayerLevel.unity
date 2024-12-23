@@ -611,7 +611,7 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 360
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
@@ -960,7 +960,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 37
+      m_TileSpriteIndex: 38
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -2567,10 +2567,10 @@ Tilemap:
     m_Data: {fileID: -1030402854, guid: d4a3472c9ab40fc49b8baf4dc4641fc3, type: 3}
   - m_RefCount: 49
     m_Data: {fileID: -304923773, guid: d4a3472c9ab40fc49b8baf4dc4641fc3, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1729945394, guid: d4a3472c9ab40fc49b8baf4dc4641fc3, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1729945394, guid: d4a3472c9ab40fc49b8baf4dc4641fc3, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1324450859, guid: d4a3472c9ab40fc49b8baf4dc4641fc3, type: 3}
   - m_RefCount: 1
