@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControllerMP : NetworkBehaviour
 {
-    [SerializeField] private float m_JumpForce = 600f;                            
+     [SerializeField] private float m_JumpForce = 600f;                            
     [SerializeField] private float m_DashForce = 600f;    
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float starDustBoostSpeed = 150f;
+    [SerializeField] private float flyingForce = 600f;  // Force for Dusko's flying ability
+    [SerializeField] private float flyDuration = 0.5f;  // How long Dusko can fly
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;    
     [SerializeField] private LayerMask m_WhatIsGround;                            
     [SerializeField] private Transform m_GroundCheck;                            
@@ -22,6 +24,7 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool m_Grounded;            
     private bool canDash;
     private bool canDoubleJump;
+    private bool canFly;  // Added for Dusko's flying ability
     const float k_CeilingRadius = .2f;
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  
@@ -29,8 +32,10 @@ public class PlayerControllerMP : NetworkBehaviour
     private float input;
     private bool toJump = false;
     private bool toDash = false;
+    private bool toFly = false;  // Added for Dusko's flying ability
     private float timeSinceLastDash = 0f;
     private float timeSinceLastDoubleJump = 0f;
+    private float timeSinceLastFly = 0f;  // Added for Dusko's flying ability
     readonly private float coyoteTimer = 0.2f;
     private float coyoteTimerTemp = 0.2f;
     readonly private float jumpBuffer = 0.1f;
@@ -41,31 +46,32 @@ public class PlayerControllerMP : NetworkBehaviour
     [SerializeField] private int maxJumps = 2;
     private int remainingJumps;
     private bool springshroomDoubleJump = false;
+    private bool isDusko = false;
 
     [SyncVar(hook = nameof(OnIndicatorStateChanged))]
     private bool isIndicatorVisible = true;
+    [SerializeField] private float jumpHoldThreshold = 0.4f;  // Time needed to hold jump for flying
+    
+    private float jumpHoldTimer = 0f;
+    private bool isHoldingJump = false;
 
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
         m_animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom")) 
-        {
-            springshroomDoubleJump = true;
-        }
+        CheckCharacterType();
         remainingJumps = maxJumps;
         canDoubleJump = true;
+        canFly = isDusko;  // Initialize flying ability if Dusko
     }
 
     private void Start(){
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom")) 
-        {
-            springshroomDoubleJump = true;
-        }
+        CheckCharacterType();
         remainingJumps = maxJumps;
         canDoubleJump = true;
+        canFly = isDusko;  // Initialize flying ability if Dusko
     }
 
     public override void OnStartClient()
@@ -74,6 +80,24 @@ public class PlayerControllerMP : NetworkBehaviour
         if (dashIndicator != null)
         {
             UpdateIndicatorVisibility(isIndicatorVisible);
+        }
+    }
+
+    private void CheckCharacterType()
+    {
+        if(spriteRenderer)
+        {
+            string spriteName = spriteRenderer.sprite.name.ToLower();
+            if(spriteName.Contains("springshroom"))
+            {
+                springshroomDoubleJump = true;
+                isDusko = false;
+            }
+            else if(spriteName.Contains("dusko"))
+            {
+                isDusko = true;
+                springshroomDoubleJump = false;
+            }
         }
     }
 
@@ -86,15 +110,42 @@ public class PlayerControllerMP : NetworkBehaviour
             springshroomDoubleJump = true;
             set = true;
         }
+        
         input = Input.GetAxisRaw("Horizontal");
         
+        // Handle jump input and flying for Dusko
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             toJump = true;
             jumpBufferTemp = jumpBuffer;
+            if(isDusko)
+            {
+                isHoldingJump = true;
+                jumpHoldTimer = 0f;
+            }
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift)){
+        // Track jump hold duration for Dusko's flying ability
+        if(isDusko && isHoldingJump)
+        {
+            if(Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+            {
+                jumpHoldTimer += Time.deltaTime;
+                if(jumpHoldTimer >= jumpHoldThreshold && canFly)
+                {
+                    toFly = true;
+                    isHoldingJump = false;
+                }
+            }
+            else
+            {
+                isHoldingJump = false;
+            }
+        }
+
+        // Remove the previous Dusko flying input check
+        if(!isDusko && Input.GetKeyDown(KeyCode.LeftShift))
+        {
             toDash = true;
         }
     }
@@ -128,6 +179,22 @@ public class PlayerControllerMP : NetworkBehaviour
                         }
                     }
                 }
+                else if (isDusko)
+                {
+                    if (Time.time - timeSinceLastFly > 0.4f)
+                    {
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canFly = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canFly = true;
+                        }
+                    }
+                }
                 else
                 {
                     if (Time.time - timeSinceLastDash > 0.4f)
@@ -150,33 +217,16 @@ public class PlayerControllerMP : NetworkBehaviour
 
         if (canMove)
         {
-            Move(input * Time.fixedDeltaTime * moveSpeed, toJump, toDash);
+            Move(input * Time.fixedDeltaTime * moveSpeed, toJump, toDash, toFly);
         }
         else
         {
             m_animator.SetBool("isWalking", false);
         }
         
-        if (canMove)
-        {
-            bool walking = Mathf.Abs(input) > 0 && m_Grounded;
-            if (walking != isWalking)
-            {
-                CmdUpdateWalkingState(walking);
-            }
-        }
-
-        if (m_Grounded || coyoteTimerTemp > 0)
-        {
-            bool jumping = !m_Grounded && toJump;
-            if (jumping != isJumping)
-            {
-                CmdUpdateJumpingState(jumping);
-            }
-        }
-        
         toJump = false;
         toDash = false;
+        toFly = false;
     }
 
     private void UpdateIndicatorVisibility(bool visible)
@@ -227,7 +277,7 @@ public class PlayerControllerMP : NetworkBehaviour
         m_animator.SetBool("isJumping", newValue);
     }
 
-    public void Move(float move, bool jump, bool dash)
+    public void Move(float move, bool jump, bool dash, bool fly)
     {
         Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
@@ -263,6 +313,7 @@ public class PlayerControllerMP : NetworkBehaviour
             m_animator.SetBool("isWalking", false);
         }
 
+        // Normal jump logic for all characters
         bool canJump = (m_Grounded || coyoteTimerTemp > 0 || 
                       (springshroomDoubleJump && remainingJumps > 0 && canDoubleJump));
         
@@ -270,7 +321,6 @@ public class PlayerControllerMP : NetworkBehaviour
         {
             if (!m_Grounded && coyoteTimerTemp <= 0 && springshroomDoubleJump)
             {
-                // This is a double jump
                 if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
                 {
                     CmdSetIndicatorState(false);
@@ -292,7 +342,25 @@ public class PlayerControllerMP : NetworkBehaviour
             m_animator.SetBool("isJumping", true);
         }
 
-        if(!springshroomDoubleJump && canDash && dash)
+        // Dusko's flying ability
+        if(isDusko && canFly && fly)
+        {
+            if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+            {
+                CmdSetIndicatorState(false);
+            }
+            else 
+            {
+                UpdateIndicatorVisibility(false);
+            }
+            
+            canFly = false;
+            timeSinceLastFly = Time.time;
+            StartCoroutine(Fly());
+        }
+
+        // Normal dash ability for non-Dusko characters
+        if(!springshroomDoubleJump && !isDusko && canDash && dash)
         {
             if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
             {
@@ -399,5 +467,21 @@ public class PlayerControllerMP : NetworkBehaviour
         }
 
         moveSpeed = targetSpeed;
+    }
+    IEnumerator Fly()
+    {
+        float flyTimer = 0f;
+        float originalGravity = m_Rigidbody2D.gravityScale;
+        m_Rigidbody2D.gravityScale = 0;
+        
+        while(flyTimer < flyDuration)
+        {
+            m_Rigidbody2D.AddForce(new Vector2(0f, flyingForce * Time.deltaTime));
+            flyTimer += Time.deltaTime;
+            m_animator.SetBool("isJumping", true);
+            yield return null;
+        }
+        
+        m_Rigidbody2D.gravityScale = originalGravity;
     }
 }
