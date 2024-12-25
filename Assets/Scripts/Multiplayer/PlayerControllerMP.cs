@@ -19,6 +19,9 @@ public class PlayerControllerMP : NetworkBehaviour
     [SerializeField] private Transform m_CeilingCheck;                          
     [SerializeField] private ParticleSystem dashTrail;
     [SerializeField] private GameObject dashIndicator;
+    [SerializeField] private float jumpRefresh = 1.5f;
+    [SerializeField] private float flyRefresh = 3f;
+    [SerializeField] private float dashRefresh = 1f;
 
     const float k_GroundedRadius = .3f;
     private bool m_Grounded;            
@@ -179,7 +182,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 m_Grounded = true;
                 if (springshroomDoubleJump)
                 {
-                    if (Time.time - timeSinceLastDoubleJump > 0.4f)
+                    if (Time.time - timeSinceLastDoubleJump > jumpRefresh)
                     {
                         if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
                         {
@@ -195,7 +198,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 }
                 else if (isDusko)
                 {
-                    if (Time.time - timeSinceLastFly > 0.4f)
+                    if (Time.time - timeSinceLastFly > flyRefresh)
                     {
                         if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
                         {
@@ -211,7 +214,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 }
                 else
                 {
-                    if (Time.time - timeSinceLastDash > 0.4f)
+                    if (Time.time - timeSinceLastDash > dashRefresh)
                     {
                         if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
                         {
