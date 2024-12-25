@@ -17746,6 +17746,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4bdd731d92abe9742882601003e39ae1, type: 3}
   - {fileID: 21300000, guid: 18ca3a7c7dbcd13419318b88d9369266, type: 3}
   - {fileID: -1474893583, guid: c67c9cafffe805f4e87b68f5e5aaf75d, type: 3}
+  - {fileID: 21300000, guid: 32ede4eeea62e364f9a129f0a65dc0d7, type: 3}
+  - {fileID: 21300000, guid: 246df6b33bab28d4f9bf8c697f265d6b, type: 3}
+  - {fileID: -711124770, guid: 47a0ca764daa9f949877a5e5e4f08f9d, type: 3}
   currentColorImage: {fileID: 1473447986}
   currentColorText: {fileID: 1850796872}
   LocalPlayerObject: {fileID: 0}

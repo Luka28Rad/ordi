@@ -54,6 +54,12 @@ public class PlayerControllerMP : NetworkBehaviour
     
     private float jumpHoldTimer = 0f;
     private bool isHoldingJump = false;
+    [SerializeField] private float teleportDistance = 5f;
+    [SerializeField] private ParticleSystem poofParticle;
+    [SerializeField] private float teleportDelay = 0.5f;
+    private bool isTeleporting = false;
+    // Add to existing private fields
+    private bool isWizzy = false;
 
     private void Awake()
     {
@@ -83,7 +89,7 @@ public class PlayerControllerMP : NetworkBehaviour
         }
     }
 
-    private void CheckCharacterType()
+        private void CheckCharacterType()
     {
         if(spriteRenderer)
         {
@@ -92,10 +98,18 @@ public class PlayerControllerMP : NetworkBehaviour
             {
                 springshroomDoubleJump = true;
                 isDusko = false;
+                isWizzy = false;
             }
             else if(spriteName.Contains("dusko"))
             {
                 isDusko = true;
+                springshroomDoubleJump = false;
+                isWizzy = false;
+            }
+            else if(spriteName.Contains("wizzy"))
+            {
+                isWizzy = true;
+                isDusko = false;
                 springshroomDoubleJump = false;
             }
         }
@@ -342,6 +356,23 @@ public class PlayerControllerMP : NetworkBehaviour
             m_animator.SetBool("isJumping", true);
         }
 
+        if(isWizzy && dash && canDash)
+        {
+            if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+            {
+                CmdSetIndicatorState(false);
+                CmdTeleport();
+            }
+            else 
+            {
+                UpdateIndicatorVisibility(false);
+                Teleport();
+            }
+            
+            canDash = false;
+            timeSinceLastDash = Time.time;
+        }
+
         // Dusko's flying ability
         if(isDusko && canFly && fly)
         {
@@ -483,5 +514,89 @@ public class PlayerControllerMP : NetworkBehaviour
         }
         
         m_Rigidbody2D.gravityScale = originalGravity;
+    }
+
+    private void Teleport()
+    {
+        if (!isTeleporting)
+        {
+            StartCoroutine(TeleportSequence());
+        }
+    }
+private IEnumerator TeleportSequence()
+    {
+        isTeleporting = true;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + new Vector3(0, teleportDistance, 0);
+
+        // Initial poof and disappear
+        if (poofParticle != null)
+        {
+            Instantiate(poofParticle, startPos + new Vector3(0, 0, -1), transform.rotation);
+        }
+        spriteRenderer.enabled = false;
+
+        yield return new WaitForSeconds(teleportDelay);
+
+        // Spawn end poof and appear
+        if (poofParticle != null)
+        {
+            Instantiate(poofParticle, endPos + new Vector3(0, 0, -1), transform.rotation);
+        }
+        transform.position = endPos;
+        spriteRenderer.enabled = true;
+        isTeleporting = false;
+    }
+
+    [Command]
+    private void CmdTeleport()
+    {
+        if (!isTeleporting)
+        {
+            StartCoroutine(NetworkTeleportSequence());
+        }
+    }
+
+    private IEnumerator NetworkTeleportSequence()
+    {
+        isTeleporting = true;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + new Vector3(0, teleportDistance, 0);
+        int checkNum = Mathf.FloorToInt(endPos.y);
+        checkNum = (checkNum + 1)%3;
+        if(checkNum != 0) {
+            endPos = endPos + new Vector3(0, 0.5f, 0);
+        }
+
+        // Initial disappear and poof on all clients
+        RpcStartTeleport(startPos);
+
+        yield return new WaitForSeconds(teleportDelay);
+
+        // Final poof and appear on all clients
+        RpcEndTeleport(endPos);
+        transform.position = endPos;
+        isTeleporting = false;
+    }
+
+    [ClientRpc]
+    private void RpcStartTeleport(Vector3 startPos)
+    {
+        if (poofParticle != null)
+        {
+            Instantiate(poofParticle, startPos + new Vector3(0, 0, -1), transform.rotation);
+        }
+        spriteRenderer.enabled = false;
+    }
+
+    [ClientRpc]
+    private void RpcEndTeleport(Vector3 endPos)
+    {
+        if (poofParticle != null)
+        {
+            Instantiate(poofParticle, endPos + new Vector3(0, 0, -1), transform.rotation);
+        }
+        transform.position = endPos;
+        spriteRenderer.enabled = true;
     }
 }

@@ -92,14 +92,15 @@ public class ScenesController : MonoBehaviour
 
     public void PracticeButtonClicked()
     {
-        if(buttonsToShow.activeSelf) {
+        if(levelButtons.activeSelf) {
+            panel.GetComponent<Image>().sprite = panelImageNormal;
+        levelButtons.SetActive(false);
+        buttonsToShowSingleplayer.SetActive(true);
+        } else {
             panel.GetComponent<Image>().sprite = panelImageLevels;
         levelButtons.SetActive(true);
         buttonsToShow.SetActive(false);
-        } else {
-            panel.GetComponent<Image>().sprite = panelImageNormal;
-        levelButtons.SetActive(false);
-        buttonsToShow.SetActive(true);
+        buttonsToShowSingleplayer.SetActive(false);
         }
     }
 

@@ -308,6 +308,9 @@ MonoBehaviour:
   dashIndicator: {fileID: 616871831511696201}
   maxJumps: 2
   jumpHoldThreshold: 0.4
+  teleportDistance: 10
+  poofParticle: {fileID: 9157105887693468085, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+  teleportDelay: 0.5
 --- !u!50 &2924509123961807076
 Rigidbody2D:
   serializedVersion: 4
@@ -498,6 +501,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 4bdd731d92abe9742882601003e39ae1, type: 3}
   - {fileID: 21300000, guid: 18ca3a7c7dbcd13419318b88d9369266, type: 3}
   - {fileID: -1474893583, guid: c67c9cafffe805f4e87b68f5e5aaf75d, type: 3}
+  - {fileID: 21300000, guid: 32ede4eeea62e364f9a129f0a65dc0d7, type: 3}
+  - {fileID: 21300000, guid: 246df6b33bab28d4f9bf8c697f265d6b, type: 3}
+  - {fileID: -711124770, guid: 47a0ca764daa9f949877a5e5e4f08f9d, type: 3}
 --- !u!114 &1074939446118750653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5505,8 +5511,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0002002716, y: -0.0075502396, z: 0}
-    m_Extent: {x: 20.4988, y: 20.49295, z: 0}
+    m_Center: {x: 0.0058498383, y: -0.009050369, z: 0}
+    m_Extent: {x: 20.50615, y: 20.49855, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
