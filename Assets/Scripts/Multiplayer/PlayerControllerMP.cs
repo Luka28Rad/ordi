@@ -63,6 +63,15 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool isTeleporting = false;
     // Add to existing private fields
     private bool isWizzy = false;
+    private bool isSvijeca = false;  // Add Svijeca character check
+    [SerializeField] private float enhancedJumpForce = 1200f;  // Svijeca's enhanced jump force
+    [SerializeField] private float enhancedJumpDuration = 5f;  // Duration of enhanced jump
+    [SerializeField] private float svijecaAbilityCooldown = 10f;  // Cooldown for Svijeca's ability
+    [SerializeField] private ParticleSystem enhancedJumpParticles;
+    private bool canUseEnhancedJump = true;
+    private float timeSinceLastEnhancedJump = 0f;
+    private bool isEnhancedJumpActive = false;
+    private float originalJumpForce;
 
     private void Awake()
     {
@@ -81,6 +90,27 @@ public class PlayerControllerMP : NetworkBehaviour
         remainingJumps = maxJumps;
         canDoubleJump = true;
         canFly = isDusko;  // Initialize flying ability if Dusko
+
+        if (enhancedJumpParticles != null)
+        {
+            if (isSvijeca)
+            {
+                // Configure particle system for Svijeca
+                enhancedJumpParticles.Stop();
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            }
+            else
+            {
+                // Destroy particle system for other characters
+                Destroy(enhancedJumpParticles.gameObject);
+                enhancedJumpParticles = null;
+            }
+        }
+        if(isSvijeca)
+        {
+            originalJumpForce = m_JumpForce;
+            canUseEnhancedJump = true;
+        }
     }
 
     public override void OnStartClient()
@@ -102,16 +132,26 @@ public class PlayerControllerMP : NetworkBehaviour
                 springshroomDoubleJump = true;
                 isDusko = false;
                 isWizzy = false;
+                isSvijeca = false;
             }
             else if(spriteName.Contains("dusko"))
             {
                 isDusko = true;
                 springshroomDoubleJump = false;
                 isWizzy = false;
+                isSvijeca = false;
             }
             else if(spriteName.Contains("wizzy"))
             {
                 isWizzy = true;
+                isDusko = false;
+                springshroomDoubleJump = false;
+                isSvijeca = false;
+            }
+            else if(spriteName.Contains("svijeca"))
+            {
+                isSvijeca = true;
+                isWizzy = false;
                 isDusko = false;
                 springshroomDoubleJump = false;
             }
@@ -161,7 +201,12 @@ public class PlayerControllerMP : NetworkBehaviour
         }
 
         // Remove the previous Dusko flying input check
-        if(!isDusko && Input.GetKeyDown(KeyCode.LeftShift))
+        if(isSvijeca && Input.GetKeyDown(KeyCode.LeftShift) && canUseEnhancedJump && !isEnhancedJumpActive)
+        {
+            StartCoroutine(ActivateEnhancedJump());
+        }
+        // Handle other character abilities
+        else if(!isSvijeca && !isDusko && Input.GetKeyDown(KeyCode.LeftShift))
         {
             toDash = true;
         }
@@ -209,6 +254,22 @@ public class PlayerControllerMP : NetworkBehaviour
                         {
                             UpdateIndicatorVisibility(true);
                             canFly = true;
+                        }
+                    }
+                }
+                else if (isSvijeca)
+                {
+                    if (Time.time - timeSinceLastEnhancedJump > svijecaAbilityCooldown)
+                    {
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canUseEnhancedJump = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canUseEnhancedJump = true;
                         }
                     }
                 }
@@ -601,5 +662,70 @@ private IEnumerator TeleportSequence()
         }
         transform.position = endPos;
         spriteRenderer.enabled = true;
+    }
+
+    private IEnumerator ActivateEnhancedJump()
+    {
+        if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+        {
+            CmdSetIndicatorState(false);
+            CmdToggleParticles(true);
+        }
+        else 
+        {
+            UpdateIndicatorVisibility(false);
+            if (enhancedJumpParticles != null)
+            {
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                enhancedJumpParticles.Play();
+            }
+        }
+        
+        canUseEnhancedJump = false;
+        isEnhancedJumpActive = true;
+        timeSinceLastEnhancedJump = Time.time;
+        
+        float tempJumpForce = m_JumpForce;
+        m_JumpForce = enhancedJumpForce;
+        
+        yield return new WaitForSeconds(enhancedJumpDuration);
+        
+        if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+        {
+            CmdToggleParticles(false);
+        }
+        else if (enhancedJumpParticles != null)
+        {
+            enhancedJumpParticles.Stop();
+            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        
+        m_JumpForce = tempJumpForce;
+        isEnhancedJumpActive = false;
+    }
+
+    [Command]
+    private void CmdToggleParticles(bool play)
+    {
+        // Call RPC to sync particle state across all clients
+        RpcToggleParticles(play);
+    }
+
+    [ClientRpc]
+    private void RpcToggleParticles(bool play)
+    {
+        if (enhancedJumpParticles != null)
+        {
+            if (play)
+            {
+                enhancedJumpParticles.Play();
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(true);
+            }
+            else
+            {
+                enhancedJumpParticles.Stop();
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            }
+        }
     }
 }
