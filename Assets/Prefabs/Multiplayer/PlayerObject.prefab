@@ -19428,6 +19428,7 @@ MonoBehaviour:
   svijecaAbilityCooldown: 10
   enhancedJumpParticles: {fileID: 6918146628757462845}
   enhancedJumpParticlesMathcstick: {fileID: 1904568074612723850}
+  walkParticleSystem: {fileID: 4124700373031333485}
 --- !u!50 &2924509123961807076
 Rigidbody2D:
   serializedVersion: 4
@@ -19754,8 +19755,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.11790013, y: 1.2318499, z: 0}
-    m_Extent: {x: 5.4056997, y: 7.7906504, z: 0}
+    m_Center: {x: -0.11860013, y: 1.2289498, z: 0}
+    m_Extent: {x: 5.4208, y: 7.80095, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -24725,8 +24726,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0029001236, y: -0.0022993088, z: 0}
-    m_Extent: {x: 20.503101, y: 20.4985, z: 0}
+    m_Center: {x: -0.0028505325, y: -0.00909996, z: 0}
+    m_Extent: {x: 20.50335, y: 20.4942, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

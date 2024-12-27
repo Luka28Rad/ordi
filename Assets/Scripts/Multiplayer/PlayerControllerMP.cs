@@ -74,6 +74,7 @@ public class PlayerControllerMP : NetworkBehaviour
     private float timeSinceLastEnhancedJump = 0f;
     private bool isEnhancedJumpActive = false;
     private float originalJumpForce;
+    [SerializeField] private ParticleSystem walkParticleSystem;
 
     private void Awake()
     {
@@ -81,6 +82,7 @@ public class PlayerControllerMP : NetworkBehaviour
         m_animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         CheckCharacterType();
+        SetParticleColor();
         remainingJumps = maxJumps;
         canDoubleJump = true;
         canFly = isDusko;  // Initialize flying ability if Dusko
@@ -89,6 +91,7 @@ public class PlayerControllerMP : NetworkBehaviour
     private void Start(){
         spriteRenderer = GetComponent<SpriteRenderer>();
         CheckCharacterType();
+        SetParticleColor();
         remainingJumps = maxJumps;
         canDoubleJump = true;
         canFly = isDusko;  // Initialize flying ability if Dusko
@@ -181,6 +184,57 @@ public class PlayerControllerMP : NetworkBehaviour
             }
         }
     }
+
+    private void SetParticleColor()
+{
+    if (walkParticleSystem != null && spriteRenderer != null)
+    {
+        var mainModule = walkParticleSystem.main;
+
+        if (spriteRenderer.sprite.name.ToLower().Contains("springshroom"))
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0xC4, 0xDB, 0xFF, 0xFF),
+                new Color32(0x4D, 0x5E, 0xBF, 0xFF)
+            );
+        }
+        else if (spriteRenderer.sprite.name.ToLower().Contains("dusko"))
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0x2B, 0xFF, 0x08, 0xFF),
+                new Color32(0x00, 0xFF, 0xE5, 0xFF)
+            );
+        }
+        else if (spriteRenderer.sprite.name.ToLower().Contains("wizzy"))
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0xFF, 0x00, 0x00, 0xFF),
+                new Color32(0x00, 0xFF, 0xF7, 0xFF)
+            );
+        }
+        else if (spriteRenderer.sprite.name.ToLower().Contains("svijeca"))
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0xFF, 0xFF, 0xFF, 0xFF),
+                new Color32(0xFF, 0xFF, 0xFF, 0xFF)
+            );
+        }
+        else if (spriteRenderer.sprite.name.ToLower().Contains("matchstick"))
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0xFF, 0x00, 0x00, 0xFF),
+                new Color32(0xFF, 0xC0, 0x08, 0xFF)
+            );
+        }
+        else
+        {
+            mainModule.startColor = new ParticleSystem.MinMaxGradient(
+                new Color32(0xB1, 0xE2, 0xFF, 0xFF),
+                new Color32(0xF3, 0xA8, 0x4A, 0xFF)
+            );
+        }
+    }
+}
 
     private bool set = false;
     private void Update()
