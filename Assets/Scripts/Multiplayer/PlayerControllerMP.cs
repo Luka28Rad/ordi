@@ -63,11 +63,13 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool isTeleporting = false;
     // Add to existing private fields
     private bool isWizzy = false;
+    private bool isMatchstick = false; 
     private bool isSvijeca = false;  // Add Svijeca character check
     [SerializeField] private float enhancedJumpForce = 1200f;  // Svijeca's enhanced jump force
     [SerializeField] private float enhancedJumpDuration = 5f;  // Duration of enhanced jump
     [SerializeField] private float svijecaAbilityCooldown = 10f;  // Cooldown for Svijeca's ability
     [SerializeField] private ParticleSystem enhancedJumpParticles;
+    [SerializeField] private ParticleSystem enhancedJumpParticlesMathcstick;
     private bool canUseEnhancedJump = true;
     private float timeSinceLastEnhancedJump = 0f;
     private bool isEnhancedJumpActive = false;
@@ -93,20 +95,30 @@ public class PlayerControllerMP : NetworkBehaviour
 
         if (enhancedJumpParticles != null)
         {
-            if (isSvijeca)
+            if (isSvijeca || isMatchstick)
             {
                 // Configure particle system for Svijeca
-                enhancedJumpParticles.Stop();
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                if(isMatchstick) {
+                    enhancedJumpParticlesMathcstick.Stop();
+                    Destroy(enhancedJumpParticles.gameObject);
+                    enhancedJumpParticles = null;
+                } else {
+                    enhancedJumpParticles.Stop();
+                    enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+                    Destroy(enhancedJumpParticlesMathcstick.gameObject);
+                    enhancedJumpParticlesMathcstick = null;
+                }
             }
             else
             {
                 // Destroy particle system for other characters
                 Destroy(enhancedJumpParticles.gameObject);
                 enhancedJumpParticles = null;
+                Destroy(enhancedJumpParticlesMathcstick.gameObject);
+                enhancedJumpParticlesMathcstick = null;
             }
         }
-        if(isSvijeca)
+        if(isSvijeca || isMatchstick)
         {
             originalJumpForce = m_JumpForce;
             canUseEnhancedJump = true;
@@ -133,6 +145,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 isDusko = false;
                 isWizzy = false;
                 isSvijeca = false;
+                isMatchstick = false;
             }
             else if(spriteName.Contains("dusko"))
             {
@@ -140,6 +153,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 springshroomDoubleJump = false;
                 isWizzy = false;
                 isSvijeca = false;
+                isMatchstick = false;
             }
             else if(spriteName.Contains("wizzy"))
             {
@@ -147,10 +161,20 @@ public class PlayerControllerMP : NetworkBehaviour
                 isDusko = false;
                 springshroomDoubleJump = false;
                 isSvijeca = false;
+                isMatchstick = false;
             }
             else if(spriteName.Contains("svijeca"))
             {
                 isSvijeca = true;
+                isWizzy = false;
+                isDusko = false;
+                springshroomDoubleJump = false;
+                isMatchstick = false;
+            }
+            else if(spriteName.Contains("matchstick"))  // Add matchstick character check
+            {
+                isMatchstick = true;
+                isSvijeca = false;
                 isWizzy = false;
                 isDusko = false;
                 springshroomDoubleJump = false;
@@ -201,12 +225,12 @@ public class PlayerControllerMP : NetworkBehaviour
         }
 
         // Remove the previous Dusko flying input check
-        if(isSvijeca && Input.GetKeyDown(KeyCode.LeftShift) && canUseEnhancedJump && !isEnhancedJumpActive)
+        if((isSvijeca || isMatchstick) && Input.GetKeyDown(KeyCode.LeftShift) && canUseEnhancedJump && !isEnhancedJumpActive)
         {
             StartCoroutine(ActivateEnhancedJump());
         }
         // Handle other character abilities
-        else if(!isSvijeca && !isDusko && Input.GetKeyDown(KeyCode.LeftShift))
+        else if(!isMatchstick && !isSvijeca && !isDusko && Input.GetKeyDown(KeyCode.LeftShift))
         {
             toDash = true;
         }
@@ -257,7 +281,7 @@ public class PlayerControllerMP : NetworkBehaviour
                         }
                     }
                 }
-                else if (isSvijeca)
+                else if (isSvijeca || isMatchstick)
                 {
                     if (Time.time - timeSinceLastEnhancedJump > svijecaAbilityCooldown)
                     {
@@ -698,8 +722,10 @@ private IEnumerator TeleportSequence()
         {
             enhancedJumpParticles.Stop();
             enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+        } else if(enhancedJumpParticlesMathcstick != null) {
+            enhancedJumpParticlesMathcstick.Stop();
         }
-        
+         
         m_JumpForce = tempJumpForce;
         isEnhancedJumpActive = false;
     }
@@ -725,6 +751,15 @@ private IEnumerator TeleportSequence()
             {
                 enhancedJumpParticles.Stop();
                 enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            }
+        } else if(enhancedJumpParticlesMathcstick != null) {
+            if (play)
+            {
+                enhancedJumpParticlesMathcstick.Play();
+            }
+            else
+            {
+                enhancedJumpParticlesMathcstick.Stop();
             }
         }
     }
