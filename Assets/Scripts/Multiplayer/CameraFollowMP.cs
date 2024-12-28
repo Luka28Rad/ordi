@@ -39,4 +39,19 @@ public class CameraFollowMP : MonoBehaviour
             virtualCamera.Follow = playerTransform;
         }
     }
+
+    public void FindOtherAlivePlayer()
+{
+    var players = FindObjectsOfType<PlayerObjectController>();
+    foreach (var player in players)
+    {
+        if (player.isActiveAndEnabled)
+        {
+            Transform playerTransform = player.transform.GetChild(0).GetChild(1); // Adjust if necessary
+            virtualCamera.Follow = playerTransform;
+            break;
+        }
+    }
+}
+
 }
