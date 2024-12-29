@@ -40,15 +40,29 @@ public class CameraFollowMP : MonoBehaviour
         }
     }
 
-    public void FindOtherAlivePlayer()
+// Modify CameraFollowMP.cs - FindOtherAlivePlayer method
+public void FindOtherAlivePlayer()
 {
-    var players = FindObjectsOfType<PlayerObjectController>();
-    foreach (var player in players)
+    // Get current local player
+    GameObject localPlayer = NetworkClient.localPlayer.gameObject;
+    
+    // Find all player controllers in the scene
+    var players = FindObjectsOfType<PlayerControllerMP>();
+    
+    foreach (var playerController in players)
     {
-        if (player.isActiveAndEnabled)
+        // Skip if this is the local player or if the controller is disabled (dead)
+        if (playerController.gameObject.GetComponentInParent<NetworkIdentity>().gameObject == localPlayer ||
+            !playerController.enabled)
         {
-            Transform playerTransform = player.transform.GetChild(0).GetChild(1); // Adjust if necessary
-            virtualCamera.Follow = playerTransform;
+            continue;
+        }
+
+        // Found an alive player, switch camera to follow them
+        if (virtualCamera != null)
+        {
+            virtualCamera.Follow = playerController.transform;
+            Debug.Log($"Camera now following: {playerController.gameObject.name}");
             break;
         }
     }

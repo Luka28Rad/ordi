@@ -53,25 +53,24 @@ public class DeathlineController : NetworkBehaviour
         StartCoroutine(DelayedCheckForGameEnd());
     }
 
-    [ClientRpc] // Updates clients about the player's death
-    private void RpcPlayerDeath(GameObject player)
+ [ClientRpc]
+private void RpcPlayerDeath(GameObject player)
+{
+    // Only disable the player visuals and controller, not the entire object
+    var playerVisual = player.transform.GetChild(0).GetChild(1).gameObject;
+    playerVisual.GetComponent<SpriteRenderer>().enabled = false;
+    playerVisual.GetComponent<PlayerControllerMP>().enabled = false;
+
+    // If this is the local player that died, switch their camera to spectate
+    if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
     {
-        var playerVisual = player.transform.GetChild(0).GetChild(1).gameObject;
-
-        // Disable player visuals and input
-        playerVisual.GetComponent<SpriteRenderer>().enabled = false;
-        playerVisual.GetComponent<PlayerControllerMP>().enabled = false;
-
-        // Disable additional components
-        player.transform.GetChild(0).gameObject.SetActive(false); // UI or effects
-
-        // Move the camera to another player
         var cameraFollow = FindObjectOfType<CameraFollowMP>();
         if (cameraFollow != null)
         {
             cameraFollow.FindOtherAlivePlayer();
         }
     }
+}
 
     [Server] // Delayed check for game-end
     private System.Collections.IEnumerator DelayedCheckForGameEnd()
