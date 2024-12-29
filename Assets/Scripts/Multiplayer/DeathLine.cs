@@ -139,7 +139,7 @@ public class DeathlineController : NetworkBehaviour
 
         Debug.Log($"Alive players: {aliveCount}");
 
-        if (aliveCount <= 1) // Changed to <= 1 to handle winner when one player remains
+        if (aliveCount < 1) // Changed to <= 1 to handle winner when one player remains
         {
             RpcEndGame();
         }

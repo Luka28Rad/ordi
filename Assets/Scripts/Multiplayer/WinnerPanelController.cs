@@ -48,7 +48,7 @@ public class WinnerPanelController : NetworkBehaviour
         if (!PlayerExistsInDeathOrder(netId))
         {
             playerDeathOrder.Add(new PlayerData(playerName, netId));
-            RpcUpdateWinnerPanel();
+            //RpcUpdateWinnerPanel();
         }
     }
 
