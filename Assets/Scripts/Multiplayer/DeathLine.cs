@@ -4,30 +4,54 @@ using System.Collections.Generic;
 
 public class DeathlineController : NetworkBehaviour
 {
-    [SerializeField] private float speed = 2f; // Speed of the Deathline
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private WinnerPanelController winnerPanelController; // Reference to WinnerPanel
 
-    // List to store the order of player deaths
-    private readonly List<NetworkIdentity> playerDeathOrder = new List<NetworkIdentity>();
+    // SyncList to maintain consistent death order across server and clients
+    private readonly SyncList<PlayerDeathInfo> playerDeathOrder = new SyncList<PlayerDeathInfo>();
+
+    // Structure to hold death information
+    public struct PlayerDeathInfo
+    {
+        public NetworkIdentity identity;
+        public string playerName;
+        public uint netId;
+
+        public PlayerDeathInfo(NetworkIdentity identity, string name, uint id)
+        {
+            this.identity = identity;
+            this.playerName = name;
+            this.netId = id;
+        }
+    }
+
+    private void Start()
+    {
+        if (winnerPanelController == null)
+        {
+            winnerPanelController = FindObjectOfType<WinnerPanelController>();
+        }
+    }
 
     private void Update()
     {
-        if (isServer) // Only the server controls movement
+        if (isServer)
         {
             MoveDeathline();
         }
     }
 
-    [Server] // Ensure this runs only on the server
+    [Server]
     private void MoveDeathline()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime); // Move upwards
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isServer) return; // Only the server handles collisions
+        if (!isServer) return;
 
-        if (collision.CompareTag("Player")) // Check for player collisions
+        if (collision.CompareTag("Player"))
         {
             var playerNetId = collision.GetComponentInParent<NetworkIdentity>();
             if (playerNetId != null)
@@ -37,52 +61,77 @@ public class DeathlineController : NetworkBehaviour
         }
     }
 
-    [Server] // Handle player death on the server
+    [Server]
     private void HandlePlayerDeath(NetworkIdentity playerNetId)
     {
-        // Add the player to the death order list if not already present
-        if (!playerDeathOrder.Contains(playerNetId))
+        // Check if player is already in death order
+        foreach (var deathInfo in playerDeathOrder)
         {
-            playerDeathOrder.Add(playerNetId);
+            if (deathInfo.netId == playerNetId.netId)
+                return;
         }
 
-        // Notify all clients of the player's death
-        RpcPlayerDeath(playerNetId.gameObject);
+        // Get player's name
+        var playerController = playerNetId.GetComponent<PlayerObjectController>();
+        string playerName = playerController != null ? playerController.PlayerName : "Unknown Player";
 
-        // Delay the game-end check to ensure player state is fully updated
+        // Add to death order
+        PlayerDeathInfo deathInfo2 = new PlayerDeathInfo(playerNetId, playerName, playerNetId.netId);
+        playerDeathOrder.Add(deathInfo2);
+
+        // Update winner panel
+        if (winnerPanelController != null)
+        {
+            winnerPanelController.AddPlayerToDeathOrder(playerName, playerNetId.netId);
+        }
+
+        // Notify clients
+        RpcPlayerDeath(playerNetId.gameObject, playerName);
+
+        // Check for game end
         StartCoroutine(DelayedCheckForGameEnd());
     }
 
- [ClientRpc]
-private void RpcPlayerDeath(GameObject player)
-{
-    // Only disable the player visuals and controller, not the entire object
-    var playerVisual = player.transform.GetChild(0).GetChild(1).gameObject;
-    playerVisual.GetComponent<SpriteRenderer>().enabled = false;
-    playerVisual.GetComponent<PlayerControllerMP>().enabled = false;
-
-    // If this is the local player that died, switch their camera to spectate
-    if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+    [ClientRpc]
+    private void RpcPlayerDeath(GameObject player, string playerName)
     {
-        var cameraFollow = FindObjectOfType<CameraFollowMP>();
-        if (cameraFollow != null)
+        Debug.Log($"{playerName} has died!");
+
+        if (player == null) return;
+
+        // Disable player visuals and controller
+        var playerVisual = player.transform.GetChild(0).GetChild(1).gameObject;
+        if (playerVisual != null)
         {
-            cameraFollow.FindOtherAlivePlayer();
+            var spriteRenderer = playerVisual.GetComponent<SpriteRenderer>();
+            var playerController = playerVisual.GetComponent<PlayerControllerMP>();
+            
+            if (spriteRenderer != null) spriteRenderer.enabled = false;
+            if (playerController != null) playerController.enabled = false;
+        }
+
+        // Handle spectator camera for local player
+        if (player.GetComponent<NetworkIdentity>().isLocalPlayer)
+        {
+            var cameraFollow = FindObjectOfType<CameraFollowMP>();
+            if (cameraFollow != null)
+            {
+                cameraFollow.FindOtherAlivePlayer();
+            }
         }
     }
-}
 
-    [Server] // Delayed check for game-end
+    [Server]
     private System.Collections.IEnumerator DelayedCheckForGameEnd()
     {
-        yield return new WaitForEndOfFrame(); // Wait for the current frame to complete
+        yield return new WaitForEndOfFrame();
 
         var allPlayers = FindObjectsOfType<PlayerControllerMP>();
         int aliveCount = 0;
 
         foreach (var player in allPlayers)
         {
-            if (player.isActiveAndEnabled) // Check if player is still alive
+            if (player.isActiveAndEnabled)
             {
                 aliveCount++;
             }
@@ -90,24 +139,21 @@ private void RpcPlayerDeath(GameObject player)
 
         Debug.Log($"Alive players: {aliveCount}");
 
-        if (aliveCount == 0)
+        if (aliveCount <= 1) // Changed to <= 1 to handle winner when one player remains
         {
-            Debug.Log("Game Over");
             RpcEndGame();
         }
     }
 
-    [ClientRpc] // Notify clients that the game is over
+    [ClientRpc]
     private void RpcEndGame()
     {
-        Debug.Log("Game Over! Everyone is dead!");
-
-        // Log death order for debugging
-        foreach (var playerNetId in playerDeathOrder)
+        Debug.Log("Game Over!");
+        
+        // Ensure winner panel is shown
+        if (winnerPanelController != null)
         {
-            Debug.Log($"Player {playerNetId.netId} died");
+            winnerPanelController.ShowFinalResults();
         }
-
-        // Implement game-over UI or logic here
     }
 }
