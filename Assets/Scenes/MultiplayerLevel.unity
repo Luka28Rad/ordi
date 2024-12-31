@@ -4428,7 +4428,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  speed: 2
+  speed: 0
   winnerPanelController: {fileID: 0}
 --- !u!212 &1089464631
 SpriteRenderer:

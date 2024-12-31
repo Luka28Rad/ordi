@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class DeathlineController : NetworkBehaviour
 {
-    [SerializeField] private float speed = 2f;
+    [SerializeField] private float speed = 0.2f;
     [SerializeField] private WinnerPanelController winnerPanelController; // Reference to WinnerPanel
 
     // SyncList to maintain consistent death order across server and clients

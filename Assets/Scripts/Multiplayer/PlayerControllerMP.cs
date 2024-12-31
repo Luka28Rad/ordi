@@ -88,45 +88,47 @@ public class PlayerControllerMP : NetworkBehaviour
         canFly = isDusko;  // Initialize flying ability if Dusko
     }
 
-    private void Start(){
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        CheckCharacterType();
-        SetParticleColor();
-        remainingJumps = maxJumps;
-        canDoubleJump = true;
-        canFly = isDusko;  // Initialize flying ability if Dusko
+    private void Start()
+{
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    CheckCharacterType();
+    SetParticleColor();
+    remainingJumps = maxJumps;
+    canDoubleJump = true;
+    canFly = isDusko;
 
-        if (enhancedJumpParticles != null)
+    if (enhancedJumpParticles != null)
+    {
+        // First, disable all particle systems by default
+        enhancedJumpParticles.gameObject.SetActive(false);
+        if (enhancedJumpParticlesMathcstick != null)
         {
-            if (isSvijeca || isMatchstick)
-            {
-                // Configure particle system for Svijeca
-                if(isMatchstick) {
-                    enhancedJumpParticlesMathcstick.Stop();
-                    Destroy(enhancedJumpParticles.gameObject);
-                    enhancedJumpParticles = null;
-                } else {
-                    enhancedJumpParticles.Stop();
-                    enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-                    Destroy(enhancedJumpParticlesMathcstick.gameObject);
-                    enhancedJumpParticlesMathcstick = null;
-                }
-            }
-            else
-            {
-                // Destroy particle system for other characters
-                Destroy(enhancedJumpParticles.gameObject);
-                enhancedJumpParticles = null;
-                Destroy(enhancedJumpParticlesMathcstick.gameObject);
-                enhancedJumpParticlesMathcstick = null;
-            }
+            enhancedJumpParticlesMathcstick.gameObject.SetActive(false);
         }
-        if(isSvijeca || isMatchstick)
+
+        // Then enable only the appropriate one based on character
+        if (isSvijeca || isMatchstick)
         {
-            originalJumpForce = m_JumpForce;
-            canUseEnhancedJump = true;
+            if (isMatchstick)
+            {
+                enhancedJumpParticlesMathcstick.gameObject.SetActive(true);
+                enhancedJumpParticlesMathcstick.Stop();
+            }
+            else // Svijeca
+            {
+                enhancedJumpParticles.gameObject.SetActive(true);
+                enhancedJumpParticles.Stop();
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            }
         }
     }
+
+    if (isSvijeca || isMatchstick)
+    {
+        originalJumpForce = m_JumpForce;
+        canUseEnhancedJump = true;
+    }
+}
 
     public override void OnStartClient()
     {
@@ -743,78 +745,92 @@ private IEnumerator TeleportSequence()
     }
 
     private IEnumerator ActivateEnhancedJump()
+{
+    if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
     {
-        if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+        CmdSetIndicatorState(false);
+        if (isServer)
         {
-            CmdSetIndicatorState(false);
-            CmdToggleParticles(true);
+            RpcToggleParticles(true);
         }
-        else 
+        else
         {
-            UpdateIndicatorVisibility(false);
-            if (enhancedJumpParticles != null)
-            {
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-                enhancedJumpParticles.Play();
-            }
+            CmdRequestParticleToggle(true);  // New command for clients
         }
-        
-        canUseEnhancedJump = false;
-        isEnhancedJumpActive = true;
-        timeSinceLastEnhancedJump = Time.time;
-        
-        float tempJumpForce = m_JumpForce;
-        m_JumpForce = enhancedJumpForce;
-        
-        yield return new WaitForSeconds(enhancedJumpDuration);
-        
-        if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+    }
+    else 
+    {
+        UpdateIndicatorVisibility(false);
+        if (enhancedJumpParticles != null)
         {
-            CmdToggleParticles(false);
+            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            enhancedJumpParticles.Play();
         }
-        else if (enhancedJumpParticles != null)
+    }
+    
+    canUseEnhancedJump = false;
+    isEnhancedJumpActive = true;
+    timeSinceLastEnhancedJump = Time.time;
+    
+    float tempJumpForce = m_JumpForce;
+    m_JumpForce = enhancedJumpForce;
+    
+    yield return new WaitForSeconds(enhancedJumpDuration);
+    
+    if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+    {
+        if (isServer)
+        {
+            RpcToggleParticles(false);
+        }
+        else
+        {
+            CmdRequestParticleToggle(false);
+        }
+    }
+    else if (enhancedJumpParticles != null)
+    {
+        enhancedJumpParticles.Stop();
+        enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
+    }
+    
+    m_JumpForce = tempJumpForce;
+    isEnhancedJumpActive = false;
+}
+
+[Command]
+private void CmdRequestParticleToggle(bool play)
+{
+    RpcToggleParticles(play);
+}
+
+
+    [ClientRpc]
+private void RpcToggleParticles(bool play)
+{
+    if (isMatchstick && enhancedJumpParticlesMathcstick != null)
+    {
+        if (play)
+        {
+            enhancedJumpParticlesMathcstick.Play();
+        }
+        else
+        {
+            enhancedJumpParticlesMathcstick.Stop();
+        }
+    }
+    else if (isSvijeca && enhancedJumpParticles != null)
+    {
+        if (play)
+        {
+            enhancedJumpParticles.Play();
+            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(true);
+        }
+        else
         {
             enhancedJumpParticles.Stop();
             enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-        } else if(enhancedJumpParticlesMathcstick != null) {
-            enhancedJumpParticlesMathcstick.Stop();
-        }
-         
-        m_JumpForce = tempJumpForce;
-        isEnhancedJumpActive = false;
-    }
-
-    [Command]
-    private void CmdToggleParticles(bool play)
-    {
-        // Call RPC to sync particle state across all clients
-        RpcToggleParticles(play);
-    }
-
-    [ClientRpc]
-    private void RpcToggleParticles(bool play)
-    {
-        if (enhancedJumpParticles != null)
-        {
-            if (play)
-            {
-                enhancedJumpParticles.Play();
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            }
-            else
-            {
-                enhancedJumpParticles.Stop();
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-            }
-        } else if(enhancedJumpParticlesMathcstick != null) {
-            if (play)
-            {
-                enhancedJumpParticlesMathcstick.Play();
-            }
-            else
-            {
-                enhancedJumpParticlesMathcstick.Stop();
-            }
         }
     }
+}
 }
