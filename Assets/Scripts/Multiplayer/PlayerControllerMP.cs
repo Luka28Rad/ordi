@@ -100,11 +100,12 @@ public class PlayerControllerMP : NetworkBehaviour
     if (enhancedJumpParticles != null)
     {
         // First, disable all particle systems by default
-        enhancedJumpParticles.gameObject.SetActive(false);
+        //enhancedJumpParticles.gameObject.SetActive(false);
         if (enhancedJumpParticlesMathcstick != null)
         {
-            enhancedJumpParticlesMathcstick.gameObject.SetActive(false);
+            //enhancedJumpParticlesMathcstick.gameObject.SetActive(false);
         }
+                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
 
         // Then enable only the appropriate one based on character
         if (isSvijeca || isMatchstick)
@@ -118,7 +119,6 @@ public class PlayerControllerMP : NetworkBehaviour
             {
                 enhancedJumpParticles.gameObject.SetActive(true);
                 enhancedJumpParticles.Stop();
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
             }
         }
     }
