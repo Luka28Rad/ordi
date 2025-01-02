@@ -16,7 +16,6 @@ public class PlayerSpawnManager : NetworkBehaviour
         StartCoroutine(CountdownToStart());
         }
 
-    [Server]
 private IEnumerator CountdownToStart()
 {
     int countdown = 5; // Start from 5 seconds
@@ -31,7 +30,7 @@ private IEnumerator CountdownToStart()
 
         // Clear the text and invoke the event
         countdownText.text = "Go!";
-        yield return new WaitForSeconds(0.25f); // Optional delay before clearing
+        yield return new WaitForSeconds(1f); // Optional delay before clearing
         countdownText.text = ""; // Clear text after the countdown
    
    

@@ -41,7 +41,7 @@ public class DeathlineController : NetworkBehaviour
         spawnManager = FindObjectOfType<PlayerSpawnManager>();
         if (spawnManager != null)
         {
-            spawnManager.OnAllPlayersReady += StartGame;
+            if(isServer) spawnManager.OnAllPlayersReady += StartGame;
         }
     }
 
