@@ -12,29 +12,10 @@ public class PlayerSpawnManager : NetworkBehaviour
     public delegate void AllPlayersReadyHandler();
     public event AllPlayersReadyHandler OnAllPlayersReady;
 
-    public override void OnStartServer()
-    {
-        totalPlayers = NetworkServer.connections.Count;
-        readyPlayerCount = 0;
-    }
-/*
-    [Server]
-    public void NotifyPlayerReady()
-    {
-        readyPlayerCount++;
-
-        if (readyPlayerCount == totalPlayers)
-        {
-            RpcAllPlayersReady();
-            OnAllPlayersReady?.Invoke();
+    private void Start(){
+        StartCoroutine(CountdownToStart());
         }
-    }*/
 
-    [ClientRpc]
-    private void RpcAllPlayersReady()
-    {
-        Debug.Log("All players are ready. Starting game...");
-    }
     [Server]
 private IEnumerator CountdownToStart()
 {
@@ -56,16 +37,6 @@ private IEnumerator CountdownToStart()
    
    // yield return new WaitForSeconds(5); // 5-second countdown
     OnAllPlayersReady?.Invoke();
-}
-[Server]
-public void NotifyPlayerReady()
-{
-    readyPlayerCount++;
-
-    if (readyPlayerCount == totalPlayers)
-    {
-        StartCoroutine(CountdownToStart());
-    }
 }
 
 }
