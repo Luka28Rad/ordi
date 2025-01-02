@@ -625,14 +625,18 @@ private IEnumerator TeleportSequence()
     [ClientRpc]
     private void RpcRedFire()
     {
-        if(redFireParticle != null)
-            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
+        if(redFireParticle != null){
+            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.54f, -1)), transform.rotation, transform);
+            StartJumpBoost();
+        }
     }
     [ClientRpc]
     private void RpcBlueFire()
     {
-        if(blueFireParticle != null)
+        if(blueFireParticle != null){
             Instantiate(blueFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
+            StartJumpBoost();
+        }
     }
 
     [Command]
