@@ -10,7 +10,6 @@ public class PlayerControllerMP : NetworkBehaviour
      [SerializeField] private float m_JumpForce = 600f;                            
     [SerializeField] private float m_DashForce = 600f;    
     [SerializeField] private float moveSpeed = 10f;
-    [SerializeField] private float starDustBoostSpeed = 150f;
     [SerializeField] private float flyingForce = 600f;  // Force for Dusko's flying ability
     [SerializeField] private float flyDuration = 0.5f;  // How long Dusko can fly
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;    
@@ -22,13 +21,11 @@ public class PlayerControllerMP : NetworkBehaviour
     [SerializeField] private float jumpRefresh = 1.5f;
     [SerializeField] private float flyRefresh = 3f;
     [SerializeField] private float dashRefresh = 1f;
-
     const float k_GroundedRadius = .3f;
     private bool m_Grounded;            
     private bool canDash;
     private bool canDoubleJump;
     private bool canFly;  // Added for Dusko's flying ability
-    const float k_CeilingRadius = .2f;
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  
     private Vector3 m_Velocity = Vector3.zero;
@@ -50,6 +47,10 @@ public class PlayerControllerMP : NetworkBehaviour
     private int remainingJumps;
     private bool springshroomDoubleJump = false;
     private bool isDusko = false;
+    [SerializeField] private float boostedJumpForce = 1200f;  // New boosted jump force
+    private float currentJumpForce;  // To track current jump force
+    private bool isJumpBoosted = false;
+    private Coroutine jumpBoostCoroutine;
 
     [SyncVar(hook = nameof(OnIndicatorStateChanged))]
     private bool isIndicatorVisible = true;
@@ -59,21 +60,14 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool isHoldingJump = false;
     [SerializeField] private float teleportDistance = 5f;
     [SerializeField] private ParticleSystem poofParticle;
+    [SerializeField] private ParticleSystem blueFireParticle;
+    [SerializeField] private ParticleSystem redFireParticle;
     [SerializeField] private float teleportDelay = 0.5f;
     private bool isTeleporting = false;
     // Add to existing private fields
     private bool isWizzy = false;
-    private bool isMatchstick = false; 
-    private bool isSvijeca = false;  // Add Svijeca character check
-    [SerializeField] private float enhancedJumpForce = 1200f;  // Svijeca's enhanced jump force
-    [SerializeField] private float enhancedJumpDuration = 5f;  // Duration of enhanced jump
-    [SerializeField] private float svijecaAbilityCooldown = 10f;  // Cooldown for Svijeca's ability
-    [SerializeField] private ParticleSystem enhancedJumpParticles;
-    [SerializeField] private ParticleSystem enhancedJumpParticlesMathcstick;
-    private bool canUseEnhancedJump = true;
-    private float timeSinceLastEnhancedJump = 0f;
-    private bool isEnhancedJumpActive = false;
-    private float originalJumpForce;
+    private bool isMatchstick = false;
+    private bool isSvijeca = false;
     [SerializeField] private ParticleSystem walkParticleSystem;
 
     private void Awake()
@@ -86,6 +80,7 @@ public class PlayerControllerMP : NetworkBehaviour
         remainingJumps = maxJumps;
         canDoubleJump = true;
         canFly = isDusko;  // Initialize flying ability if Dusko
+        currentJumpForce = m_JumpForce;
     }
 
     private void Start()
@@ -96,38 +91,6 @@ public class PlayerControllerMP : NetworkBehaviour
     remainingJumps = maxJumps;
     canDoubleJump = true;
     canFly = isDusko;
-
-    if (enhancedJumpParticles != null)
-    {
-        // First, disable all particle systems by default
-        //enhancedJumpParticles.gameObject.SetActive(false);
-        if (enhancedJumpParticlesMathcstick != null)
-        {
-            //enhancedJumpParticlesMathcstick.gameObject.SetActive(false);
-        }
-                enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-
-        // Then enable only the appropriate one based on character
-        if (isSvijeca || isMatchstick)
-        {
-            if (isMatchstick)
-            {
-                enhancedJumpParticlesMathcstick.gameObject.SetActive(true);
-                enhancedJumpParticlesMathcstick.Stop();
-            }
-            else // Svijeca
-            {
-                enhancedJumpParticles.gameObject.SetActive(true);
-                enhancedJumpParticles.Stop();
-            }
-        }
-    }
-
-    if (isSvijeca || isMatchstick)
-    {
-        originalJumpForce = m_JumpForce;
-        canUseEnhancedJump = true;
-    }
 }
 
     public override void OnStartClient()
@@ -149,40 +112,36 @@ public class PlayerControllerMP : NetworkBehaviour
                 springshroomDoubleJump = true;
                 isDusko = false;
                 isWizzy = false;
-                isSvijeca = false;
                 isMatchstick = false;
+                isSvijeca = false;
             }
             else if(spriteName.Contains("dusko"))
             {
                 isDusko = true;
                 springshroomDoubleJump = false;
                 isWizzy = false;
-                isSvijeca = false;
                 isMatchstick = false;
+                isSvijeca = false;
             }
             else if(spriteName.Contains("wizzy"))
             {
                 isWizzy = true;
                 isDusko = false;
                 springshroomDoubleJump = false;
-                isSvijeca = false;
                 isMatchstick = false;
-            }
-            else if(spriteName.Contains("svijeca"))
-            {
+                isSvijeca = false;
+            } else if(spriteName.Contains("matchstick")){
+                isMatchstick = true;
+                isWizzy = false;
+                isDusko = false;
+                springshroomDoubleJump = false;
+                isSvijeca = false;
+            } else if(spriteName.Contains("svijeca")){
                 isSvijeca = true;
                 isWizzy = false;
                 isDusko = false;
                 springshroomDoubleJump = false;
                 isMatchstick = false;
-            }
-            else if(spriteName.Contains("matchstick"))  // Add matchstick character check
-            {
-                isMatchstick = true;
-                isSvijeca = false;
-                isWizzy = false;
-                isDusko = false;
-                springshroomDoubleJump = false;
             }
         }
     }
@@ -279,14 +238,7 @@ public class PlayerControllerMP : NetworkBehaviour
                 isHoldingJump = false;
             }
         }
-
-        // Remove the previous Dusko flying input check
-        if((isSvijeca || isMatchstick) && Input.GetKeyDown(KeyCode.LeftShift) && canUseEnhancedJump && !isEnhancedJumpActive)
-        {
-            StartCoroutine(ActivateEnhancedJump());
-        }
-        // Handle other character abilities
-        else if(!isMatchstick && !isSvijeca && !isDusko && Input.GetKeyDown(KeyCode.LeftShift))
+        else if(!isDusko && Input.GetKeyDown(KeyCode.LeftShift))
         {
             toDash = true;
         }
@@ -334,22 +286,6 @@ public class PlayerControllerMP : NetworkBehaviour
                         {
                             UpdateIndicatorVisibility(true);
                             canFly = true;
-                        }
-                    }
-                }
-                else if (isSvijeca || isMatchstick)
-                {
-                    if (Time.time - timeSinceLastEnhancedJump > svijecaAbilityCooldown)
-                    {
-                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
-                        {
-                            CmdSetIndicatorState(true);
-                            canUseEnhancedJump = true;
-                        }
-                        else 
-                        {
-                            UpdateIndicatorVisibility(true);
-                            canUseEnhancedJump = true;
                         }
                     }
                 }
@@ -405,34 +341,6 @@ public class PlayerControllerMP : NetworkBehaviour
     private void CmdSetIndicatorState(bool visible)
     {
         isIndicatorVisible = visible;
-    }
-
-    [Command]
-    private void CmdUpdateWalkingState(bool walking)
-    {
-        isWalking = walking;
-    }
-
-    [Command]
-    private void CmdUpdateJumpingState(bool jumping)
-    {
-        isJumping = jumping;
-    }
-
-    [SyncVar(hook = nameof(OnWalkingStateChanged))]
-    private bool isWalking;
-
-    [SyncVar(hook = nameof(OnJumpingStateChanged))]
-    private bool isJumping;
-
-    private void OnWalkingStateChanged(bool oldValue, bool newValue)
-    {
-        m_animator.SetBool("isWalking", newValue);
-    }
-
-    private void OnJumpingStateChanged(bool oldValue, bool newValue)
-    {
-        m_animator.SetBool("isJumping", newValue);
     }
 
     public void Move(float move, bool jump, bool dash, bool fly)
@@ -496,7 +404,7 @@ public class PlayerControllerMP : NetworkBehaviour
             remainingJumps--;
             
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
-            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            m_Rigidbody2D.AddForce(new Vector2(0f, currentJumpForce));
             m_animator.SetBool("isJumping", true);
         }
 
@@ -511,6 +419,38 @@ public class PlayerControllerMP : NetworkBehaviour
             {
                 UpdateIndicatorVisibility(false);
                 Teleport();
+            }
+            
+            canDash = false;
+            timeSinceLastDash = Time.time;
+        } 
+
+        if(isMatchstick && dash && canDash) {
+            if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+            {
+                CmdSetIndicatorState(false);
+                CmdRedFire();
+            }
+            else 
+            {
+                UpdateIndicatorVisibility(false);
+                RedFire();
+            }
+            
+            canDash = false;
+            timeSinceLastDash = Time.time;
+        }
+
+        if(isSvijeca && dash && canDash) {
+            if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
+            {
+                CmdSetIndicatorState(false);
+                CmdBlueFire();
+            }
+            else 
+            {
+                UpdateIndicatorVisibility(false);
+                BlueFire();
             }
             
             canDash = false;
@@ -570,23 +510,6 @@ public class PlayerControllerMP : NetworkBehaviour
         transform.localScale = theScale;
     }
 
-    public void Cleanse()
-    {
-        m_Rigidbody2D.velocity = Vector2.zero;
-    }
-
-    public void NoMove()
-    {
-        canMove = false;
-        StartCoroutine(MakeUnableToMove());
-    }
-
-    IEnumerator MakeUnableToMove()
-    {
-        yield return new WaitForSeconds(0.4f);
-        canMove = true;
-    }
-
     IEnumerator Dash()
     {
         Debug.Log("Dashed");
@@ -596,53 +519,7 @@ public class PlayerControllerMP : NetworkBehaviour
         yield return new WaitForSeconds(.16f);
         m_Rigidbody2D.gravityScale = 4;
     }
-
-    private float originalSpeed = 40f;    
-    private Coroutine speedChangeCoroutine;
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Box entered");
-        if (other.CompareTag("StarDust"))
-        {
-            Achievements.UnlockEnterStardustAchievement();
-            Debug.Log("Stardust entered");
-            if (speedChangeCoroutine != null)
-            {
-                StopCoroutine(speedChangeCoroutine);
-            }
-            moveSpeed = starDustBoostSpeed;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("StarDust"))
-        {
-            Debug.Log("Stardust exited");
-            if (speedChangeCoroutine != null)
-            {
-                StopCoroutine(speedChangeCoroutine);
-            }
-            speedChangeCoroutine = StartCoroutine(SmoothSpeedChange(originalSpeed));
-        }
-    }
-
-    private System.Collections.IEnumerator SmoothSpeedChange(float targetSpeed)
-    {
-        float duration = 1f;
-        float elapsedTime = 0f;
-        float initialSpeed = moveSpeed;
-
-        while (elapsedTime < duration)
-        {
-            moveSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        moveSpeed = targetSpeed;
-    }
+   
     IEnumerator Fly()
     {
         float flyTimer = 0f;
@@ -666,6 +543,44 @@ public class PlayerControllerMP : NetworkBehaviour
         {
             StartCoroutine(TeleportSequence());
         }
+    }
+
+   private void RedFire()
+    {
+        if (redFireParticle != null)
+        {
+            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.54f, -1)), transform.rotation, transform);
+            StartJumpBoost();
+        }
+    }
+
+    private void BlueFire()
+    {
+        if (blueFireParticle != null)
+        {
+            Instantiate(blueFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
+            StartJumpBoost();
+        }
+    }
+
+    private void StartJumpBoost()
+    {
+        if (jumpBoostCoroutine != null)
+        {
+            StopCoroutine(jumpBoostCoroutine);
+        }
+        jumpBoostCoroutine = StartCoroutine(JumpBoostCoroutine());
+    }
+
+    private IEnumerator JumpBoostCoroutine()
+    {
+        isJumpBoosted = true;
+        currentJumpForce = boostedJumpForce;
+
+        yield return new WaitForSeconds(5f);
+
+        isJumpBoosted = false;
+        currentJumpForce = m_JumpForce;
     }
 private IEnumerator TeleportSequence()
     {
@@ -701,6 +616,27 @@ private IEnumerator TeleportSequence()
         }
     }
 
+    [Command]
+    private void CmdRedFire()
+    {
+        NetworkRedFire();
+    }
+
+    [Command]
+    private void CmdBlueFire()
+    {
+        NetworkBlueFire();
+    }
+
+    private void NetworkBlueFire(){
+        if(blueFireParticle != null)
+            Instantiate(blueFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
+    }
+
+    private void NetworkRedFire(){
+        if(redFireParticle != null)
+            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.54f, -1)), transform.rotation, transform);
+    }
     private IEnumerator NetworkTeleportSequence()
     {
         isTeleporting = true;
@@ -743,94 +679,4 @@ private IEnumerator TeleportSequence()
         transform.position = endPos;
         spriteRenderer.enabled = true;
     }
-
-    private IEnumerator ActivateEnhancedJump()
-{
-    if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
-    {
-        CmdSetIndicatorState(false);
-        if (isServer)
-        {
-            RpcToggleParticles(true);
-        }
-        else
-        {
-            CmdRequestParticleToggle(true);  // New command for clients
-        }
-    }
-    else 
-    {
-        UpdateIndicatorVisibility(false);
-        if (enhancedJumpParticles != null)
-        {
-            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-            enhancedJumpParticles.Play();
-        }
-    }
-    
-    canUseEnhancedJump = false;
-    isEnhancedJumpActive = true;
-    timeSinceLastEnhancedJump = Time.time;
-    
-    float tempJumpForce = m_JumpForce;
-    m_JumpForce = enhancedJumpForce;
-    
-    yield return new WaitForSeconds(enhancedJumpDuration);
-    
-    if(SceneManager.GetActiveScene().name == "MultiplayerLevel")
-    {
-        if (isServer)
-        {
-            RpcToggleParticles(false);
-        }
-        else
-        {
-            CmdRequestParticleToggle(false);
-        }
-    }
-    else if (enhancedJumpParticles != null)
-    {
-        enhancedJumpParticles.Stop();
-        enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-    }
-    
-    m_JumpForce = tempJumpForce;
-    isEnhancedJumpActive = false;
-}
-
-[Command]
-private void CmdRequestParticleToggle(bool play)
-{
-    RpcToggleParticles(play);
-}
-
-
-    [ClientRpc]
-private void RpcToggleParticles(bool play)
-{
-    if (isMatchstick && enhancedJumpParticlesMathcstick != null)
-    {
-        if (play)
-        {
-            enhancedJumpParticlesMathcstick.Play();
-        }
-        else
-        {
-            enhancedJumpParticlesMathcstick.Stop();
-        }
-    }
-    else if (isSvijeca && enhancedJumpParticles != null)
-    {
-        if (play)
-        {
-            enhancedJumpParticles.Play();
-            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(true);
-        }
-        else
-        {
-            enhancedJumpParticles.Stop();
-            enhancedJumpParticles.gameObject.transform.GetChild(4).gameObject.SetActive(false);
-        }
-    }
-}
 }
