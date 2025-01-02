@@ -24,12 +24,24 @@ public class DeathlineController : NetworkBehaviour
             this.netId = id;
         }
     }
+       [Server]
+    private void StartGame()
+    {
+        Debug.Log("All players are ready. Starting gameplay...");
+        enabled = true; // Enable the Deathline movement
+    }
+    private PlayerSpawnManager spawnManager;
 
     private void Start()
     {
         if (winnerPanelController == null)
         {
             winnerPanelController = FindObjectOfType<WinnerPanelController>();
+        }
+        spawnManager = FindObjectOfType<PlayerSpawnManager>();
+        if (spawnManager != null)
+        {
+            spawnManager.OnAllPlayersReady += StartGame;
         }
     }
 

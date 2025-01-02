@@ -25,22 +25,32 @@ public class NetworkedEndlessTiles : NetworkBehaviour
 
     private int prevStart = -50;
     private int prevLength = -50;
+private PlayerSpawnManager spawnManager;
 
-    public override void OnStartServer()
+        public override void OnStartServer()
     {
+
+        base.OnStartServer();
         networkManager = (CustomNetworkManager)NetworkManager.singleton;
-        
+        spawnManager = FindObjectOfType<PlayerSpawnManager>();
+        if (spawnManager != null)
+        {
+            spawnManager.OnAllPlayersReady += StartSpawning;
+        }
+        enabled = false; // Disable spawning until players are ready
+    }
+        [Server]
+    private void StartSpawning()
+    {
         // Initialize on server
         currentHeight = -5;
         borderTopHeight = -11;
         
         // Initial platform generation up to height 30
-        for (float height = -8; height <= 30; height += 2)
-        {
-            SpawnRow(height);
-        }
         
         ExtendBorders(borderTopHeight);
+        Debug.Log("All players are ready. Starting platform spawning...");
+        enabled = true; // Enable platform spawning
     }
 
     private void Update()

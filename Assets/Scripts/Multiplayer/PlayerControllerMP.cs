@@ -91,8 +91,32 @@ public class PlayerControllerMP : NetworkBehaviour
     remainingJumps = maxJumps;
     canDoubleJump = true;
     canFly = isDusko;
-}
 
+    if (isLocalPlayer)
+        {
+            StartCoroutine(NotifyServerWhenReady());
+        }
+}
+private IEnumerator NotifyServerWhenReady()
+    {
+        // Wait until the client is marked as ready
+        while (!NetworkClient.ready)
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        // Notify the server
+        CmdNotifyServerPlayerReady();
+    }
+   [Command]
+    private void CmdNotifyServerPlayerReady()
+    {
+        var spawnManager = FindObjectOfType<PlayerSpawnManager>();
+        if (spawnManager != null)
+        {
+            spawnManager.NotifyPlayerReady();
+        }
+    }
     public override void OnStartClient()
     {
         base.OnStartClient();
