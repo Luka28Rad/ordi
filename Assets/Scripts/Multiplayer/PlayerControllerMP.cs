@@ -619,23 +619,26 @@ private IEnumerator TeleportSequence()
     [Command]
     private void CmdRedFire()
     {
-        NetworkRedFire();
+        RpcRedFire(); 
+    }
+
+    [ClientRpc]
+    private void RpcRedFire()
+    {
+        if(redFireParticle != null)
+            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
+    }
+    [ClientRpc]
+    private void RpcBlueFire()
+    {
+        if(blueFireParticle != null)
+            Instantiate(blueFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
     }
 
     [Command]
     private void CmdBlueFire()
     {
-        NetworkBlueFire();
-    }
-
-    private void NetworkBlueFire(){
-        if(blueFireParticle != null)
-            Instantiate(blueFireParticle, transform.TransformPoint(new Vector3(0, 0.2f, -1)), transform.rotation, transform);
-    }
-
-    private void NetworkRedFire(){
-        if(redFireParticle != null)
-            Instantiate(redFireParticle, transform.TransformPoint(new Vector3(0, 0.54f, -1)), transform.rotation, transform);
+        RpcBlueFire();
     }
     private IEnumerator NetworkTeleportSequence()
     {
