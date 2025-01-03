@@ -178,7 +178,10 @@ public void HandlePlayerDisconnection(PlayerDeathInfo deathInfo) {
             var playerController = playerVisual.GetComponent<PlayerControllerMP>();
             
             if (spriteRenderer != null) spriteRenderer.enabled = false;
-            if (playerController != null) playerController.enabled = false;
+            if (playerController != null) {
+                playerController.setPlayerChar = false;
+            playerController.enabled = false;
+            }
         }
 
         // Handle spectator camera for local player

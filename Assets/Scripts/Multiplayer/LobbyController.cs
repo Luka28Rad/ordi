@@ -35,10 +35,41 @@ public class LobbyController : MonoBehaviour
     }
     void Awake() {
         if(Instance == null) {Instance = this;}
+        Debug.Log("Wakeup");
     }
 
     public void ReadyPlayer(){
         LocalPlayerController.ChangeReady();
+    }
+
+    public void LeaveLobby()
+    {
+        if (NetworkServer.active && NetworkClient.isConnected)
+        {
+            // This is the host
+            Debug.Log("Host is leaving the lobby...");
+            NetworkManager.singleton.StopHost();
+        }
+        else if (NetworkClient.isConnected)
+        {
+            // This is a client
+            Debug.Log("Client is leaving the lobby...");
+            NetworkManager.singleton.StopClient();
+        }
+        else
+        {
+            Debug.LogWarning("No active network session to leave.");
+        }
+
+        // Clean up UI and reset local states
+        ResetLobbyUI();
+    }
+
+    private void ResetLobbyUI()
+    {
+        // Example: Resetting lobby UI to default state
+        Debug.Log("Resetting lobby UI...");
+        // Add your UI reset logic here
     }
 
     public void UpdateButton(){
@@ -88,6 +119,24 @@ public class LobbyController : MonoBehaviour
     public void FindLocalPlayer() {
         LocalPlayerObject = GameObject.Find("LocalGamePlayer");
         LocalPlayerController = LocalPlayerObject.GetComponent<PlayerObjectController>() ;
+        LocalPlayerObject.transform.position = new Vector3(0f,0f,0f);
+        
+        Transform playerTransform = LocalPlayerObject.transform.Find("Player");
+        if (playerTransform == null) {
+            Debug.LogError("'Player' child object not found under LocalGamePlayer.");
+            return;
+        }
+
+        // Find the "Zvjezdan" child GameObject under "Player"
+        Transform zvjezdanTransform = playerTransform.Find("Zvjezdan");
+        if (zvjezdanTransform == null) {
+            Debug.LogError("'Zvjezdan' child object not found under 'Player'.");
+            return;
+        }
+
+        // Set the position of "Zvjezdan"
+        zvjezdanTransform.position = new Vector3(0f, 0f, 0f);
+        zvjezdanTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public void CreateHostPlayerItem(){

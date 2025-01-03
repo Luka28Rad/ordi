@@ -46,12 +46,19 @@ public class PlayerObjectController : NetworkBehaviour
         }
     }
 
+    void Update(){
+        if(LobbyController.Instance.LocalPlayerObject == null && SceneManager.GetActiveScene().name == "LobbyScene") {
+            LobbyController.Instance.FindLocalPlayer();
+            LobbyController.Instance.UpdateLobbyName();
+            LobbyController.Instance.UpdatePlayerList();
+        }
+    }
+
     public override void OnStartAuthority(){
         CmdSetPlayerName(SteamFriends.GetPersonaName().ToString());
         gameObject.name = "LocalGamePlayer";
         LobbyController.Instance.FindLocalPlayer();
         LobbyController.Instance.UpdateLobbyName();
-
     }
 
     public override void OnStartClient(){

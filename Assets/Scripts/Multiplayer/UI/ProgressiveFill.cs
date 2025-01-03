@@ -87,6 +87,8 @@ public class ProgressiveFillWithContinuousAnimations : MonoBehaviour
             // Move to the next object (2nd to last, and so on)
             currentIndex--;
         }
+        yield return new WaitForSeconds(1f);
+        FindObjectOfType<CustomNetworkManager>().SendReturnToLobby();
     }
 
     private IEnumerator RevealText(TextMeshProUGUI tmpText)

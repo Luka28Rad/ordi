@@ -20,7 +20,13 @@ public class PlayerMovementMultiplayerController : NetworkBehaviour
         if(SceneManager.GetActiveScene().name == "MultiplayerLevel"){
             if(playerModel.activeSelf == false){SetPosition(); playerModel.SetActive(true); PlayerCosmeticsSetup();}
             if(isOwned) Movement();
-        } 
+        }  else if(SceneManager.GetActiveScene().name == "LobbyScene"){
+            var spriteRenderer = playerModel.GetComponent<SpriteRenderer>();
+            var playerController = playerModel.GetComponent<PlayerControllerMP>();
+            playerModel.SetActive(false);
+            if (spriteRenderer != null) spriteRenderer.enabled = true;
+            if (playerController != null) playerController.enabled = true;
+        }
     }
 
     public void SetPosition(){

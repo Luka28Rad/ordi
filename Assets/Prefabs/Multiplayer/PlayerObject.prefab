@@ -295,7 +295,6 @@ MonoBehaviour:
   m_JumpForce: 900
   m_DashForce: 2200
   moveSpeed: 40
-  starDustBoostSpeed: 100
   flyingForce: 500
   flyDuration: 1
   m_MovementSmoothing: 0.04
@@ -310,6 +309,7 @@ MonoBehaviour:
   flyRefresh: 3
   dashRefresh: 1
   maxJumps: 2
+  boostedJumpForce: 1200
   jumpHoldThreshold: 0.4
   teleportDistance: 10
   poofParticle: {fileID: 9157105887693468085, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
@@ -5517,8 +5517,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.006249428, y: -0.008299828, z: 0}
-    m_Extent: {x: 20.502949, y: 20.497799, z: 0}
+    m_Center: {x: 0.0055999756, y: 0.0028505325, z: 0}
+    m_Extent: {x: 20.4941, y: 20.49405, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

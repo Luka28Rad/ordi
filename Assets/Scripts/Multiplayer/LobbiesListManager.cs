@@ -17,6 +17,7 @@ public class LobbiesListManager : MonoBehaviour
     }
 
     public void GetListOfLobbies(){
+        DestroyLobbies();
         lobbiesButton.SetActive(false);
         hostButton.SetActive(false);
         lobbiesMenu.SetActive(true);

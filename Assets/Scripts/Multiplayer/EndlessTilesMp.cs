@@ -25,6 +25,9 @@ public class NetworkedEndlessTiles : NetworkBehaviour
 
     private int prevStart = -50;
     private int prevLength = -50;
+    void Awake(){
+        startDeathLine = false;
+    }
 private PlayerSpawnManager spawnManager;
 
         public override void OnStartServer()

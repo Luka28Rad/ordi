@@ -84,12 +84,28 @@ public class PlayerControllerMP : NetworkBehaviour
 
     private void Start()
 {
+    m_Rigidbody2D = GetComponent<Rigidbody2D>();
+    m_animator = GetComponent<Animator>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     CheckCharacterType();
     SetParticleColor();
     remainingJumps = maxJumps;
     canDoubleJump = true;
     canFly = isDusko;
+    currentJumpForce = m_JumpForce;
+}
+
+public bool setPlayerChar; // Non-static member
+private void SetUp(){
+    m_Rigidbody2D = GetComponent<Rigidbody2D>();
+    m_animator = GetComponent<Animator>();
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    CheckCharacterType();
+    SetParticleColor();
+    remainingJumps = maxJumps;
+    canDoubleJump = true;
+    canFly = isDusko;
+    currentJumpForce = m_JumpForce;
 }
     public override void OnStartClient()
     {
@@ -199,6 +215,10 @@ public class PlayerControllerMP : NetworkBehaviour
     private void Update()
     {
         if(SceneManager.GetActiveScene().name == "MultiplayerLevel" && !isOwned) return;
+        if(setPlayerChar == false) {
+            setPlayerChar = true;
+            SetUp();
+        }
         if(spriteRenderer && spriteRenderer.sprite.name.ToLower().Contains("springshroom") && !set) 
         {
             springshroomDoubleJump = true;
