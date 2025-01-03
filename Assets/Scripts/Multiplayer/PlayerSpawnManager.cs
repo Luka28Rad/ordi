@@ -5,7 +5,6 @@ using System.Collections;
 using TMPro;
 public class PlayerSpawnManager : NetworkBehaviour
 {
-    [SyncVar] private int readyPlayerCount = 0;
     public TMP_Text countdownText;
     private int totalPlayers;
 
@@ -23,7 +22,7 @@ private IEnumerator CountdownToStart()
         while (countdown > 0)
         {
             // Update the text to show the countdown
-            countdownText.text = $"Game starts in /n{countdown}";
+            countdownText.text = $"Game starts in \n{countdown}";
             yield return new WaitForSeconds(1); // Wait for 1 second
             countdown--;
         }

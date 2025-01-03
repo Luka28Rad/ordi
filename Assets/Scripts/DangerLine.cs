@@ -54,6 +54,7 @@ public class DangerLine : MonoBehaviour
 
         } catch(System.Exception e) {
             infoText.text = "Error saving data try again..";
+            Debug.Log(e);
             return;
         }
         btn1ToShow.SetActive(true);

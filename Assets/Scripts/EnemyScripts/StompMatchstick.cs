@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StompMatchstick : MonoBehaviour
 {
-    [SerializeField] BoxCollider2D collider;
+    [SerializeField] BoxCollider2D colliderMatchstick;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] MatchstickAI matchstickAI;
     
@@ -16,7 +16,7 @@ public class StompMatchstick : MonoBehaviour
         }
         rb.constraints = RigidbodyConstraints2D.None;
         collision.GetComponent<Rigidbody2D>().velocity = Vector2.up * 10f;
-        collider.enabled = false;
+        colliderMatchstick.enabled = false;
         rb.velocity = Vector2.right * 5f + Vector2.up * 4f;
         rb.angularVelocity = -200f;
         matchstickAI.Die();

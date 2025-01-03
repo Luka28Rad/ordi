@@ -6,13 +6,13 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class FlameFlicker : MonoBehaviour
 {
-    Light2D light;
+    Light2D lightFlame;
     [SerializeField] int framesToDivide = 3;
     int frames;
     // Start is called before the first frame update
     void Start()
     {
-        light = GetComponent<Light2D>();
+        lightFlame = GetComponent<Light2D>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class FlameFlicker : MonoBehaviour
     }
     void Frame10Update()
     {
-        light.intensity = Random.Range(2.0f, 4.0f);
+        lightFlame.intensity = Random.Range(2.0f, 4.0f);
         transform.eulerAngles = new Vector3(0, Random.Range(-5.0f, 5.0f), Random.Range(-10.0f, 10.0f));
         transform.localScale = new Vector3(Random.Range(0.8f, 1.2f), 1, 1);
     }

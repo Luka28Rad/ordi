@@ -9,6 +9,7 @@ public class DeathlineController : NetworkBehaviour
 
     // SyncList to maintain consistent death order across server and clients
     private readonly SyncList<PlayerDeathInfo> playerDeathOrder = new SyncList<PlayerDeathInfo>();
+    private PlayerSpawnManager spawnManager;
 
     // Structure to hold death information
     public struct PlayerDeathInfo
@@ -30,7 +31,6 @@ public class DeathlineController : NetworkBehaviour
         Debug.Log("All players are ready. Starting gameplay...");
         enabled = true; // Enable the Deathline movement
     }
-    private PlayerSpawnManager spawnManager;
 
     private void Start()
     {
@@ -47,16 +47,64 @@ public class DeathlineController : NetworkBehaviour
 
     private void Update()
     {
-        if (isServer)
+        if (isServer && NetworkedEndlessTiles.startDeathLine)
         {
+            UpdateSpeedBasedOnY();
             MoveDeathline();
         }
+    }
+
+    private float lastYPosition = 0f; // Tracks the last Y position where speed was updated
+private float speedIncrement = 0.5f; // Adjust the increment value as needed
+
+private void UpdateSpeedBasedOnY()
+{
+    float currentYPosition = transform.position.y;
+
+    // Check if the Y position has increased by 100 units
+    if (currentYPosition - lastYPosition >= 100f)
+    {
+        speed += speedIncrement; // Increase speed
+        lastYPosition = currentYPosition; // Update the last Y position
+
+        Debug.Log($"Speed increased to: {speed}");
+    }
+}
+
+    [Server]
+    private float FindHighestPlayerY()
+    {
+        float highestY = float.MinValue;
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (player != null)
+            {
+                float playerHeight = player.transform.position.y;
+                if (playerHeight > highestY)
+                {
+                    highestY = playerHeight;
+                }
+            }
+        }
+        return highestY;
     }
 
     [Server]
     private void MoveDeathline()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        float highestPlayerY = FindHighestPlayerY();
+        float dangerLineY = transform.position.y;
+
+        if(Mathf.Abs(dangerLineY -highestPlayerY) > 30f) {
+            if(dangerLineY < highestPlayerY -30f){
+                transform.position = new Vector3(transform.position.x, highestPlayerY - 30f, transform.position.z);
+            } else if(dangerLineY > highestPlayerY + 30f) {
+                //transform.position = new Vector3(transform.position.x, highestPlayerY + 30f, transform.position.z);
+            }
+        } else {
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -84,7 +84,6 @@ public class PlayerObjectController : NetworkBehaviour
     [Command]
     public void CmdCanStartGame(string sceneName){
         manager.StartGame(sceneName);
-        //manager.ServerChangeScene(sceneName);
     }
 
     [Command]

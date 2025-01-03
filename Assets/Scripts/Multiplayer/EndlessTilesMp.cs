@@ -51,7 +51,9 @@ private PlayerSpawnManager spawnManager;
         ExtendBorders(borderTopHeight);
         Debug.Log("All players are ready. Starting platform spawning...");
         enabled = true; // Enable platform spawning
+        startDeathLine = true;
     }
+    public static bool startDeathLine = false;
 
     private void Update()
     {

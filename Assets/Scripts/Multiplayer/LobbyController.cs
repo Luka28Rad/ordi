@@ -61,7 +61,7 @@ public class LobbyController : MonoBehaviour
         }
 
         if(allReady) {
-            if(LocalPlayerController && LocalPlayerController.PlayerIdNumber != null && LocalPlayerController.PlayerIdNumber == 1) {
+            if(LocalPlayerController && LocalPlayerController.PlayerIdNumber == 1) { // && LocalPlayerController.PlayerIdNumber != null
                 StartGameButton.interactable = true;
             } else {
                 StartGameButton.interactable = false;

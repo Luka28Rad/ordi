@@ -49,7 +49,6 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool isDusko = false;
     [SerializeField] private float boostedJumpForce = 1200f;  // New boosted jump force
     private float currentJumpForce;  // To track current jump force
-    private bool isJumpBoosted = false;
     private Coroutine jumpBoostCoroutine;
 
     [SyncVar(hook = nameof(OnIndicatorStateChanged))]
@@ -573,12 +572,10 @@ public class PlayerControllerMP : NetworkBehaviour
 
     private IEnumerator JumpBoostCoroutine()
     {
-        isJumpBoosted = true;
         currentJumpForce = boostedJumpForce;
 
         yield return new WaitForSeconds(5f);
 
-        isJumpBoosted = false;
         currentJumpForce = m_JumpForce;
     }
 private IEnumerator TeleportSequence()
