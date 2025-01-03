@@ -71,7 +71,7 @@ public class CharacterCosmetics : MonoBehaviour
 
         private void SetColor(int index)
     {
-        PlayerPrefs.SetInt("currentColourIndex", currentColorIndex);
+        PlayerPrefs.SetInt("currentColorIndex", currentColorIndex);
         currentColorImage.sprite = playerColors[currentColorIndex];
         currentColorText.text = playerColors[currentColorIndex].name;
         LocalplayerController.CmdUpdatePlayerColor(currentColorIndex);
