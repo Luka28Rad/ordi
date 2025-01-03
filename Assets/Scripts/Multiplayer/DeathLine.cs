@@ -152,6 +152,16 @@ private void UpdateSpeedBasedOnY()
         StartCoroutine(DelayedCheckForGameEnd());
     }
 
+    [Server]
+public void HandlePlayerDisconnection(PlayerDeathInfo deathInfo) {
+    playerDeathOrder.Add(deathInfo);
+    if (winnerPanelController != null) {
+        winnerPanelController.AddPlayerToDeathOrder(deathInfo.playerName, deathInfo.netId);
+    }
+    StartCoroutine(DelayedCheckForGameEnd());
+}
+
+
     [ClientRpc]
     private void RpcPlayerDeath(GameObject player, string playerName)
     {

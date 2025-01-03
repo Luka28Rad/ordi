@@ -62,6 +62,18 @@ public class PlayerObjectController : NetworkBehaviour
     public override void OnStopClient(){
         Manager.GamePlayers.Remove(this);
         LobbyController.Instance.UpdatePlayerList();
+
+        if (isServer) {
+        var deathInfo = new DeathlineController.PlayerDeathInfo(
+            GetComponent<NetworkIdentity>(),
+            PlayerName,
+            netId
+        );
+        var deathlineController = FindObjectOfType<DeathlineController>();
+        if (deathlineController != null) {
+            deathlineController.HandlePlayerDisconnection(deathInfo);
+        }
+    }
     }
 
     [Command]
