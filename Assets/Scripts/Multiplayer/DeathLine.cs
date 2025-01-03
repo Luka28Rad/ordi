@@ -154,6 +154,7 @@ private void UpdateSpeedBasedOnY()
 
     [Server]
 public void HandlePlayerDisconnection(PlayerDeathInfo deathInfo) {
+    Debug.Log("Bok2");
     playerDeathOrder.Add(deathInfo);
     if (winnerPanelController != null) {
         winnerPanelController.AddPlayerToDeathOrder(deathInfo.playerName, deathInfo.netId);

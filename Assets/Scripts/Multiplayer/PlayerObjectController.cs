@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using UnityEngine.SceneManagement;
 
 public class PlayerObjectController : NetworkBehaviour
 {
@@ -60,20 +61,23 @@ public class PlayerObjectController : NetworkBehaviour
     }
 
     public override void OnStopClient(){
-        Manager.GamePlayers.Remove(this);
-        LobbyController.Instance.UpdatePlayerList();
-
-        if (isServer) {
-        var deathInfo = new DeathlineController.PlayerDeathInfo(
-            GetComponent<NetworkIdentity>(),
-            PlayerName,
-            netId
-        );
-        var deathlineController = FindObjectOfType<DeathlineController>();
-        if (deathlineController != null) {
-            deathlineController.HandlePlayerDisconnection(deathInfo);
+        Debug.Log("Bok");
+        if(SceneManager.GetActiveScene().name == "LobbyScene") {
+            Manager.GamePlayers.Remove(this);
+            LobbyController.Instance.UpdatePlayerList();
+        } else {
+            if (isServer) {
+                var deathInfo = new DeathlineController.PlayerDeathInfo(
+                    GetComponent<NetworkIdentity>(),
+                    PlayerName,
+                    netId
+            );
+            var deathlineController = FindObjectOfType<DeathlineController>();
+            if (deathlineController != null) {
+                deathlineController.HandlePlayerDisconnection(deathInfo);
+                }
+            }
         }
-    }
     }
 
     [Command]
