@@ -41,6 +41,24 @@ public class CharacterCosmetics : MonoBehaviour
             LocalplayerController = LocalPlayerObject.GetComponent<PlayerObjectController>();
             LocalplayerController.CmdUpdatePlayerColor(currentColorIndex); // Automatically apply the last used color.
             Debug.Log("FindLocalPlayer called");
+            LocalPlayerObject.transform.position = new Vector3(0f,0f,0f);
+        
+            Transform playerTransform = LocalPlayerObject.transform.Find("Player");
+            if (playerTransform == null) {
+                Debug.LogError("'Player' child object not found under LocalGamePlayer.");
+                return;
+            }
+
+            // Find the "Zvjezdan" child GameObject under "Player"
+            Transform zvjezdanTransform = playerTransform.Find("Zvjezdan");
+            if (zvjezdanTransform == null) {
+                Debug.LogError("'Zvjezdan' child object not found under 'Player'.");
+                return;
+            }
+
+            // Set the position of "Zvjezdan"
+            zvjezdanTransform.position = new Vector3(0f, 0f, 0f);
+            zvjezdanTransform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else
         {
