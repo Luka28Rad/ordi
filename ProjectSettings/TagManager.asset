@@ -7,6 +7,7 @@ TagManager:
   - FxTemporaire
   - StarDust
   - BorderTile
+  - Deathline
   layers:
   - Default
   - TransparentFX
