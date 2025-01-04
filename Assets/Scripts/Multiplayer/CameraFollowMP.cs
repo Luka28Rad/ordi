@@ -1,10 +1,12 @@
 using UnityEngine;
 using Cinemachine;
 using Mirror;
+using TMPro;
 
 public class CameraFollowMP : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private TMP_Text spectateText;
 
     private void Start()
     {
@@ -61,8 +63,12 @@ public void FindOtherAlivePlayer()
         // Found an alive player, switch camera to follow them
         if (virtualCamera != null)
         {
+            spectateText.gameObject.SetActive(true);
             virtualCamera.Follow = playerController.transform;
             Debug.Log($"Camera now following: {playerController.gameObject.name}");
+            string name = playerController.gameObject.transform.parent.transform.parent.GetComponent<PlayerObjectController>().PlayerName;
+            if(name != "")
+                spectateText.text = "SPECTATING:\n" + name;
             break;
         }
     }
