@@ -25,6 +25,7 @@ public class PlayerControllerMP : NetworkBehaviour
     private bool m_Grounded;            
     private bool canDash;
     private bool canDoubleJump;
+    private bool toMoveDown = false;
     private bool canFly;  // Added for Dusko's flying ability
     private Rigidbody2D m_Rigidbody2D;
     private bool m_FacingRight = true;  
@@ -226,6 +227,10 @@ private void SetUp(){
         }
         
         input = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+{
+    toMoveDown = true;
+}
         
         // Handle jump input and flying for Dusko
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
@@ -339,6 +344,7 @@ private void SetUp(){
         toJump = false;
         toDash = false;
         toFly = false;
+        toMoveDown = false;
     }
 
     private void UpdateIndicatorVisibility(bool visible)
@@ -374,6 +380,11 @@ private void SetUp(){
         {
             Flip();
         }
+        if (toMoveDown)
+{
+    transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+    toMoveDown = false;
+}
 
         if(!m_Grounded){
             coyoteTimerTemp -= Time.fixedDeltaTime;
