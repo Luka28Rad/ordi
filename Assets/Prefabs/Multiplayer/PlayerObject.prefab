@@ -317,6 +317,7 @@ MonoBehaviour:
   redFireParticle: {fileID: 932728553361265301, guid: b6a6b99057d1b1740aa14cb826344443, type: 3}
   teleportDelay: 0.5
   walkParticleSystem: {fileID: 4124700373031333485}
+  setPlayerChar: 0
 --- !u!50 &2924509123961807076
 Rigidbody2D:
   serializedVersion: 4
@@ -440,7 +441,7 @@ Transform:
   m_GameObject: {fileID: 3347735519773329394}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.106872, y: -0.1635873, z: 5.9378467}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5517,8 +5518,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0055999756, y: 0.0028505325, z: 0}
-    m_Extent: {x: 20.4941, y: 20.49405, z: 0}
+    m_Center: {x: -0.0029001236, y: -0.010299683, z: 0}
+    m_Extent: {x: 20.501099, y: 20.4954, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

@@ -15,25 +15,40 @@ public class WinnerPanelController : NetworkBehaviour
     
     private readonly SyncList<PlayerData> playerDeathOrder = new SyncList<PlayerData>();
 
-    public struct PlayerData
+    public class PlayerData
+{
+    public string playerName;
+    public uint netId;
+
+    public PlayerData(string name, uint id)
     {
-        public string playerName;
-        public uint netId;
-
-        public PlayerData(string name, uint id)
-        {
-            playerName = name;
-            netId = id;
-        }
+        playerName = name;
+        netId = id;
     }
+    public PlayerData(){
+        playerName = "...";
+        netId = 2904;
+    }
+}
 
+private void OnDestroy()
+    {
+        // Unsubscribe from the SyncList changes
+        playerDeathOrder.OnChange -= OnPlayerDeathOrderChanged;
+    }
     private void Start()
     {
         if (winnerPanel != null)
             winnerPanel.SetActive(false);
         ClearAllPlayerNames();
+        playerDeathOrder.OnChange += OnPlayerDeathOrderChanged;
     }
 
+    private void OnPlayerDeathOrderChanged(SyncList<PlayerData>.Operation op, int index, PlayerData item)
+    {
+        // Update UI whenever the death order changes
+        UpdatePlayerPositions();
+    }
     private void ClearAllPlayerNames()
     {
         if (firstPlayerName != null) firstPlayerName.text = "";
@@ -48,9 +63,11 @@ public class WinnerPanelController : NetworkBehaviour
         if (!PlayerExistsInDeathOrder(netId))
         {
             playerDeathOrder.Add(new PlayerData(playerName, netId));
-            //RpcUpdateWinnerPanel();
+            UpdatePlayerPositions();
         }
     }
+
+    
 
     private bool PlayerExistsInDeathOrder(uint netId)
     {
@@ -73,7 +90,8 @@ public class WinnerPanelController : NetworkBehaviour
 
     private void UpdatePlayerPositions()
     {
-        ClearAllPlayerNames();
+        if (!isClient) return;
+        //ClearAllPlayerNames();
 
         int lastIndex = playerDeathOrder.Count - 1;
         for (int i = 0; i <= lastIndex; i++)
@@ -104,9 +122,11 @@ public class WinnerPanelController : NetworkBehaviour
 
     public void ShowFinalResults()
     {
+        if (!isClient) return;
         if (winnerPanel != null)
             winnerPanel.SetActive(true);
         
+        ClearAllPlayerNames();
         UpdatePlayerPositions();
     }
 }
