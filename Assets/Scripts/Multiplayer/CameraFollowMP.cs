@@ -66,6 +66,7 @@ public void FindOtherAlivePlayer()
             spectateText.gameObject.SetActive(true);
             virtualCamera.Follow = playerController.transform;
             Debug.Log($"Camera now following: {playerController.gameObject.name}");
+            TileCounterMP.localPlayer = playerController.gameObject;
             string name = playerController.gameObject.transform.parent.transform.parent.GetComponent<PlayerObjectController>().PlayerName;
             if(name != "")
                 spectateText.text = "SPECTATING:\n" + name;

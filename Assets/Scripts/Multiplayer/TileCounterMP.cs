@@ -8,7 +8,7 @@ public class TileCounterMP : MonoBehaviour
     [SerializeField] private TMP_Text playerYPositionText;
     [SerializeField] private TMP_Text distanceToDeathlineText;
 
-    private GameObject localPlayer;
+    public static GameObject localPlayer;
     private GameObject deathline;
 
     private void Start()
@@ -20,6 +20,9 @@ public class TileCounterMP : MonoBehaviour
         if (playerYPositionText == null || distanceToDeathlineText == null)
         {
             Debug.LogWarning("TileCounterMP: Text references not set!");
+        } else {
+            playerYPositionText.text = "0";
+            distanceToDeathlineText.text = "0";
         }
     }
 
