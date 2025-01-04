@@ -19,7 +19,7 @@ public class CharacterCosmetics : MonoBehaviour
     {
         currentColorIndex = PlayerPrefs.GetInt("currentColorIndex", 0);
         currentColorImage.sprite = playerColors[currentColorIndex];
-        currentColorText.text = playerColors[currentColorIndex].name;
+        currentColorText.text = CorrectName(playerColors[currentColorIndex].name);
         StartCoroutine(DelayedFindLocalPlayer());
     }
 
@@ -30,6 +30,26 @@ public class CharacterCosmetics : MonoBehaviour
 
         // Call FindLocalPlayer
         FindLocalPlayer();
+    }
+
+    private string CorrectName(string oldName){
+        oldName = oldName.ToLower();
+        if(oldName.Contains("springshroom"))
+            {
+                return "Gljivan";
+            }
+            else if(oldName.Contains("dusko"))
+            {
+                return "Duško";
+            }
+            else if(oldName.Contains("wizzy"))
+            {
+                return "Darko";
+            } else if(oldName.Contains("matchstick")){
+                return "Bruno";
+            } else if(oldName.Contains("svijeca")){
+                return "Svjetlana";
+            } else return "Zvjezdan";
     }
 
     private int count = 0; 
@@ -91,7 +111,7 @@ public class CharacterCosmetics : MonoBehaviour
     {
         PlayerPrefs.SetInt("currentColorIndex", currentColorIndex);
         currentColorImage.sprite = playerColors[currentColorIndex];
-        currentColorText.text = playerColors[currentColorIndex].name;
+        currentColorText.text = CorrectName(playerColors[currentColorIndex].name);
         LocalplayerController.CmdUpdatePlayerColor(currentColorIndex);
     }
 }
