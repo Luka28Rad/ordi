@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NextLevel : MonoBehaviour
 {
 
     private bool isScaling = false;
+    public Animator transition;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -50,7 +52,7 @@ public class NextLevel : MonoBehaviour
                     Achievements.UnlockFinishLvl1Achievement();
                 }
                 PlayerPrefs.SetString("Level", "Level 2");
-                    SceneManager.LoadScene("Level 2");
+                    StartCoroutine(LoadNewLevel("Level 2"));
                     break;
                 case "Level 2":
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
@@ -58,7 +60,7 @@ public class NextLevel : MonoBehaviour
                     Achievements.UnlockFinishLvl2Achievement();
                 }
                 PlayerPrefs.SetString("Level", "Level 3");
-                    SceneManager.LoadScene("Level 3");
+                    StartCoroutine(LoadNewLevel("Level 3"));
                     break;
                 case "Level 3":
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
@@ -66,7 +68,7 @@ public class NextLevel : MonoBehaviour
                     Achievements.UnlockFinishLvl3Achievement();
                 }
                 PlayerPrefs.SetString("Level", "Bossfight");
-                    SceneManager.LoadScene("Bossfight");
+                    StartCoroutine(LoadNewLevel("Bossfight"));
                     break;
                 case "Bossfight": 
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
@@ -79,16 +81,22 @@ public class NextLevel : MonoBehaviour
                     Achievements.UnlockFinishSpeedrunAchievement();
                     SpeedrunTimer.SaveTime();
                 } else {
-                    SceneManager.LoadScene("EndScene");
+                    StartCoroutine(LoadNewLevel("EndScene"));
                 }
                     break;
                 default:
                     Debug.LogWarning("Error");
                     Debug.Log("MOzda");
-                    SceneManager.LoadScene("MainMenuScene");
+                    StartCoroutine(LoadNewLevel("MainMenuScene"));
                     break;
             }
 
+    }
+
+    IEnumerator LoadNewLevel(string sceneName) {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(sceneName);
     }
 
 

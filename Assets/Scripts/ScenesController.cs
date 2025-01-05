@@ -9,13 +9,40 @@ public class ScenesController : MonoBehaviour
     [SerializeField] GameObject buttonsToShow;
     [SerializeField] GameObject buttonsToHide;
     [SerializeField] GameObject buttonsToShowSingleplayer;
-
+    public Animator transition;
     [SerializeField] GameObject levelButtons;
     [SerializeField] GameObject panel;
     [SerializeField] GameObject title;
     [SerializeField] GameObject settingsButtons;
     [SerializeField] Sprite panelImageNormal;
     [SerializeField] Sprite panelImageLevels;
+
+    void Start() {
+        GameObject levelLoader = GameObject.Find("LevelLoader");
+
+    if (levelLoader != null && levelLoader.transform.childCount > 0)
+    {
+        // Get the first child of the LevelLoader object
+        Transform firstChild = levelLoader.transform.GetChild(0);
+
+        // Get the Animator component of the first child
+        transition = firstChild.GetComponent<Animator>();
+
+        // Log if the animator is found
+        if (transition != null)
+        {
+            Debug.Log("Animator successfully assigned to 'transition'.");
+        }
+        else
+        {
+            Debug.LogWarning("First child of LevelLoader does not have an Animator component.");
+        }
+    }
+    else
+    {
+        Debug.LogWarning("LevelLoader object not found or has no children.");
+    } 
+    }
     
     void Update()
     {
@@ -24,23 +51,23 @@ public class ScenesController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Debug.Log("Mozda2");
-                SceneManager.LoadScene("MainMenuScene");
+                StartCoroutine(LoadNewLevel("MainMenuScene"));
             }
         }
     }
     public void LeaderboardButtonClicked()
     {
-        SceneManager.LoadScene("LeaderboardScene");
+        StartCoroutine(LoadNewLevel("LeaderboardScene"));
     }
 
     public void EndlessScene(){
         Variables.gameMode = "Endless";
-        SceneManager.LoadScene("EndlessLevel");
+        StartCoroutine(LoadNewLevel("EndlessLevel"));
     }
 
     public void CreditsButtonClicked()
     {
-        SceneManager.LoadScene("CreditsScene");
+        StartCoroutine(LoadNewLevel("CreditsScene"));
     }
 
     public void SpeedRunButtonClicked()
@@ -48,7 +75,7 @@ public class ScenesController : MonoBehaviour
         PlayerPrefs.SetFloat("SpeedTime", 0);
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Speedrun";
-        SceneManager.LoadScene("Level 1");
+        StartCoroutine(LoadNewLevel("Level 1"));
     }
 
     public void ReplayButtonClicked() {
@@ -70,7 +97,7 @@ public class ScenesController : MonoBehaviour
                 break;
             default:
             Debug.Log("Mozda3");
-            SceneManager.LoadScene("MainMenuScene");
+            StartCoroutine(LoadNewLevel("MainMenuScene"));
             break;
         }
     }
@@ -80,14 +107,14 @@ public class ScenesController : MonoBehaviour
         PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
         PlayerPrefs.SetString("collectibles", "");
         PlayerPrefs.SetString("Level", "Level 1");
-        SceneManager.LoadScene("Level 1");
+        StartCoroutine(LoadNewLevel("Level 1"));
     }
 
     public void LoadGameButtonClicked()
     {
         Variables.gameMode = "LoadGame";
         string level = PlayerPrefs.GetString("Level", "Level 1");
-        SceneManager.LoadScene(level);
+        StartCoroutine(LoadNewLevel(level));
     }
 
     public void PracticeButtonClicked()
@@ -108,7 +135,7 @@ public class ScenesController : MonoBehaviour
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Practice";
         PlayerPrefs.SetInt("PracticeLevel", level);
-        SceneManager.LoadScene("Level " + level);
+        StartCoroutine(LoadNewLevel("Level " + level));
     }
 
     public void OptionsButtonClicked()
@@ -123,7 +150,7 @@ public class ScenesController : MonoBehaviour
     }
     public void MultiplayerButtonClicked(){
         Debug.Log("MultiplayerButtonClicked");
-        SceneManager.LoadScene("HostLobbyScene");
+        StartCoroutine(LoadNewLevel("HostLobbyScene"));
     }
 
     public void PlayButtonClicked()
@@ -158,7 +185,7 @@ public class ScenesController : MonoBehaviour
     {
         Debug.Log("Mozda3");
         if(SceneManager.GetActiveScene().name == "LeaderboardScene")Achievements.UnlockWatchCreditsAchievement();
-        SceneManager.LoadScene("MainMenuScene");
+        StartCoroutine(LoadNewLevel("MainMenuScene"));
     }
 
     public void ExitButtonClicked()
@@ -181,5 +208,13 @@ public class ScenesController : MonoBehaviour
         {
             Debug.LogWarning("PersistentObject not found in the scene.");
         }
+    }
+
+    IEnumerator LoadNewLevel(string sceneName) {
+        if(transition != null) {
+            transition.SetTrigger("Start");
+            yield return new WaitForSeconds(2);
+        }
+        SceneManager.LoadScene(sceneName);
     }
 }
