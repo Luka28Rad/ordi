@@ -5,7 +5,7 @@ using UnityEngine;
 public class MatchstickAI : MonoBehaviour
 {
     [SerializeField] Sprite ugasen;
-    SpriteRenderer rendererMatchstick;
+    SpriteRenderer renderer;
     [SerializeField] GameObject fire;
     [SerializeField] GameObject smoke;
     [SerializeField] GameObject damagePoint;
@@ -23,7 +23,7 @@ public class MatchstickAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
         smoke.SetActive(false);
-        rendererMatchstick = GetComponent<SpriteRenderer>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -67,7 +67,7 @@ public class MatchstickAI : MonoBehaviour
     void Extinguish()
     {
         animator.enabled = false;
-        rendererMatchstick.sprite = ugasen;
+        renderer.sprite = ugasen;
         fire.SetActive(false);
         smoke.SetActive(true);
     }
