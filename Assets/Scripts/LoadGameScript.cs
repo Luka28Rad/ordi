@@ -21,14 +21,6 @@ public class LoadGameScript : MonoBehaviour
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if(checkpointName != "StartCheckpoint") player.transform.position = GameObject.Find(checkpointName).transform.position;
-        } else {
-
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Your update logic here
+        } 
     }
 }

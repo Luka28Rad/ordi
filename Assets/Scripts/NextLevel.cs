@@ -24,7 +24,7 @@ public class NextLevel : MonoBehaviour
         float rate = 1 / 2f;
     
         Vector3 fromScale = player.transform.localScale;
-        Vector3 toScale = Vector3.zero;
+        Vector3 toScale = new Vector3(0.1f,0.1f,0.1f);
         Vector3 initialPosition = player.transform.position;
 
         while (i < 1)
@@ -36,6 +36,8 @@ public class NextLevel : MonoBehaviour
 
             yield return 0;
         }
+        player.SetActive(false);
+        GameObject.Find("dash indicator").gameObject.SetActive(false);
         LoadNextLevel();
     }
 
@@ -95,7 +97,7 @@ public class NextLevel : MonoBehaviour
 
     IEnumerator LoadNewLevel(string sceneName) {
         transition.SetTrigger("Start");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(sceneName);
     }
 
