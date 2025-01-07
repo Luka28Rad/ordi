@@ -34,6 +34,8 @@ public class StarCoin : MonoBehaviour
             string collectibleName = gameObject.name;
 
             if(Variables.gameMode == "Speedrun" || Variables.gameMode == "Practice") {
+                if(Variables.gameMode == "Speedrun") SteamStatsManager.Instance.IncrementStat("CoinsSR");
+                if(Variables.gameMode == "Practice") SteamStatsManager.Instance.IncrementStat("CoinsPR");
                 Variables.speedRunCollectiblesCounter++;
                 Collectibles.collectibleCounter++;
 
@@ -60,6 +62,7 @@ public class StarCoin : MonoBehaviour
                     }
                 Debug.Log("Collected " + gameObject.name);
             } else if(Variables.gameMode == "NewGame" || Variables.gameMode == "LoadGame") {
+                SteamStatsManager.Instance.IncrementStat("CoinsSP");
             if (PlayerPrefs.HasKey("collectibles"))
             {
                 string currentCollectibles = PlayerPrefs.GetString("collectibles");
@@ -114,6 +117,7 @@ public class StarCoin : MonoBehaviour
             if (allItemsContained)
             {
                 Achievements.UnlockAllCoinsAchievement();
+                if(mode == "Speedrun") SteamStatsManager.Instance.IncrementStat("100SR");
                 Debug.Log("All items are collected: " + string.Join(", ", allItems));
             }
             else
@@ -172,6 +176,7 @@ public class StarCoin : MonoBehaviour
             if (allItemsContained)
             {
                 Achievements.UnlockAllCoinsAchievement();
+                SteamStatsManager.Instance.IncrementStat("100SP");
                 Debug.Log("All items are collected: " + string.Join(", ", allItems));
             }
             else

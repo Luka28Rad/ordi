@@ -40,7 +40,7 @@ public class NextLevel : MonoBehaviour
         GameObject.Find("dash indicator").gameObject.SetActive(false);
         LoadNextLevel();
     }
-
+    bool statStarted = false;
     private void LoadNextLevel()
     {
         Achievements.UnlockUseTeleportAchievement();
@@ -75,12 +75,19 @@ public class NextLevel : MonoBehaviour
                 case "Bossfight": 
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
                     if(Variables.healthCount == 5) Achievements.UnlockFullLifeBfAchievement();
-                    Achievements.UnlockGameFinishAchievement();
+                    if(!statStarted) {
+                        Achievements.UnlockGameFinishAchievement();
+                        statStarted = true;
+                    }
                 } else if(Variables.gameMode == "Practice") {
                     Achievements.UnlockPracticeFinishAchievement();
                 }
                 if(Variables.gameMode == "Speedrun") {
-                    Achievements.UnlockFinishSpeedrunAchievement();
+                   // Achievements.UnlockFinishSpeedrunAchievement();
+                    if(!statStarted) {
+                        Achievements.UnlockFinishSpeedrunAchievement();
+                        statStarted = true;
+                    }
                     SpeedrunTimer.SaveTime();
                 } else {
                     StartCoroutine(LoadNewLevel("EndScene"));

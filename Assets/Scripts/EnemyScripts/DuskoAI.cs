@@ -88,10 +88,13 @@ public class DuskoAI : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    bool started = false;
     private IEnumerator Disappear(float seconds)
     {
-        Achievements.UnlockDuskoKillAchievement();
+        if(!started) {
+            Achievements.UnlockDuskoKillAchievement();
+            started = true;
+        }
         float elapsedTime = 0f;
         Color targetColor = Color.clear;
 

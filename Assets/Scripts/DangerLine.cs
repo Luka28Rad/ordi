@@ -36,6 +36,29 @@ public class DangerLine : MonoBehaviour
     public TMP_Text infoText;
 
     private void DisplayData() {
+                string all = PlayerPrefs.GetString("ALLENDLESS", "");
+        string last5 = PlayerPrefs.GetString("LAST5ENDLESS", "");
+        if(all == "") {
+            all = EndlessTiles.score.ToString() + "";
+        } else {
+            all = all + "," + EndlessTiles.score.ToString();
+        }
+        PlayerPrefs.SetString("ALLENDLESS", all);
+
+        if(last5 == "") {
+            last5 = EndlessTiles.score.ToString() + "";
+        } else {
+            last5 = last5+ "," + EndlessTiles.score.ToString();
+        }
+        string[] scoreStrings = last5.Split(',');
+        if (scoreStrings.Length > 5)
+    {
+        last5 = string.Join(",", scoreStrings, scoreStrings.Length - 5, 5);
+    }
+    PlayerPrefs.SetString("LAST5ENDLESS", last5);
+
+        SteamStatsManager.Instance.CheckAndSetLowScoreEndless(EndlessTiles.score);
+        SteamStatsManager.Instance.CheckAndSetHighScoreEndless(EndlessTiles.score);
         long score = SteamLeaderboardDisplay.userPreviousRecordEndless;
         Debug.Log("PROSLI " +score);
         if(score==-404){

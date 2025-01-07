@@ -41,10 +41,12 @@ public class HealthManager : MonoBehaviour
         {
             Achievements.UnlockDieAchievement();
             if(Variables.gameMode == "Speedrun") {
+                SteamStatsManager.Instance.IncrementStat("DeathsSR");
                 PlayerPrefs.SetString("collectiblesSpeedRun","");
                 Achievements.UnlockDieSpeedrunAchievement();
                 SceneManager.LoadScene("DeathScene");
             } else {
+                SteamStatsManager.Instance.IncrementStat("DeathsSP");
                 Scene scene = SceneManager.GetActiveScene();
                 string checkpointName = PlayerPrefs.GetString("Checkpoint", "StartCheckpoint");
                     GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Cleanse();

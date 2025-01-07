@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1812365889}
         m_TargetAssemblyTypeName: ScenesController, Assembly-CSharp
-        m_MethodName: OptionsButtonClicked
+        m_MethodName: ToStatistics
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6904,6 +6904,7 @@ GameObject:
   - component: {fileID: 909019676}
   - component: {fileID: 909019675}
   - component: {fileID: 909019677}
+  - component: {fileID: 909019678}
   m_Layer: 0
   m_Name: SteamManager
   m_TagString: Untagged
@@ -6951,6 +6952,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getScores: 0
+--- !u!114 &909019678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909019674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f388bd75340167142865aec2a5142845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &914805863
 GameObject:
   m_ObjectHideFlags: 0

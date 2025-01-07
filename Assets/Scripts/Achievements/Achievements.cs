@@ -115,6 +115,8 @@ public class Achievements : MonoBehaviour
     public static void UnlockBrunoKillAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("BRUNO_KILL_ACHIEVEMENT");
+        if(Variables.gameMode == "Speedrun") SteamStatsManager.Instance.IncrementStat("KillsSR");
+        if(Variables.gameMode == "NewGame" || Variables.gameMode == "LoadGame") SteamStatsManager.Instance.IncrementStat("KillsSP");
     }
     public static void UnlockDuskoDamageAchievement()   ///////////////////////////////////////////////////////////////////////
     {
@@ -123,6 +125,8 @@ public class Achievements : MonoBehaviour
     public static void UnlockDuskoKillAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("DUSKO_KILL_ACHIEVEMENT");
+        if(Variables.gameMode == "Speedrun") SteamStatsManager.Instance.IncrementStat("KillsSR");
+        if(Variables.gameMode == "NewGame" || Variables.gameMode == "LoadGame") SteamStatsManager.Instance.IncrementStat("KillsSP");
     }
     public static void UnlockSvjetlanaDamageAchievement()   ///////////////////////////////////////////////////////////////////////
     {
@@ -131,6 +135,8 @@ public class Achievements : MonoBehaviour
     public static void UnlockSvjetlanaKillAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SVJETLANA_KILL_ACHIEVEMENT");
+        if(Variables.gameMode == "Speedrun") SteamStatsManager.Instance.IncrementStat("KillsSR");
+        if(Variables.gameMode == "NewGame" || Variables.gameMode == "LoadGame") SteamStatsManager.Instance.IncrementStat("KillsSP");
     }
     public static void UnlockCloudThroughAchievement()  ///////////////////////////////////////////////////////////////////////
     {
@@ -155,6 +161,7 @@ public class Achievements : MonoBehaviour
     public static void UnlockFinishSpeedrunAchievement()    ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_ACHIEVEMENT");
+        SteamStatsManager.Instance.IncrementStat("WinsSR");
     }
     public static void UnlockWatchCreditsAchievement()  ///////////////////////////////////////////////////////////////////////
     {
@@ -187,6 +194,7 @@ public class Achievements : MonoBehaviour
     public static void UnlockGameFinishAchievement() ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("GAME_END_ACHIEVEMENT");
+        SteamStatsManager.Instance.IncrementStat("WinsSP");
     }
     public static void UnlockEnterStardustAchievement() ///////////////////////////////////////////////////////////////////////
     {

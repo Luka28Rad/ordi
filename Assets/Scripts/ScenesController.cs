@@ -62,6 +62,7 @@ public class ScenesController : MonoBehaviour
 
     public void EndlessScene(){
         Variables.gameMode = "Endless";
+        SteamStatsManager.Instance.IncrementStat("GamesEN");
         StartCoroutine(LoadNewLevel("EndlessLevel"));
     }
 
@@ -73,6 +74,7 @@ public class ScenesController : MonoBehaviour
     public void SpeedRunButtonClicked()
     {
         PlayerPrefs.SetFloat("SpeedTime", 0);
+        SteamStatsManager.Instance.IncrementStat("GamesSR");
         PlayerPrefs.SetString("collectiblesSpeedRun", "");
         Variables.gameMode = "Speedrun";
         StartCoroutine(LoadNewLevel("Level 1"));
@@ -104,6 +106,7 @@ public class ScenesController : MonoBehaviour
     public void NewGameButtonClicked()
     {
         Variables.gameMode = "NewGame";
+        SteamStatsManager.Instance.IncrementStat("GamesSP");
         PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
         PlayerPrefs.SetString("collectibles", "");
         PlayerPrefs.SetString("Level", "Level 1");
@@ -208,6 +211,10 @@ public class ScenesController : MonoBehaviour
         {
             Debug.LogWarning("PersistentObject not found in the scene.");
         }
+    }
+
+    public void ToStatistics(){
+        SceneManager.LoadScene("StatisticsScene");
     }
 
     IEnumerator LoadNewLevel(string sceneName) {

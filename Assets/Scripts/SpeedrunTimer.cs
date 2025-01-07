@@ -126,7 +126,14 @@ public static long ConvertToMilliseconds(string timeString)
         } else if(checkRecord < 0){
             prevRecordStatic.text = "Error loading previous time..";
         } else {
-            if(compareRec < checkRecord) Achievements.UnlockBeatYourselfAchievement();
+            if(compareRec < checkRecord) {
+                int go = (int)compareRec;
+                Achievements.UnlockBeatYourselfAchievement();
+                SteamStatsManager.Instance.CheckAndSetHighScore(go);
+            } else {
+                int go = (int)compareRec;
+                SteamStatsManager.Instance.CheckAndSetLowScore(go);
+            }
             Debug.Log("Ehh");
             prevRecordStatic.text = "Your last best time:\n"+SteamLeaderboardDisplay.FormatTimeFromMilliseconds(checkRecord);
         }
