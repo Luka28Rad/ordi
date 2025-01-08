@@ -5,14 +5,22 @@ using TMPro;
 using UnityEngine.UI;
 using Steamworks;
 using System;
+using System.Linq;
+
 public class StatisticsScript : MonoBehaviour
 {
+    private readonly string[] statApiNamesMP = { "GamesMP", "HighMP", "LowMP", "WinsMP", "2MP", "3MP", "4MP" };
+    private readonly string[] charNamesMP = { "ZvjezdanMP", "GljivanMP", "DuskoMP", "WizzyMP", "SvjetlanaMP", "BrunoMP" };
+    private readonly string[] statLabelsMP = { "GAMES : ", "TOP SCORE: ", "LOW SCORE: ", "WINS: ", "2ND PLACE: ", "3RD PLACE: ", "4TH PLACE: " };
+    [SerializeField] TMP_Text[] storyStatTextsMP;
     private readonly string[] statApiNames = { "GamesSP", "WinsSP", "100SP", "KillsSP", "DeathsSP", "CoinsSP" };
     private readonly string[] statLabelsSP = { "GAMES PLAYED: ", "COMPLETIONS: ", "PERFECT COMPLETIONS: ", "KILLS: ", "DEATHS: ", "COINS: " };
     [SerializeField] Image[] storyImagesSP; // Array for UI images (e.g., win % and K/D ratio)
     [SerializeField] TMP_Text[] storyStatTextsSP; // Array to hold TMP_Text references
     private readonly string[] statApiNamesEN = { "GamesEN", "HighEN", "LowEN" };
     private readonly string[] statLabelsEN = { "GAMES PLAYED: ", "HIGHEST: ", "LOWEST: "};
+    [SerializeField] RectTransform avgImage;
+    [SerializeField] TMP_Text avgText;
     [SerializeField] Image[] last5EndlessImages; // Array for UI images (e.g., win % and K/D ratio)
     [SerializeField] TMP_Text[] last5EndlessTexts; // Array to hold TMP_Text references
     [SerializeField] TMP_Text[] storyStatTextsEN; // Array to hold TMP_Text references
@@ -91,11 +99,119 @@ void ShowPanelsForMode(string selectedOptionName)
             panelsDown[2].SetActive(true);
             SetEndlessStats();
             break;
+        case "Multiplayer":
+            panelsUp[3].SetActive(true);
+            panelsDown[3].SetActive(true);
+            SetMPStats();
+            break;
         default:
             // Handle any default case if needed
             break;
     }
 }
+[SerializeField] TMP_Text mostUsedCharText;
+[SerializeField] Image mostUsedCharImage;
+[SerializeField] Sprite[] charImages;
+
+private Sprite GetCharRealImg(string name){
+    name=name.ToLower();
+    foreach(Sprite sprite in charImages) {
+        if(sprite.name.Contains(name)) {
+            return sprite;
+        }
+    }
+    return charImages[0];
+}
+
+private string GetCharRealName(string name){
+            name=name.ToLower();
+            if(name.Contains("springshroom"))
+            {
+                return "Gljivan";
+            }
+            else if(name.Contains("dusko"))
+            {
+                return "Duško";
+            }
+            else if(name.Contains("wizzy"))
+            {
+                return "Darko";
+            } else if(name.Contains("matchstick")){
+                return "Bruno";
+            } else if(name.Contains("svijeca")){
+                return "Svjetlana";
+            } else return "Zvjezdan";
+}
+private void SetMPStats(){
+    int zvjezdan = SteamStatsManager.Instance.GetStatInt("ZvjezdanMP");
+    int gljivan = SteamStatsManager.Instance.GetStatInt("GljivanMP");
+    int dusko = SteamStatsManager.Instance.GetStatInt("DuskoMP");
+    int wizzy = SteamStatsManager.Instance.GetStatInt("WizzyMP");
+    int svjetlana = SteamStatsManager.Instance.GetStatInt("SvjetlanaMP");
+    int bruno = SteamStatsManager.Instance.GetStatInt("BrunoMP");
+
+    Dictionary<string, int> stats = new Dictionary<string, int>
+    {
+        { "zvjezdan", zvjezdan },
+        { "springshroom", gljivan },
+        { "dusko", dusko },
+        { "wizzy", wizzy },
+        { "svijeca", svjetlana },
+        { "matchstick", bruno }
+    };
+
+    // Find the most used character
+    string mostUsedCharacter = stats.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+
+    // Output the result
+    Debug.Log("The most used character is: " + mostUsedCharacter);
+    mostUsedCharText.text = "MOST USED: " + GetCharRealName(mostUsedCharacter);
+    mostUsedCharImage.sprite = GetCharRealImg(mostUsedCharacter);
+
+    for (int i = 0; i < statApiNamesMP.Length; i++)
+        {
+            if(statApiNamesMP[i] == "HighMP" || statApiNamesMP[i] == "LowMP") {
+                int statValue = SteamStatsManager.Instance.GetStatInt(statApiNamesMP[i]);
+                if(statValue == 0 ||statValue == 999999) storyStatTextsMP[i].text = statLabelsMP[i]+ "-";
+                else storyStatTextsMP[i].text = statLabelsMP[i] + (statValue);
+                Debug.Log("NO sta sad" + statValue);
+            } else{
+            int statValue = SteamStatsManager.Instance.GetStatInt(statApiNamesMP[i]);
+            storyStatTextsMP[i].text = statLabelsMP[i] + statValue;
+            }
+        }
+
+        int wins = SteamStatsManager.Instance.GetStatInt("WinsMP");
+        int mp2 = SteamStatsManager.Instance.GetStatInt("2MP");
+        int mp3 = SteamStatsManager.Instance.GetStatInt("3MP");
+        int mp4 = SteamStatsManager.Instance.GetStatInt("4MP");
+        
+        Debug.Log(wins + " " + mp2 + " " + mp3 + " " +mp4 + " game stats");
+
+        // Calculate total
+        int total = wins + mp2 + mp3 + mp4;
+
+        if (total == 0)
+        {
+            Debug.LogWarning("Total is 0, cannot create a donut chart.");
+            return;
+        }
+
+        // Calculate percentages
+        float winsPercentage = (float)wins / total;
+        float mp2Percentage = (float)mp2 / total;
+        float mp3Percentage = (float)mp3 / total;
+        float mp4Percentage = (float)mp4 / total;
+
+        // Set fill amounts
+        trophyImages[0].fillAmount = winsPercentage + mp2Percentage + mp3Percentage + mp4Percentage;
+        trophyImages[1].fillAmount = winsPercentage + mp2Percentage + mp3Percentage;
+        trophyImages[2].fillAmount = winsPercentage + mp2Percentage;
+        trophyImages[3].fillAmount = winsPercentage;
+
+}
+
+[SerializeField] Image[] trophyImages;
 
 private void SetEndlessStats(){
         int highest = SteamStatsManager.Instance.GetStatInt("HighEN");
@@ -126,6 +242,7 @@ private void SetEndlessStats(){
         }
         // Update percentage and ratio texts
         storyStatTextsEN[statApiNamesEN.Length].text = "AVERAGE: " + sum.ToString("F2"); 
+        avgText.text = "AVERAGE: " + sum.ToString("F2");
         storyStatTextsEN[statApiNamesEN.Length+1].text = "RECORD\n" + highest;
 
                 // Get the scores stored in PlayerPrefs, defaulting to "0,0,0,0,0" if not found
@@ -162,6 +279,12 @@ private void SetEndlessStats(){
             else last5EndlessImages[i].color = Color.green;
             last5EndlessTexts[i].text = currentScore + "";
         }
+        var val = Mathf.Clamp01(sum / maxScore);
+        Vector2 newAnchorMin = new Vector2(avgImage.anchorMin.x, (val-0.02f)); // Keep X the same, change Y
+        Vector2 newAnchorMax = new Vector2(avgImage.anchorMax.x, (val + 0.02f)); // Keep X the same, change Y
+            
+        avgImage.anchorMin = newAnchorMin;
+        avgImage.anchorMax = newAnchorMax;
 
 }
 private void SetSpeedrunStats(){

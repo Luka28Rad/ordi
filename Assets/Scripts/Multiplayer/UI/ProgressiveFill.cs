@@ -8,6 +8,7 @@ public class ProgressiveFillWithContinuousAnimations : MonoBehaviour
     public GameObject[] objects; // Assign your GameObjects in the inspector
     public GameObject[] animationTargets; // Assign the corresponding objects to animate
     public TextMeshProUGUI[] tmpTexts; // Assign the corresponding TMP texts to reveal
+    public static bool done = false;
     public float fillSpeed = 0.5f; // Speed at which the images are filled
     public float scaleSpeed = 1f; // Speed for scaling animation
     public float rotationSpeed = 30f; // Speed for rotation animation
@@ -38,9 +39,20 @@ public class ProgressiveFillWithContinuousAnimations : MonoBehaviour
         }
 
         // Start the filling process
-        StartCoroutine(FillObjects());
         StartCoroutine(SpinWinner());
+        StartCoroutine(WaitForFillObjects());
     }
+
+    IEnumerator WaitForFillObjects()
+{
+    // Start the FillObjects coroutine and wait for it to finish
+    yield return StartCoroutine(FillObjects());
+
+    // Code here will be executed after FillObjects has finished
+    done = true;
+    yield return new WaitForSeconds(3f);
+    FindObjectOfType<CustomNetworkManager>().SendReturnToLobby();
+}
 
     private IEnumerator SpinWinner(){
         while (true)
@@ -87,8 +99,7 @@ public class ProgressiveFillWithContinuousAnimations : MonoBehaviour
             // Move to the next object (2nd to last, and so on)
             currentIndex--;
         }
-        yield return new WaitForSeconds(1f);
-        FindObjectOfType<CustomNetworkManager>().SendReturnToLobby();
+        yield return null;
     }
 
     private IEnumerator RevealText(TextMeshProUGUI tmpText)

@@ -6826,6 +6826,7 @@ GameObject:
   - component: {fileID: 1791919595}
   - component: {fileID: 1791919594}
   - component: {fileID: 1791919593}
+  - component: {fileID: 1791919598}
   m_Layer: 5
   m_Name: Player UI
   m_TagString: Untagged
@@ -6846,6 +6847,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerYPositionText: {fileID: 1309010868}
+  winPanel: {fileID: 1998902266}
+  playerOrderText:
+  - {fileID: 2128237076}
+  - {fileID: 889786988}
+  - {fileID: 1656036877}
+  - {fileID: 101976603}
   distanceToDeathlineText: {fileID: 1828915891}
 --- !u!114 &1791919594
 MonoBehaviour:
@@ -6933,6 +6940,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1791919598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791919592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acdd417da985fe54eb5ae5b109f8795f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1828915890
 GameObject:
   m_ObjectHideFlags: 0

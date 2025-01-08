@@ -30,8 +30,8 @@ private void Awake()
 
     public void IncrementStat(string statName)
     {
+        Debug.Log("Incrementing " + statName);
         if (!SteamManager.Initialized) return;
-        Debug.Log(statName +" pa daj vise jebote pas");
         int statValue;
         if (SteamUserStats.GetStat(statName, out statValue))
         {
@@ -59,6 +59,7 @@ private void Awake()
 
     public void CheckAndSetHighScore(int newScore)
     {
+        Debug.Log("Change SR " + newScore);
         if (!SteamManager.Initialized) return;
 
         int currentHighScore = 999999;
@@ -74,6 +75,7 @@ private void Awake()
 
     public void CheckAndSetLowScore(int newScore)
     {
+        Debug.Log("Change SR " + newScore);
         if (!SteamManager.Initialized) return;
 
         int currentLowScore = 0;
@@ -89,6 +91,7 @@ private void Awake()
 
         public void CheckAndSetHighScoreEndless(int newScore)
     {
+        Debug.Log("Change EN " + newScore);
         if (!SteamManager.Initialized) return;
 
         int currentHighScore = 0;
@@ -104,6 +107,7 @@ private void Awake()
 
     public void CheckAndSetLowScoreEndless(int newScore)
     {
+        Debug.Log("Change SR " + newScore);
         if (!SteamManager.Initialized) return;
 
         int currentLowScore = 999999;
@@ -112,6 +116,37 @@ private void Awake()
             if (newScore < currentLowScore || currentLowScore == 999999)
             {
                 SteamUserStats.SetStat("LowEN", newScore);
+                SteamUserStats.StoreStats();
+            }
+        }
+    }
+
+            public void CheckAndSetHighScoreMP(int newScore)
+    {Debug.Log("Set high score mp");
+        if (!SteamManager.Initialized) return;
+
+        int currentHighScore = 0;
+        if (SteamUserStats.GetStat("HighMP", out currentHighScore))
+        {
+            if (newScore > currentHighScore || currentHighScore == 0)
+            {
+                SteamUserStats.SetStat("HighMP", newScore);
+                SteamUserStats.StoreStats();
+            }
+        }
+    }
+
+    public void CheckAndSetLowScoreMP(int newScore)
+    {
+        Debug.Log("Set low score mp");
+        if (!SteamManager.Initialized) return;
+
+        int currentLowScore = 999999;
+        if (SteamUserStats.GetStat("LowMP", out currentLowScore))
+        {
+            if (newScore < currentLowScore || currentLowScore == 999999)
+            {
+                SteamUserStats.SetStat("LowMP", newScore);
                 SteamUserStats.StoreStats();
             }
         }
