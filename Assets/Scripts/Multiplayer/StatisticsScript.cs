@@ -20,6 +20,8 @@ public class StatisticsScript : MonoBehaviour
     private readonly string[] statApiNamesEN = { "GamesEN", "HighEN", "LowEN" };
     private readonly string[] statLabelsEN = { "GAMES PLAYED: ", "HIGHEST: ", "LOWEST: "};
     [SerializeField] RectTransform avgImage;
+    [SerializeField] RectTransform avgAVGText;
+    [SerializeField] RectTransform avgAVGValueText;
     [SerializeField] TMP_Text avgText;
     [SerializeField] Image[] last5EndlessImages; // Array for UI images (e.g., win % and K/D ratio)
     [SerializeField] TMP_Text[] last5EndlessTexts; // Array to hold TMP_Text references
@@ -298,6 +300,10 @@ private void SetEndlessStats(){
             
         avgImage.anchorMin = newAnchorMin;
         avgImage.anchorMax = newAnchorMax;
+        avgAVGText.anchorMin = newAnchorMin;
+        avgAVGText.anchorMax = newAnchorMax;
+        avgAVGValueText.anchorMin = newAnchorMin;
+        avgAVGValueText.anchorMax = newAnchorMax;
 
 }
 private void SetSpeedrunStats(){
