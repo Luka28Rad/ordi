@@ -214,7 +214,7 @@ public class ScenesController : MonoBehaviour
     }
 
     public void ToStatistics(){
-        SceneManager.LoadScene("StatisticsScene");
+        StartCoroutine(LoadNewLevel("StatisticsScene"));
     }
 
     IEnumerator LoadNewLevel(string sceneName) {

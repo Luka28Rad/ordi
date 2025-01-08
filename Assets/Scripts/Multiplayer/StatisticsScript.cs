@@ -31,6 +31,7 @@ public class StatisticsScript : MonoBehaviour
     [SerializeField] GameObject[] panelsUp; // Array for UI images (e.g., win % and K/D ratio)
     [SerializeField] GameObject[] panelsDown; // Array for UI images (e.g., win % and K/D ratio)
     [SerializeField] TMP_Dropdown dropdown;
+    public TMP_Text title;
 
     void Start()
     {
@@ -39,8 +40,9 @@ public class StatisticsScript : MonoBehaviour
         {
             dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
         }
-        SetStoryStats();
     }
+
+    private bool firstClick = false;
      void OnDropdownValueChanged(int value)
 {
     // Get the name of the selected option
@@ -51,6 +53,10 @@ public class StatisticsScript : MonoBehaviour
 
     // Show the panels corresponding to the selected option
     ShowPanelsForMode(selectedOptionName);
+    if(!firstClick) {
+        dropdown.options.RemoveAt(0);
+        firstClick = true;
+    }
 }
 
 // Method to hide all panels
@@ -85,26 +91,33 @@ void ShowPanelsForMode(string selectedOptionName)
     switch (selectedOptionName)
     {
         case "Story mode":
+            title.text= "STORY MODE";
             panelsUp[0].SetActive(true);
             panelsDown[0].SetActive(true);
             SetStoryStats();
             break;
         case "Speedrun mode":
+            title.text= "SPEEDRUN";
             panelsUp[1].SetActive(true);
             panelsDown[1].SetActive(true);
             SetSpeedrunStats();
             break;
         case "Endless mode":
+            title.text= "ENDLESS";
             panelsUp[2].SetActive(true);
             panelsDown[2].SetActive(true);
             SetEndlessStats();
             break;
         case "Multiplayer":
+            title.text= "MULTIPLAYER";
             panelsUp[3].SetActive(true);
             panelsDown[3].SetActive(true);
             SetMPStats();
             break;
         default:
+            title.text= "";
+            panelsUp[4].SetActive(true);
+            panelsDown[4].SetActive(true);
             // Handle any default case if needed
             break;
     }

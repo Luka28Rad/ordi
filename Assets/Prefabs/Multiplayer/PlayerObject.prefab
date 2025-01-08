@@ -305,9 +305,12 @@ MonoBehaviour:
   m_CeilingCheck: {fileID: 2912449848046238862}
   dashTrail: {fileID: 70025956008850955}
   dashIndicator: {fileID: 616871831511696201}
-  jumpRefresh: 1.5
-  flyRefresh: 3
-  dashRefresh: 1
+  jumpRefresh: 2
+  flyRefresh: 4
+  dashRefresh: 1.5
+  matchstickRefresh: 10
+  svijecaRefresh: 10
+  teleportRefresh: 10
   maxJumps: 2
   boostedJumpForce: 1200
   jumpHoldThreshold: 0.4
@@ -5518,8 +5521,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0029001236, y: -0.010299683, z: 0}
-    m_Extent: {x: 20.501099, y: 20.4954, z: 0}
+    m_Center: {x: 0.0038995743, y: -0.011199951, z: 0}
+    m_Extent: {x: 20.494999, y: 20.4943, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5

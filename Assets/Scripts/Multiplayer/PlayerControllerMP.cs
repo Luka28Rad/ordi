@@ -18,9 +18,12 @@ public class PlayerControllerMP : NetworkBehaviour
     [SerializeField] private Transform m_CeilingCheck;                          
     [SerializeField] private ParticleSystem dashTrail;
     [SerializeField] private GameObject dashIndicator;
-    [SerializeField] private float jumpRefresh = 1.5f;
-    [SerializeField] private float flyRefresh = 3f;
-    [SerializeField] private float dashRefresh = 1f;
+    [SerializeField] private float jumpRefresh = 2f;
+    [SerializeField] private float flyRefresh = 4f;
+    [SerializeField] private float dashRefresh = 1.5f;
+    [SerializeField] private float matchstickRefresh = 10f;
+    [SerializeField] private float svijecaRefresh = 10f;
+    [SerializeField] private float teleportRefresh = 10f;
     const float k_GroundedRadius = .3f;
     private bool m_Grounded;            
     private bool canDash;
@@ -309,6 +312,51 @@ private void SetUp(){
                         {
                             UpdateIndicatorVisibility(true);
                             canFly = true;
+                        }
+                    }
+                }else if(isSvijeca)
+                {
+                    if (Time.time - timeSinceLastDash > svijecaRefresh)
+                    {
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canDash = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canDash = true;
+                        }
+                    }
+                }else if(isWizzy)
+                {
+                    if (Time.time - timeSinceLastDash > teleportRefresh)
+                    {
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canDash = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canDash = true;
+                        }
+                    }
+                }else if(isMatchstick)
+                {
+                    if (Time.time - timeSinceLastDash > matchstickRefresh)
+                    {
+                        if(SceneManager.GetActiveScene().name == "MultiplayerLevel") 
+                        {
+                            CmdSetIndicatorState(true);
+                            canDash = true;
+                        }
+                        else 
+                        {
+                            UpdateIndicatorVisibility(true);
+                            canDash = true;
                         }
                     }
                 }
