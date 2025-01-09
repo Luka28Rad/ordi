@@ -447,7 +447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 351ed598b5bdbeb4f9c80edc03482646, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb519eca64090c546bda9d90beb6b1fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ready up
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
   m_sharedMaterial: {fileID: -732646012778544257, guid: b791eb2e60ac84541841bb7a96a7ec01, type: 2}
@@ -2716,7 +2716,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: e067eec070f39d547b8f036e5ecd36e8, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: bd43d5a93688e4a4ba3a18534e6788ab, type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -2763,9 +2763,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e067eec070f39d547b8f036e5ecd36e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dc0d61faff142c048a348aeb6527374f, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4125,7 +4125,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1903456576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1812365890}
+        m_TargetAssemblyTypeName: ButtonSelection, Assembly-CSharp
+        m_MethodName: OnButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2017709302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,7 +4211,12 @@ MonoBehaviour:
   PlayerItemCreated: 0
   LocalPlayerController: {fileID: 0}
   StartGameButton: {fileID: 1411941}
+  readyButton: {fileID: 1303579798}
   ReadyButtonText: {fileID: 289844887}
+  readySprite: {fileID: 21300000, guid: dc0d61faff142c048a348aeb6527374f, type: 3}
+  unreadySprite: {fileID: 21300000, guid: 70c351235fb29df41b4ec6dbe5f32e3c, type: 3}
+  readyHoverSprite: {fileID: 21300000, guid: bd43d5a93688e4a4ba3a18534e6788ab, type: 3}
+  unreadyHoverSprite: {fileID: 21300000, guid: da739c695701df54b9b900176dba2ce8, type: 3}
 --- !u!4 &2068162384
 Transform:
   m_ObjectHideFlags: 0

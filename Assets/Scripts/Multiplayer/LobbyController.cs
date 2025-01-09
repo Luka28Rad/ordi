@@ -6,6 +6,7 @@ using Steamworks;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class LobbyController : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class LobbyController : MonoBehaviour
     public PlayerObjectController LocalPlayerController;
     private CustomNetworkManager manager;
     public Button StartGameButton;
+    public Button readyButton;
     public TMP_Text ReadyButtonText;
+    public Sprite readySprite, unreadySprite, readyHoverSprite, unreadyHoverSprite;
     private CustomNetworkManager Manager {
         get{
             if(manager != null){
@@ -74,10 +77,24 @@ public class LobbyController : MonoBehaviour
 
     public void UpdateButton(){
         if(LocalPlayerController.Ready == true){
-            ReadyButtonText.text = "Unready";
+            ReadyButtonText.text = "";//"Unready";
+
+            readyButton.GetComponent<Image>().sprite = unreadySprite;
+
+            SpriteState spriteState = readyButton.spriteState;
+            spriteState.highlightedSprite = unreadyHoverSprite;
+            readyButton.spriteState = spriteState;
         } else {
-            ReadyButtonText.text = "Ready";
+            ReadyButtonText.text = "";//"Ready";
+
+            readyButton.GetComponent<Image>().sprite = readySprite;
+
+            SpriteState spriteState = readyButton.spriteState;
+            spriteState.highlightedSprite = readyHoverSprite;
+            readyButton.spriteState = spriteState;
         }
+        if (EventSystem.current.currentSelectedGameObject == readyButton.gameObject)
+                EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void CheckIfAllReady(){
