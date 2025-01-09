@@ -93,6 +93,9 @@ public class NextLevel : MonoBehaviour
                     StartCoroutine(LoadNewLevel("EndScene"));
                 }
                     break;
+                case "DemoLevel":
+                    StartCoroutine(LoadNewLevel("DemoEndScene"));
+                    break;
                 default:
                     Debug.LogWarning("Error");
                     Debug.Log("MOzda");

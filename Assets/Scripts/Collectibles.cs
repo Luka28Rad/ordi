@@ -9,6 +9,7 @@ public class Collectibles : MonoBehaviour
     public TextMeshProUGUI collectiblesUI;
     private int totalCollectibles;
     public static int collectibleCounter = 0;
+    public static int demoCounter = 0;
     void Start()
     {
         totalCollectibles = transform.childCount;
@@ -47,7 +48,10 @@ public class Collectibles : MonoBehaviour
         if(Variables.gameMode == "Speedrun") {
             collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles +"\n1 coin = -2s at the end";
         } else {
-            collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles;
+            if(Variables.gameMode != "Demo") collectiblesUI.text = (collectibleCounter) + "/" + totalCollectibles;
+        }
+        if(Variables.gameMode == "Demo"){
+            collectiblesUI.text = (demoCounter) + "/" + totalCollectibles;
         }
     }
 }

@@ -50,4 +50,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StatisticsScene.unity
     guid: 299f438aca8f6c340b2519c21be01611
+  - enabled: 1
+    path: Assets/Scenes/DemoLevel.unity
+    guid: 3c0699e87ce277d4ea221c09d9b42c8f
+  - enabled: 1
+    path: Assets/Scenes/DemoEndScene.unity
+    guid: 5cac19164a48e044cb2060994daed953
   m_configObjects: {}

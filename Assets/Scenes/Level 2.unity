@@ -1971,6 +1971,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarCoin2.6
       objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.83
@@ -2562,6 +2566,10 @@ PrefabInstance:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
       value: StarCoin2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4384,6 +4392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarCoin2.4
       objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
       value: 82.01687
@@ -5310,6 +5322,10 @@ PrefabInstance:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
       value: StarCoin2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
@@ -127522,6 +127538,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarCoin2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x
       value: 43.48
@@ -128609,8 +128629,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0019500256, y: -0.010849953, z: 0}
-    m_Extent: {x: 7.50395, y: 7.49475, z: 0}
+    m_Center: {x: 0.004949808, y: -0.010150194, z: 0}
+    m_Extent: {x: 7.5015497, y: 7.4998503, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -129226,6 +129246,10 @@ PrefabInstance:
     - target: {fileID: 729735383852724664, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_Name
       value: StarCoin2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788737813463498108, guid: 826fa76bfada30846a758943aad86669, type: 3}
+      propertyPath: m_Volume
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8865092463837550855, guid: 826fa76bfada30846a758943aad86669, type: 3}
       propertyPath: m_LocalPosition.x

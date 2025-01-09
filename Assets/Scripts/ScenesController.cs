@@ -97,6 +97,9 @@ public class ScenesController : MonoBehaviour
             case "Practice":
                 PracticeLevelClicked(PlayerPrefs.GetInt("PracticeLevel", 1));
                 break;
+            case "Demo":
+                ToDemo();
+                break;
             default:
             Debug.Log("Mozda3");
             StartCoroutine(LoadNewLevel("MainMenuScene"));
@@ -217,6 +220,10 @@ public class ScenesController : MonoBehaviour
         StartCoroutine(LoadNewLevel("StatisticsScene"));
     }
 
+    public void ToDemo(){
+        Variables.gameMode = "Demo";
+        StartCoroutine(LoadNewLevel("DemoLevel"));
+    }
     IEnumerator LoadNewLevel(string sceneName) {
         if(transition != null) {
             transition.SetTrigger("Start");
