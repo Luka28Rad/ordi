@@ -7705,7 +7705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 152.36102, y: -119.93437}
+  m_AnchoredPosition: {x: 152.36102, y: -119.93439}
   m_SizeDelta: {x: 274.72202, y: 209.86874}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &582089651
@@ -12900,7 +12900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 152.36102, y: -119.93437}
+  m_AnchoredPosition: {x: 152.36102, y: -119.93439}
   m_SizeDelta: {x: 274.72202, y: 209.86874}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &655820192
@@ -18518,7 +18518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 152.36102, y: -119.93437}
+  m_AnchoredPosition: {x: 152.36102, y: -119.93439}
   m_SizeDelta: {x: 274.72202, y: 209.86874}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &869782991
@@ -28222,7 +28222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9008355095228883934, guid: 19bce79b30eb99e4a9633b2189c7b52a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29438,8 +29438,8 @@ MonoBehaviour:
   - {fileID: 2055350979}
   - {fileID: 1975542872}
   avgImage: {fileID: 1230404317}
-  avgAVGText: {fileID: 0}
-  avgAVGValueText: {fileID: 0}
+  avgAVGText: {fileID: 1602569527}
+  avgAVGValueText: {fileID: 983255920}
   avgText: {fileID: 983255921}
   last5EndlessImages:
   - {fileID: 1332546259}
