@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using UnityEngine.UI;
+using TMPro;
 
 public class LobbiesListManager : MonoBehaviour
 {
@@ -9,7 +11,8 @@ public class LobbiesListManager : MonoBehaviour
     public GameObject lobbiesMenu;
     public GameObject lobbyListItemPrefab;
     public GameObject lobbyListContent;
-    public GameObject lobbiesButton, hostButton, backButton;
+    public GameObject lobbiesButton, hostButton, backButton, backToMainMenuButton;
+    public TMP_Text numOfLobbiesText;
     public List<GameObject> listOfLobbies = new List<GameObject>();
 
     private void Awake(){
@@ -20,8 +23,10 @@ public class LobbiesListManager : MonoBehaviour
         DestroyLobbies();
         lobbiesButton.SetActive(false);
         hostButton.SetActive(false);
+        backToMainMenuButton.SetActive(false);
         lobbiesMenu.SetActive(true);
         backButton.SetActive(true);
+        numOfLobbiesText.gameObject.SetActive(true);
 
         SteamLobby.Instance.GetLobbiesList();
     }
@@ -29,12 +34,17 @@ public class LobbiesListManager : MonoBehaviour
     public void BackButtonPressed(){
         lobbiesButton.SetActive(true);
         hostButton.SetActive(true);
+        backToMainMenuButton.SetActive(true);
+        numOfLobbiesText.gameObject.SetActive(false);
+        numOfLobbiesText.text = "";
         lobbiesMenu.SetActive(false);
         backButton.SetActive(false);
         DestroyLobbies();
     }
-
+    public Sprite[] zvjezdice;
     public void DisplayLobbies(List<CSteamID> lobbyIDs, LobbyDataUpdate_t result){
+        if(lobbyIDs.Count > 0) numOfLobbiesText.text = "Lobbies found: " + lobbyIDs.Count;
+        else numOfLobbiesText.text = "No lobbies found at the moment try again later. :(";
         for(int i = 0; i< lobbyIDs.Count; i++){
             if(lobbyIDs[i].m_SteamID == result.m_ulSteamIDLobby) {
                 GameObject newLobby = Instantiate(lobbyListItemPrefab);
@@ -43,6 +53,7 @@ public class LobbiesListManager : MonoBehaviour
                 newLobby.GetComponent<LobbyDataEntry>().SetLobbyData();
                 newLobby.transform.SetParent(lobbyListContent.transform);
                 newLobby.transform.localScale = Vector3.one;
+                newLobby.transform.Find("LobbyImage").GetComponent<Image>().sprite = zvjezdice[i%3];
                 listOfLobbies.Add(newLobby);
 
                 RectTransform rectTransform = lobbyListContent.GetComponent<RectTransform>();

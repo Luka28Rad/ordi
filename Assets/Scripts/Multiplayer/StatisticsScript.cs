@@ -297,11 +297,16 @@ private void SetEndlessStats(){
         var val = Mathf.Clamp01(sum / maxScore);
         Vector2 newAnchorMin = new Vector2(avgImage.anchorMin.x, (val-0.02f)); // Keep X the same, change Y
         Vector2 newAnchorMax = new Vector2(avgImage.anchorMax.x, (val + 0.02f)); // Keep X the same, change Y
-            
         avgImage.anchorMin = newAnchorMin;
         avgImage.anchorMax = newAnchorMax;
+
+        newAnchorMin = new Vector2(avgAVGText.anchorMin.x, (val-0.02f)); // Keep X the same, change Y
+        newAnchorMax = new Vector2(avgAVGText.anchorMax.x, (val + 0.02f)); // Keep X the same, change Y
         avgAVGText.anchorMin = newAnchorMin;
         avgAVGText.anchorMax = newAnchorMax;
+
+        newAnchorMin = new Vector2(avgAVGValueText.anchorMin.x, (val-0.02f)); // Keep X the same, change Y
+        newAnchorMax = new Vector2(avgAVGValueText.anchorMax.x, (val + 0.02f)); // Keep X the same, change Y
         avgAVGValueText.anchorMin = newAnchorMin;
         avgAVGValueText.anchorMax = newAnchorMax;
 
