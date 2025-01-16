@@ -217,6 +217,7 @@ public class ScenesController : MonoBehaviour
     }
 
     public void ToStatistics(){
+        Achievements.UnlockStatsAchievement();
         StartCoroutine(LoadNewLevel("StatisticsScene"));
     }
 

@@ -19,6 +19,7 @@ public class ProgressiveFillWithContinuousAnimations : MonoBehaviour
 
     void OnEnable()
     {
+        Achievements.UnlockMultiplayerEndAchievement();
         // Start with the last object
         currentIndex = objects.Length - 1;
 

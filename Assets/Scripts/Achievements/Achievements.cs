@@ -323,5 +323,33 @@ public class Achievements : MonoBehaviour
         SetAchievement("ENDLESS_START_ACHIEVEMENT");
     }
 
+    public static void UnlockMultiplayerStartAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MULTIPLAYER_START_ACHIEVEMENT");
+    }
+
+    public static void UnlockMultiplayerEndAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MULTIPLAYER_END_ACHIEVEMENT");
+    }
+
+    public static void UnlockMultiplayerAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MULTIPLAYER_ACHIEVEMENT");
+    }
+
+    public static void UnlockMultiplayerHostAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MULTIPLAYER_HOST_ACHIEVEMENT");
+    }
+
+    public static void UnlockMultiplayerClientAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MULTIPLAYER_CLIENT_ACHIEVEMENT");
+    }
+
+    public static void UnlockDemoAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("DEMO_FINISH_ACHIEVEMENT");
+    }
+
+    public static void UnlockStatsAchievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("CHECK_STATS_ACHIEVEMENT");
+    }
+
 
 }

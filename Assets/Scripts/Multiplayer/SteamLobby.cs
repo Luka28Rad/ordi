@@ -36,7 +36,7 @@ public class SteamLobby : MonoBehaviour
     private void OnLobbyCreated(LobbyCreated_t callback){
         if(callback.m_eResult != EResult.k_EResultOK) {return;}
         Debug.Log("Lobby created.");
-
+        Achievements.UnlockMultiplayerHostAchievement();
         manager.StartHost();
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey, SteamUser.GetSteamID().ToString());
         SteamMatchmaking.SetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), "name", SteamFriends.GetPersonaName().ToString()+ "'S LOBBY");
@@ -53,6 +53,7 @@ public class SteamLobby : MonoBehaviour
         if(NetworkServer.active) {return;}
         manager.networkAddress = SteamMatchmaking.GetLobbyData(new CSteamID(callback.m_ulSteamIDLobby), HostAddressKey);
         manager.StartClient();
+        Achievements.UnlockMultiplayerClientAchievement();
     }
 
     public void JoinLobby(CSteamID lobbyID){

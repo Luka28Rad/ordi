@@ -94,6 +94,7 @@ public class NextLevel : MonoBehaviour
                 }
                     break;
                 case "DemoLevel":
+                    Achievements.UnlockDemoAchievement();
                     StartCoroutine(LoadNewLevel("DemoEndScene"));
                     break;
                 default:
