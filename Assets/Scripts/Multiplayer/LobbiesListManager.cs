@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Steamworks;
 using UnityEngine.UI;
@@ -43,14 +44,16 @@ public class LobbiesListManager : MonoBehaviour
     }
     public Sprite[] zvjezdice;
     public void DisplayLobbies(List<CSteamID> lobbyIDs, LobbyDataUpdate_t result){
+        //DestroyLobbies();
+            numOfLobbiesText.gameObject.SetActive(true);
         if(lobbyIDs.Count > 0) numOfLobbiesText.text = "Lobbies found: " + lobbyIDs.Count;
         else {
-            numOfLobbiesText.gameObject.SetActive(true);
             numOfLobbiesText.text = "No lobbies found at the moment try again later. :(";
             return;
         }
         for(int i = 0; i< lobbyIDs.Count; i++){
-            if(lobbyIDs[i].m_SteamID == result.m_ulSteamIDLobby) {
+            if(lobbyIDs[i].m_SteamID == result.m_ulSteamIDLobby && !listOfLobbies.Any(lobby => lobby.GetComponent<LobbyDataEntry>().lobbyID.m_SteamID == lobbyIDs[i].m_SteamID)) {
+                if(lobbyIDs[i].m_SteamID == SteamLobby.Instance.CurrentLobbyId) Debug.Log("blokic");
                 GameObject newLobby = Instantiate(lobbyListItemPrefab);
                 newLobby.GetComponent<LobbyDataEntry>().lobbyID = (CSteamID) lobbyIDs[i].m_SteamID;
                 newLobby.GetComponent<LobbyDataEntry>().lobbyName = SteamMatchmaking.GetLobbyData((CSteamID) lobbyIDs[i].m_SteamID, "name");

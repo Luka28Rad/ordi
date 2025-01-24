@@ -51,12 +51,14 @@ public class LobbyController : MonoBehaviour
         {
             // This is the host
             Debug.Log("Host is leaving the lobby...");
+            SteamMatchmaking.LeaveLobby(new CSteamID(CurrentLobbyId));
             NetworkManager.singleton.StopHost();
         }
         else if (NetworkClient.isConnected)
         {
             // This is a client
             Debug.Log("Client is leaving the lobby...");
+            SteamMatchmaking.LeaveLobby(new CSteamID(CurrentLobbyId));
             NetworkManager.singleton.StopClient();
         }
         else
