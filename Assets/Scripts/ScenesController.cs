@@ -225,6 +225,10 @@ public class ScenesController : MonoBehaviour
         Variables.gameMode = "Demo";
         StartCoroutine(LoadNewLevel("DemoLevel"));
     }
+
+    public void ToComic(){
+        StartCoroutine(LoadNewLevel("ComicBook"));
+    }
     IEnumerator LoadNewLevel(string sceneName) {
         if(transition != null) {
             transition.SetTrigger("Start");

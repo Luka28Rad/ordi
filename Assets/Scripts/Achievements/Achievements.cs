@@ -351,5 +351,18 @@ public class Achievements : MonoBehaviour
         SetAchievement("CHECK_STATS_ACHIEVEMENT");
     }
 
+    public static void UnlockFirstEpisodeAchievement(){     ///////////////////////////////////////////////////////////////////////
+        SetAchievement("FIRST_COMIC_ACHIEVEMENT");
+    }
+
+    public static void UnlockHalfComicAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("HALF_COMIC_ACHIEVEMENT");
+    }
+
+    public static void UnlockReadComicAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("FULL_COMIC_ACHIEVEMENT");
+    }
+
+
 
 }

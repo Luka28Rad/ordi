@@ -44,7 +44,11 @@ public class LobbiesListManager : MonoBehaviour
     public Sprite[] zvjezdice;
     public void DisplayLobbies(List<CSteamID> lobbyIDs, LobbyDataUpdate_t result){
         if(lobbyIDs.Count > 0) numOfLobbiesText.text = "Lobbies found: " + lobbyIDs.Count;
-        else numOfLobbiesText.text = "No lobbies found at the moment try again later. :(";
+        else {
+            numOfLobbiesText.gameObject.SetActive(true);
+            numOfLobbiesText.text = "No lobbies found at the moment try again later. :(";
+            return;
+        }
         for(int i = 0; i< lobbyIDs.Count; i++){
             if(lobbyIDs[i].m_SteamID == result.m_ulSteamIDLobby) {
                 GameObject newLobby = Instantiate(lobbyListItemPrefab);
