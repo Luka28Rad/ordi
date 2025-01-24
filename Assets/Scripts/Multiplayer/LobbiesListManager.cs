@@ -45,6 +45,7 @@ public class LobbiesListManager : MonoBehaviour
     public Sprite[] zvjezdice;
     public void DisplayLobbies(List<CSteamID> lobbyIDs, LobbyDataUpdate_t result){
         //DestroyLobbies();
+        if(numOfLobbiesText == null) return;
             numOfLobbiesText.gameObject.SetActive(true);
         if(lobbyIDs.Count > 0) numOfLobbiesText.text = "Lobbies found: " + lobbyIDs.Count;
         else {
