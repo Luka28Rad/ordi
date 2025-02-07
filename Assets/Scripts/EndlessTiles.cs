@@ -100,14 +100,15 @@ public class EndlessTiles : MonoBehaviour
 
     private void SpawnStarDust(Vector3 vec) {
         //Vector3 spawnPosition = tilemap.CellToWorld(new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y+2), 0));
-        Instantiate(starDust, vec, Quaternion.identity);
+        //Instantiate(starDust, vec, Quaternion.identity);
+        // vise smetaju nego sto pomazu
     }
 
     private void SpawnPrefabsInCurrentRow()
     {
         // Loop through each tile position in the current row
-            Vector3 spawnPosition = tilemap.CellToWorld(new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y+2), 0));
-            Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+            //Vector3 spawnPosition = tilemap.CellToWorld(new Vector3Int(Mathf.FloorToInt(player.transform.position.x), Mathf.FloorToInt(player.transform.position.y+2), 0));
+            //Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
     }
 
     private void ExtendBorders(float y)
@@ -121,7 +122,7 @@ public class EndlessTiles : MonoBehaviour
     }
 
     private void UpdateScoreText()
-    {   if(score%100 == 0) dangerLine.IncreaseSpeed();
+    {   if(score%25 == 0) dangerLine.IncreaseSpeed();
         scoreText.text = score.ToString();
     }
     private void CheckTrophies(int number){

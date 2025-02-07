@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class DeathlineController : NetworkBehaviour
 {
-    [SerializeField] private float speed = 0.2f;
+    [SerializeField] private float speed = 1f;
     [SerializeField] private WinnerPanelController winnerPanelController; // Reference to WinnerPanel
 
     // SyncList to maintain consistent death order across server and clients
@@ -55,7 +55,7 @@ public class DeathlineController : NetworkBehaviour
     }
 
     private float lastYPosition = 0f; // Tracks the last Y position where speed was updated
-private float speedIncrement = 0.5f; // Adjust the increment value as needed
+private float speedIncrement = 1f; // Adjust the increment value as needed
 
 private void UpdateSpeedBasedOnY()
 {

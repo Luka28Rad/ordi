@@ -128737,8 +128737,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0055999756, y: -0.0045001507, z: 0}
-    m_Extent: {x: 5.5067, y: 5.4983997, z: 0}
+    m_Center: {x: 0.0020501614, y: 0.00034999847, z: 0}
+    m_Extent: {x: 5.5029497, y: 5.50125, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -134589,6 +134589,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 185870431443401517, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 185870431443401517, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 185870431443401517, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 1628457265522348988, guid: b0bc5c43fe65fe943a86db057d72e783, type: 3}
       propertyPath: m_Name
       value: Main Camera

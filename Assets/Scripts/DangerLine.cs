@@ -119,7 +119,7 @@ public class DangerLine : MonoBehaviour
 
     public void IncreaseSpeed()
     {
-        currentSpeed *= (1+speedIncreaseAmount / 100); // Increase the current speed by the specified amount
+        currentSpeed += 1f; // Increase the current speed by the specified amount
         if (currentSpeed > 5f) currentSpeed = 5f;    // Cap the speed at 5
         Debug.Log("Current Speed: " + currentSpeed);
     }
