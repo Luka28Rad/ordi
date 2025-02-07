@@ -11,6 +11,10 @@ public class Sound : MonoBehaviour
 
     public AudioClip level3Clip;
     public AudioClip bossFightClip;
+    public AudioClip clip100;
+    public AudioClip clip75;
+    public AudioClip clip125;
+    public AudioClip clip150;
     // Add more audio clips as needed
 
     private AudioSource audioSource;
@@ -46,6 +50,9 @@ public class Sound : MonoBehaviour
                 break;
             case "CreditsScene":
                 PlayAudio(defaultClip);
+                break;
+            case "EndlessLevel":
+                PlayAudio(clip100);
                 break;
             default:
                 PlayAudio(defaultClip);

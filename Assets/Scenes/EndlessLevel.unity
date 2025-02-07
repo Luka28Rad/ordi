@@ -2876,8 +2876,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0068001747, y: -0.012650013, z: 0}
-    m_Extent: {x: 7.5039, y: 7.49595, z: 0}
+    m_Center: {x: 0.0034499168, y: -0.0065500736, z: 0}
+    m_Extent: {x: 7.50495, y: 7.4986496, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -3381,6 +3381,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
+      propertyPath: clip100
+      value: 
+      objectReference: {fileID: 8300000, guid: fdc105edc936975428ee58d681a2392a, type: 3}
     - target: {fileID: 6110023897495743383, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
       propertyPath: m_Name
       value: SoundPlayer
