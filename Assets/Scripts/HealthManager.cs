@@ -52,7 +52,7 @@ public class HealthManager : MonoBehaviour
                     GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Cleanse();
                     transform.position = GameObject.Find(checkpointName).transform.position;
                     currentHealth = 5;
-                    playerLight.shapeLightFalloffSize = 20;
+                    playerLight.shapeLightFalloffSize = 15;
                     showHealth.UpdateHealth(currentHealth);
                     SceneManager.LoadScene("DeathScene");
             }

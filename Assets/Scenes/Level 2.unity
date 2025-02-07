@@ -128720,7 +128720,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 1
   m_Color: {r: 0.8207547, g: 0.46070665, b: 0.72642726, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -128737,8 +128737,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0018999577, y: -0.0018498898, z: 0}
-    m_Extent: {x: 7.5058002, y: 7.4966497, z: 0}
+    m_Center: {x: 0.0055999756, y: -0.0045001507, z: 0}
+    m_Extent: {x: 5.5067, y: 5.4983997, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -128746,7 +128746,7 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 7
+  m_ShapeLightFalloffSize: 5
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -0.5, y: -0.5, z: 0}
@@ -134695,6 +134695,30 @@ PrefabInstance:
       propertyPath: hearts.Array.data[4]
       value: 
       objectReference: {fileID: 1523923593}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_ShapeLightFalloffSize
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_LocalBounds.m_Center.x
+      value: 0.005399704
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_LocalBounds.m_Center.y
+      value: -0.0061001778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.x
+      value: 15.4978
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991907580369916422, guid: e8dd2405741747940b0abfe400223c82, type: 3}
+      propertyPath: m_LocalBounds.m_Extent.y
+      value: 15.5016
+      objectReference: {fileID: 0}
     - target: {fileID: 4810011872364292622, guid: e8dd2405741747940b0abfe400223c82, type: 3}
       propertyPath: dashIndicator
       value: 
