@@ -8,12 +8,14 @@ public class NextLevel : MonoBehaviour
 
     private bool isScaling = false;
     public Animator transition;
+    public AudioSource telSound;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isScaling)
         {
             isScaling = true;
+            if(telSound != null) telSound.Play();
             StartCoroutine(ScalePlayerAndLoadNextLevel(other.gameObject));
         }
     }
@@ -109,6 +111,7 @@ public class NextLevel : MonoBehaviour
     IEnumerator LoadNewLevel(string sceneName) {
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(1);
+        if(telSound != null) telSound.Stop();
         SceneManager.LoadScene(sceneName);
     }
 
