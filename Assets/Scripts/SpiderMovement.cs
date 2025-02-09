@@ -18,8 +18,10 @@ public class SpiderWebMovement : MonoBehaviour
     private const int WEB_POINTS = 25; // Number of points to make web look smooth
     private float startDelay;
     private bool hasStarted = false;
+    GameObject player;
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         startPosition = transform.position;
         webStartPoint = new Vector2(startPosition.x, startPosition.y + moveDistance); // Default top point
         
@@ -33,9 +35,25 @@ public class SpiderWebMovement : MonoBehaviour
         // Set random start delay
         startDelay = Random.Range(0f, 5f);
     }
-    
+        private bool IsPlayerClose()
+    {
+        if (player != null)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if(distance <= 5f) {
+                if(transform.name.Contains("Yellow"))Achievements.UnlockBlackYellowSpiderSpotted();
+                if(transform.name.Contains("Green"))Achievements.UnlockRedGreenSpiderSpotted();
+                return true;
+            }
+        }
+        return false;
+    }
     void Update()
     {
+        if (IsPlayerClose())
+        {
+            Debug.Log("Player is close to the enemy!");
+        } 
         if (!hasStarted)
         {
             startDelay -= Time.deltaTime;

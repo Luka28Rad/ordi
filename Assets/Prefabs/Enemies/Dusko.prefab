@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6518963677251832274}
   - component: {fileID: 3414437351681299402}
   - component: {fileID: 6070596786113912657}
+  - component: {fileID: 861484870537968934}
   m_Layer: 0
   m_Name: Dusko
   m_TagString: Untagged
@@ -134,3 +135,77 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathEffect: {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
+--- !u!114 &861484870537968934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219040100576545272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.81960785, g: 0.45882353, b: 0.7254902, a: 1}
+  m_Intensity: 0.5
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 00000000a72ffda441005cde6b3f4757c79cc14591f86cf1
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: -0.024200022, y: -0.09265, z: 0}
+    m_Extent: {x: 1.4061, y: 1.34835, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 1
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.43696976, y: -0.3109038, z: 0}
+  - {x: -0.37654114, y: -0.31191492, z: 0}
+  - {x: -0.3747902, y: -0.37669778, z: 0}
+  - {x: -0.3135109, y: -0.37494683, z: 0}
+  - {x: -0.31175995, y: -0.43797898, z: 0}
+  - {x: 0.19269562, y: -0.44424105, z: 0}
+  - {x: 0.1934166, y: -0.38165164, z: 0}
+  - {x: 0.2541809, y: -0.38020492, z: 0}
+  - {x: 0.25239182, y: -0.31562376, z: 0}
+  - {x: 0.31415176, y: -0.31388402, z: 0}
+  - {x: 0.31676102, y: -0.2556026, z: 0}
+  - {x: 0.37590027, y: -0.25212216, z: 0}
+  - {x: 0.37677002, y: -0.12251115, z: 0}
+  - {x: 0.3141365, y: -0.12338114, z: 0}
+  - {x: 0.3150139, y: 0.12540364, z: 0}
+  - {x: 0.25326157, y: 0.12714434, z: 0}
+  - {x: 0.25239182, y: 0.1871655, z: 0}
+  - {x: 0.18976212, y: 0.18977499, z: 0}
+  - {x: 0.18976212, y: 0.2489264, z: 0}
+  - {x: -0.18844223, y: 0.24955177, z: 0}
+  - {x: -0.18967056, y: 0.19151807, z: 0}
+  - {x: -0.24893951, y: 0.18657899, z: 0}
+  - {x: -0.25140762, y: 0.12978029, z: 0}
+  - {x: -0.3107109, y: 0.12344003, z: 0}
+  - {x: -0.31681824, y: -0.11845422, z: 0}
+  - {x: -0.3772545, y: -0.12399411, z: 0}
+  - {x: -0.38179398, y: -0.18585086, z: 0}
+  - {x: -0.43432236, y: -0.18409991, z: 0}

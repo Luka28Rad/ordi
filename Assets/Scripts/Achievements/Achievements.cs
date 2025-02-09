@@ -363,6 +363,24 @@ public class Achievements : MonoBehaviour
         SetAchievement("FULL_COMIC_ACHIEVEMENT");
     }
 
+    public static void UnlockRedGreenSpiderSpotted(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("RED_GREEN_SPIDER_ACHIEVEMENT");
+    }
 
+    public static void UnlockBlackYellowSpiderSpotted(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("BLACK_YELLOW_SPIDER_ACHIEVEMENT");
+    }
+
+    public static void UnlockRedGreenSpiderDamage(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("RED_GREEN_SPIDER_DAMAGE_ACHIEVEMENT");
+    }
+
+    public static void UnlockBlackYellowSpiderDamage(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("BLACK_YELLOW_SPIDER_DAMAGE_ACHIEVEMENT");
+    }
+
+    public static void UnlockSurviveFourBites(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ALL_SPIDERS_ACHIEVEMENT");
+    }
 
 }

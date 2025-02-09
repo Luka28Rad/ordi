@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 4434797394531682483}
   - component: {fileID: 4390096818863819574}
   - component: {fileID: 570529212389478607}
+  - component: {fileID: 5870003626158285754}
   m_Layer: 6
   m_Name: SpringShroom
   m_TagString: Untagged
@@ -309,6 +310,95 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7687664, y: 0.31567574}
   m_EdgeRadius: 0
+--- !u!114 &5870003626158285754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3545842843582465406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ComponentVersion: 1
+  m_LightType: 1
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0.81960785, g: 0.45882353, b: 0.7254902, a: 1}
+  m_Intensity: 0.15
+  m_LightVolumeIntensity: 1
+  m_LightVolumeIntensityEnabled: 0
+  m_ApplyToSortingLayers: 00000000a72ffda441005cde6b3f4757c79cc14591f86cf1
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensity: 0.75
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_LocalBounds:
+    m_Center: {x: 0.008300006, y: -0.06525004, z: 0}
+    m_Extent: {x: 1.4444001, y: 1.44495, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 1
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.38028765, y: -0.1911416, z: 0}
+  - {x: -0.38222933, y: -0.24843645, z: 0}
+  - {x: -0.31519032, y: -0.25322485, z: 0}
+  - {x: -0.31685925, y: -0.38640785, z: 0}
+  - {x: -0.25367546, y: -0.38577414, z: 0}
+  - {x: -0.24479294, y: -0.4511237, z: 0}
+  - {x: -0.1947751, y: -0.44570637, z: 0}
+  - {x: -0.18741608, y: -0.49722147, z: 0}
+  - {x: -0.06598711, y: -0.504581, z: 0}
+  - {x: -0.05494833, y: -0.44938612, z: 0}
+  - {x: 0.11882353, y: -0.4467001, z: 0}
+  - {x: 0.12585163, y: -0.4994111, z: 0}
+  - {x: 0.2453301, y: -0.49589682, z: 0}
+  - {x: 0.2597022, y: -0.38538265, z: 0}
+  - {x: 0.31813407, y: -0.36692476, z: 0}
+  - {x: 0.32150197, y: -0.31637096, z: 0}
+  - {x: 0.32094455, y: -0.24810028, z: 0}
+  - {x: 0.3736341, y: -0.25773382, z: 0}
+  - {x: 0.3806169, y: -0.19488811, z: 0}
+  - {x: 0.44695425, y: -0.18790531, z: 0}
+  - {x: 0.44695425, y: 0.0076150894, z: 0}
+  - {x: 0.3841083, y: 0.0041236877, z: 0}
+  - {x: 0.3806169, y: 0.13330698, z: 0}
+  - {x: 0.31757116, y: 0.13330698, z: 0}
+  - {x: 0.3144989, y: 0.1897111, z: 0}
+  - {x: 0.26296926, y: 0.1911416, z: 0}
+  - {x: 0.2594309, y: 0.24956751, z: 0}
+  - {x: 0.18999767, y: 0.2543559, z: 0}
+  - {x: 0.18999767, y: 0.31421185, z: 0}
+  - {x: 0.067890644, y: 0.31421185, z: 0}
+  - {x: 0.067890644, y: 0.37167406, z: 0}
+  - {x: -0.061398983, y: 0.37406778, z: 0}
+  - {x: -0.061398983, y: 0.31660604, z: 0}
+  - {x: -0.18590021, y: 0.31900024, z: 0}
+  - {x: -0.19068861, y: 0.25435543, z: 0}
+  - {x: -0.24815035, y: 0.25435543, z: 0}
+  - {x: -0.25293922, y: 0.18731642, z: 0}
+  - {x: -0.31040096, y: 0.19210482, z: 0}
+  - {x: -0.31758404, y: 0.12746, z: 0}
+  - {x: -0.37265205, y: 0.122671604, z: 0}
+  - {x: -0.37744045, y: 0.00056505203, z: 0}
+  - {x: -0.4377494, y: 0.004389763, z: 0}
+  - {x: -0.43729687, y: -0.18618679, z: 0}
 --- !u!1 &7537914151238219595
 GameObject:
   m_ObjectHideFlags: 0
