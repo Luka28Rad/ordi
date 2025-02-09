@@ -25,6 +25,7 @@ public class Checkpoint : MonoBehaviour
         PlayerPrefs.SetString("Checkpoint", gameObject.name);
         GetComponent<Collider2D>().enabled = false;
         if(!gameObject.name.Contains("Start")) Achievements.UnlockEnterCheckpointAchievement();
+        transform.Find("Light 2D").gameObject.SetActive(true);
         }
     }
 }

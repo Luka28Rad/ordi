@@ -8,6 +8,7 @@ TagManager:
   - StarDust
   - BorderTile
   - Deathline
+  - Web
   layers:
   - Default
   - TransparentFX
