@@ -2876,8 +2876,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0034499168, y: -0.0065500736, z: 0}
-    m_Extent: {x: 7.50495, y: 7.4986496, z: 0}
+    m_Center: {x: 0.0046999454, y: -0.008249998, z: 0}
+    m_Extent: {x: 7.5037003, y: 7.4936504, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.5
@@ -3382,9 +3382,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
+      propertyPath: clip75
+      value: 
+      objectReference: {fileID: 8300000, guid: 0bb0d7d255d09af409921fc1af879606, type: 3}
+    - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
       propertyPath: clip100
       value: 
       objectReference: {fileID: 8300000, guid: fdc105edc936975428ee58d681a2392a, type: 3}
+    - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
+      propertyPath: clip125
+      value: 
+      objectReference: {fileID: 8300000, guid: a7e4eb2003ed96242bccc708a4bd912e, type: 3}
+    - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
+      propertyPath: clip150
+      value: 
+      objectReference: {fileID: 8300000, guid: f6bd2017f9776b04aaaed59b8228817a, type: 3}
+    - target: {fileID: 5947150260591898994, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
+      propertyPath: defaultClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b0d5aacde93954a4e85b5c70f96b5d2d, type: 3}
     - target: {fileID: 6110023897495743383, guid: f52ef3bd81e67d64caa1051310935226, type: 3}
       propertyPath: m_Name
       value: SoundPlayer
