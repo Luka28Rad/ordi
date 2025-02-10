@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System.Collections.Generic;
+using TMPro;
 
 public class DeathlineController : NetworkBehaviour
 {
@@ -52,7 +53,23 @@ public class DeathlineController : NetworkBehaviour
             UpdateSpeedBasedOnY();
             MoveDeathline();
         }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        currentPlayerCount = players.Length;
+
+        if (currentPlayerCount != previousPlayerCount)
+        {
+            previousPlayerCount = currentPlayerCount;
+            if (maxPlayerCount == -2) maxPlayerCount = currentPlayerCount;
+
+            playerNumberText.text = $"Alive players:\n {currentPlayerCount}/{maxPlayerCount}";
+        }
     }
+
+    [SerializeField] private TMP_Text playerNumberText;
+
+    private int maxPlayerCount = -2;
+    private int currentPlayerCount = -2;
+    private int previousPlayerCount = -1;
 
     private float lastYPosition = 0f; // Tracks the last Y position where speed was updated
 private float speedIncrement = 1f; // Adjust the increment value as needed
