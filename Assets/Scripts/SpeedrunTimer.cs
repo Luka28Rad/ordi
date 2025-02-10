@@ -139,6 +139,7 @@ public static long ConvertToMilliseconds(string timeString)
         }
     
         var achievements = new List<System.Action> {
+                    Achievements.UnlockBeatSpidersAchievement,
                     Achievements.UnlockBeatDarkoAchievement,
                     Achievements.UnlockBeatNestaskoAchievement,
                     Achievements.UnlockBeatCrnaRupaAchievement,
@@ -152,15 +153,16 @@ public static long ConvertToMilliseconds(string timeString)
                 };
 
                 int threshold = rec switch {
-                    <= 450628 => 10,
-                    <= 600000 => 8,
-                    <= 660000 => 7,
-                    <= 780000 => 6,
-                    <= 900000 => 5,
-                    <= 1080000 => 4,
-                    <= 1200000 => 3,
-                    <= 1500000 => 2,
-                    <= 1800000 => 1,
+                    <= 450628 => 11,
+                    <= 600000 => 9,
+                    <= 660000 => 8,
+                    <= 780000 => 7,
+                    <= 900000 => 6,
+                    <= 1080000 => 5,
+                    <= 1200000 => 4,
+                    <= 1500000 => 3,
+                    <= 1800000 => 2,
+                    <= 3600000 => 1,
                     _ => 0
                 };
 

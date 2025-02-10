@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Web"))
         {
-            //Achievements.UnlockEnterStardustAchievement();
+            Achievements.UnlockEnterWeb();
             Debug.Log("Web entered");
             if (speedChangeCoroutineWeb != null)
             {

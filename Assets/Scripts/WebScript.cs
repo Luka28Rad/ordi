@@ -59,6 +59,10 @@ public class WebScript : MonoBehaviour
         // Activate the selected spider
         currentlyActiveSpider.SetActive(true);
         Debug.Log($"Activated spider: {currentlyActiveSpider.name}");
+        if(inactiveSpiders.Count == 1) {
+            Achievements.UnlockEnterAllWebs();
+            Debug.Log("Sve mreze!");
+        }
         return true;
     }
 }

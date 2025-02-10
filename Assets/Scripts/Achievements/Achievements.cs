@@ -242,6 +242,11 @@ public class Achievements : MonoBehaviour
         SetAchievement("SPEEDRUN_ZVJEZDAN_ACHIEVEMENT");
     }
 
+    public static void UnlockBeatSpidersAchievement()  ///////////////////////////////////////////////////////////////////////
+    {
+        SetAchievement("SPEEDRUN_SPIDERS_ACHIEVEMENT");
+    }
+
     public static void UnlockBeatGljivanAchievement()   ///////////////////////////////////////////////////////////////////////
     {
         SetAchievement("SPEEDRUN_GLJIVAN_ACHIEVEMENT");
@@ -381,6 +386,14 @@ public class Achievements : MonoBehaviour
 
     public static void UnlockSurviveFourBites(){        ///////////////////////////////////////////////////////////////////////
         SetAchievement("ALL_SPIDERS_ACHIEVEMENT");
+    }
+
+    public static void UnlockEnterWeb(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENTER_WEB_ACHIEVEMENT");
+    }
+
+    public static void UnlockEnterAllWebs(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ALL_WEBS_ACHIEVEMENT");
     }
 
 }

@@ -160,7 +160,13 @@ private void SetUp(){
                 isDusko = false;
                 springshroomDoubleJump = false;
                 isMatchstick = false;
-            }
+            } else if(spriteName.Contains("zvjezdan")){
+                isSvijeca = false;
+                isWizzy = false;
+                isDusko = false;
+                springshroomDoubleJump = false;
+                isMatchstick = false;
+            } 
         }
     }
 
@@ -360,7 +366,7 @@ private void SetUp(){
                         }
                     }
                 }
-                else
+                else // za zvjezdana
                 {
                     if (Time.time - timeSinceLastDash > dashRefresh)
                     {
