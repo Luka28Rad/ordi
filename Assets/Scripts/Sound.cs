@@ -16,16 +16,16 @@ public class Sound : MonoBehaviour
     public AudioClip clip125;
     public AudioClip clip150;
     // Add more audio clips as needed
-    private GameObject deathline;
+    public GameObject deathline;
     private AudioSource audioSource;
 
     void Start()
     {
-        isEndlessLevel = SceneManager.GetActiveScene().name == "EndlessLevel";
+        isEndlessLevel = (SceneManager.GetActiveScene().name == "EndlessLevel" || SceneManager.GetActiveScene().name == "MultiplayerLevel");
         
         if (isEndlessLevel)
         {
-            deathline = GameObject.Find("DeathLiine");
+            if(SceneManager.GetActiveScene().name == "EndlessLevel")  {deathline = GameObject.Find("DeathLiine");Debug.Log("Nemoguce");}
             if (deathline == null)
             {
                 Debug.LogWarning("DeathLiine not found in Endless Level!");
@@ -62,6 +62,8 @@ public class Sound : MonoBehaviour
                 PlayAudio(defaultClip);
                 break;
             case "EndlessLevel":
+                break;
+            case "MultiplayerLevel":
                 break;
             default:
                 PlayAudio(defaultClip);

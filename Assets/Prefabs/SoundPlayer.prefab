@@ -45,11 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405cce24891cc4c429255c069d08065c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultClip: {fileID: 0}
+  defaultClip: {fileID: 8300000, guid: b0d5aacde93954a4e85b5c70f96b5d2d, type: 3}
   level1Clip: {fileID: 8300000, guid: ac7fe6316d3889940a96476730aa84d0, type: 3}
   level2Clip: {fileID: 8300000, guid: dffa25ed5e510494cb07e12054e3f0d8, type: 3}
   level3Clip: {fileID: 8300000, guid: ea6e7ab4de04713478641cd1579c9c4d, type: 3}
   bossFightClip: {fileID: 8300000, guid: e47f3c4bfc72104418ffa008d4380a6d, type: 3}
+  clip100: {fileID: 8300000, guid: fdc105edc936975428ee58d681a2392a, type: 3}
+  clip75: {fileID: 8300000, guid: 0bb0d7d255d09af409921fc1af879606, type: 3}
+  clip125: {fileID: 8300000, guid: a7e4eb2003ed96242bccc708a4bd912e, type: 3}
+  clip150: {fileID: 8300000, guid: f6bd2017f9776b04aaaed59b8228817a, type: 3}
+  heightThreshold: 30
 --- !u!82 &8919476838053672987
 AudioSource:
   m_ObjectHideFlags: 0
