@@ -337,7 +337,7 @@ public class Achievements : MonoBehaviour
     }
 
     public static void UnlockMultiplayerAchievement(){   ///////////////////////////////////////////////////////////////////////
-        SetAchievement("MULTIPLAYER_ACHIEVEMENT");
+        SetAchievement("TRUE_MULTIPLAYER_ACHIEVEMENT");
     }
 
     public static void UnlockMultiplayerHostAchievement(){   ///////////////////////////////////////////////////////////////////////

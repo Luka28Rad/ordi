@@ -18,8 +18,13 @@ public class MpCharCounter : MonoBehaviour
         if(locPlayer == null) locPlayer = GameObject.Find("LocalGamePlayer");
         if(locPlayer != null && !sentData) {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            if(players.Length >= 2) Achievements.UnlockMultiplayerAchievement();
-            else Achievements.UnlockMultiplayerStartAchievement();
+            if(players.Length >= 2) {
+                Achievements.UnlockMultiplayerAchievement();
+                Debug.Log("IMA NAS "+ players.Length);
+            } else {
+                Debug.Log("NEMA NAS "+ players.Length);
+            }
+            Achievements.UnlockMultiplayerStartAchievement();
             sentData = true;
             string name = locPlayer.transform.GetChild(0).transform.GetChild(1).GetComponent<SpriteRenderer>().sprite.name;
             SendStatUpdate(name);
