@@ -126,10 +126,11 @@ public class EndlessTiles : MonoBehaviour
         scoreText.text = score.ToString();
     }
     private void CheckTrophies(int number){
-        if(number > 101 || number < 10) return;
-        if(number == 10) Achievements.UnlockTileTenAchievement();
-        else if(number == 51) Achievements.UnlockTile51Achievement();
-        else if(number == 66) Achievements.UnlockTile66Achievement();
-        else if(number == 101) Achievements.UnlockTile101Achievement();
+        if(number >= 120 || number < 10) return;
+        if(number >= 10) Achievements.UnlockTileTenAchievement();
+        if(number >= 51) Achievements.UnlockTile51Achievement();
+        if(number >= 66) Achievements.UnlockTile66Achievement();
+        if(number >= 101) Achievements.UnlockTile101Achievement();
+        if(number >= 115) Achievements.UnlockTile115Achievement();
     }
 }

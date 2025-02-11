@@ -81,6 +81,7 @@ public class ScenesController : MonoBehaviour
     }
 
     public void ReplayButtonClicked() {
+        Achievements.UnlockRespawnAchievement();
         switch(Variables.gameMode) {
             case "NewGame":
                 Variables.gameMode = "LoadGame";
@@ -119,6 +120,7 @@ public class ScenesController : MonoBehaviour
     public void LoadGameButtonClicked()
     {
         Variables.gameMode = "LoadGame";
+        Achievements.UnlockLoadGameAchievement();
         string level = PlayerPrefs.GetString("Level", "Level 1");
         StartCoroutine(LoadNewLevel(level));
     }

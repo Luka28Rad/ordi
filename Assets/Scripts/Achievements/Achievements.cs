@@ -23,7 +23,7 @@ public class Achievements : MonoBehaviour
                 SteamUserStats.StoreStats();
                 Debug.Log("Achievement " + ach_ID + " unlocked!");
             } else {
-                Debug.Log("Achievement " + ach_ID + " already unlocked.");
+               // Debug.Log("Achievement " + ach_ID + " already unlocked.");
             }
         }
         else
@@ -144,7 +144,7 @@ public class Achievements : MonoBehaviour
     }
     public static void UnlockGainLifeAchievement()  ///////////////////////////////////////////////////////////////////////
     {
-        SetAchievement("GAIN_LIFE_ACHIVEMENT");
+        SetAchievement("GAIN_LIFE_ACHIEVEMENT");
     }
     public static void UnlockLoseLifeAchievement()  ///////////////////////////////////////////////////////////////////////
     {
@@ -316,6 +316,9 @@ public class Achievements : MonoBehaviour
     public static void UnlockTile66Achievement(){   ///////////////////////////////////////////////////////////////////////
         SetAchievement("ENDLESS_66_ACHIEVEMENT");
     }
+    public static void UnlockTile115Achievement(){   ///////////////////////////////////////////////////////////////////////
+        SetAchievement("ENDLESS_115_ACHIEVEMENT");
+    }
     public static void UnlockendlessDeathAchievement(){   ///////////////////////////////////////////////////////////////////////
         SetAchievement("ENDLESS_DEATH_ACHIEVEMENT");
     }
@@ -395,5 +398,41 @@ public class Achievements : MonoBehaviour
     public static void UnlockEnterAllWebs(){        ///////////////////////////////////////////////////////////////////////
         SetAchievement("ALL_WEBS_ACHIEVEMENT");
     }
+
+    public static void UnlockDieStoryModeAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("DEATH_STORY_ACHIEVEMENT");
+    }
+
+    public static void UnlockRespawnAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("RESPAWN_ACHIEVEMENT");
+    }
+
+    public static void UnlockLoadGameAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("LOAD_GAME_ACHIEVEMENT");
+    }
+
+    public static void UnlockGljivanSoundsAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("GLJIVAN_SOUNDS_ACHIEVEMENT");
+    }
+
+    public static void UnlockPlayEveryDayAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("EVERY_DAY_ACHIEVEMENT");
+    }
+
+    public static void UnlockMazeRunnerAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("MAZE_RUNNER_ACHIEVEMENT");
+    }
+
+    public static void UnlockObstacleCourseAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("OBSTACLE_COURSE_ACHIEVEMENT");
+    }
+    public static void UnlockJumpingJackAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("JUMPING_JACK_ACHIEVEMENT");
+    }
+
+    public static void UnlockStickyKeysAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("STICKY_KEYS_ACHIEVEMENT");
+    }
+
 
 }

@@ -46,6 +46,7 @@ public class HealthManager : MonoBehaviour
                 Achievements.UnlockDieSpeedrunAchievement();
                 SceneManager.LoadScene("DeathScene");
             } else {
+                Achievements.UnlockDieStoryModeAchievement();
                 SteamStatsManager.Instance.IncrementStat("DeathsSP");
                 Scene scene = SceneManager.GetActiveScene();
                 string checkpointName = PlayerPrefs.GetString("Checkpoint", "StartCheckpoint");
