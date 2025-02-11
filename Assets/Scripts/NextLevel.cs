@@ -47,31 +47,33 @@ public class NextLevel : MonoBehaviour
     {
         Achievements.UnlockUseTeleportAchievement();
         string levelName = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
+        if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
+            PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
+        }
             switch (levelName)
             {
                 case "Level 1":
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
                     if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl1Achievement();
                     Achievements.UnlockFinishLvl1Achievement();
+                    PlayerPrefs.SetString("Level", "Level 2");
                 }
-                PlayerPrefs.SetString("Level", "Level 2");
                     StartCoroutine(LoadNewLevel("Level 2"));
                     break;
                 case "Level 2":
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
                     if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl2Achievement();
                     Achievements.UnlockFinishLvl2Achievement();
+                    PlayerPrefs.SetString("Level", "Level 3");
                 }
-                PlayerPrefs.SetString("Level", "Level 3");
                     StartCoroutine(LoadNewLevel("Level 3"));
                     break;
                 case "Level 3":
                 if(Variables.gameMode == "LoadGame" || Variables.gameMode == "NewGame"){
                     if(Variables.healthCount == 5) Achievements.UnlockFullLifeLvl3Achievement();
                     Achievements.UnlockFinishLvl3Achievement();
+                    PlayerPrefs.SetString("Level", "Bossfight");
                 }
-                PlayerPrefs.SetString("Level", "Bossfight");
                     StartCoroutine(LoadNewLevel("Bossfight"));
                     break;
                 case "Bossfight": 
