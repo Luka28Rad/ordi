@@ -45,6 +45,9 @@ public class HealthManager : MonoBehaviour
                 PlayerPrefs.SetString("collectiblesSpeedRun","");
                 Achievements.UnlockDieSpeedrunAchievement();
                 SceneManager.LoadScene("DeathScene");
+            } else if(Variables.gameMode == "Demo"){
+                Achievements.UnlockDieDemoAchievement();
+                SceneManager.LoadScene("DeathScene");
             } else {
                 Achievements.UnlockDieStoryModeAchievement();
                 SteamStatsManager.Instance.IncrementStat("DeathsSP");

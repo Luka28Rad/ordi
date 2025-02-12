@@ -99,6 +99,7 @@ public class NextLevel : MonoBehaviour
                     break;
                 case "DemoLevel":
                     Achievements.UnlockDemoAchievement();
+                    //if(Variables.healthCount == 5) Achievements.UnlockFullLifeDemoAchievement();
                     StartCoroutine(LoadNewLevel("DemoEndScene"));
                     break;
                 default:

@@ -5,9 +5,112 @@ using UnityEngine;
 
 public class Achievements : MonoBehaviour
 {
+    private static readonly string[] AllAchievementIDs = new string[]
+    {
+        "WELCOME_ACHIEVEMENT",
+        "FIRST_COIN_ACHIEVEMENT",
+        "ALL_COINS_ACHIEVEMENT",
+        "ALL_COINS_LVL1_ACHIEVEMENT",
+        "ALL_COINS_LVL2_ACHIEVEMENT",
+        "ALL_COINS_LVL3_ACHIEVEMENT",
+        "ALL_COINS_BF_ACHIEVEMENT",
+        "FULL_LIFE_LVL1_ACHIEVEMENT",
+        "FULL_LIFE_LVL2_ACHIEVEMENT",
+        "FULL_LIFE_LVL3_ACHIEVEMENT",
+        "FULL_LIFE_BF_ACHIEVEMENT",
+        "SPOT_DUSKO_ACHIEVEMENT",
+        "SPOT_GLJIVAN_ACHIEVEMENT",
+        "SPOT_SVJETLANA_ACHIEVEMENT",
+        "SPOT_BRUNO_ACHIEVEMENT",
+        "SPOT_BLACK_HOLE_ACHIEVEMENT",
+        "ENTER_BLACK_HOLE_ACHIEVEMENT",
+        "JUMP_GLJIVAN_ACHIEVEMENT",
+        "DAMAGE_GLJIVAN_ACHIEVEMENT",
+        "BRUNO_DAMAGE_ACHIEVEMENT",
+        "BRUNO_KILL_ACHIEVEMENT",
+        "DUSKO_DAMAGE_ACHIEVEMENT",
+        "DUSKO_KILL_ACHIEVEMENT",
+        "SVJETLANA_DAMAGE_ACHIEVEMENT",
+        "SVJETLANA_KILL_ACHIEVEMENT",
+        "CLOUD_THROUGH_ACHIEVEMENT",
+        "GAIN_LIFE_ACHIEVEMENT",
+        "LOSE_LIFE_ACHIEVEMENT",
+        "CHECKPOINT_ACHIEVEMENT",
+        "DIE_ACHIEVEMENT",
+        "SPEEDRUN_ACHIEVEMENT",
+        "CREDITS_ACHIEVEMENT",
+        "PAUSE_ACHIEVEMENT",
+        "SPEEDRUN_DIE_ACHIEVEMENT",
+        "RESTORE_HEALTH_ACHIEVEMENT",
+        "PRACTICE_DAMAGE_ACHIEVEMENT",
+        "PRACTICE_FINISH_ACHIEVEMENT",
+        "DASH_ACHIEVEMENT",
+        "GAME_END_ACHIEVEMENT",
+        "STAR_DUST_ACHIEVEMENT",
+        "TELEPORT_ACHIEVEMENT",
+        "FINISH_LVL1_ACHIEVEMENT",
+        "FINISH_LVL2_ACHIEVEMENT",
+        "FINISH_LVL3_ACHIEVEMENT",
+        "WIZARD_SPOT_ACHIEVEMENT",
+        "WIZARD_DAMAGE_ACHIEVEMENT",
+        "WIZARD_KILL_ACHIEVEMENT",
+        "MUSIC_OFF_ACHIEVEMENT",
+        "MUSIC_FULL_ACHIEVEMENT",
+        "SPEEDRUN_ZVJEZDAN_ACHIEVEMENT",
+        "SPEEDRUN_SPIDERS_ACHIEVEMENT",
+        "SPEEDRUN_GLJIVAN_ACHIEVEMENT",
+        "SPEEDRUN_DUSKO_ACHIEVEMENT",
+        "SPEEDRUN_SVJETLANA_ACHIEVEMENT",
+        "SPEEDRUN_BRUNO_ACHIEVEMENT",
+        "SPEEDRUN_DARKO_ACHIEVEMENT",
+        "SPEEDRUN_NESTASKO_ACHIEVEMENT",
+        "SPEEDRUN_ZIR_ACHIEVEMENT",
+        "SPEEDRUN_USER_ACHIEVEMENT",
+        "SPEEDRUN_BLACKHOLE_ACHIEVEMENT",
+        "SPEEDRUN_EVERYONE_ACHIEVEMENT",
+        "CHECK_LEADERBOARDS_ACHIEVEMENT",
+        "ENDLESS_10_ACHIEVEMENT",
+        "ENDLESS_51_ACHIEVEMENT",
+        "ENDLESS_101_ACHIEVEMENT",
+        "ENDLESS_66_ACHIEVEMENT",
+        "ENDLESS_115_ACHIEVEMENT",
+        "ENDLESS_DEATH_ACHIEVEMENT",
+        "ENDLESS_RUNAWAY_ACHIEVEMENT",
+        "ENDLESS_START_ACHIEVEMENT",
+        "MULTIPLAYER_START_ACHIEVEMENT",
+        "MULTIPLAYER_END_ACHIEVEMENT",
+        "TRUE_MULTIPLAYER_ACHIEVEMENT",
+        "MULTIPLAYER_HOST_ACHIEVEMENT",
+        "MULTIPLAYER_CLIENT_ACHIEVEMENT",
+        "DEMO_FINISH_ACHIEVEMENT",
+        "CHECK_STATS_ACHIEVEMENT",
+        "FIRST_COMIC_ACHIEVEMENT",
+        "HALF_COMIC_ACHIEVEMENT",
+        "FULL_COMIC_ACHIEVEMENT",
+        "RED_GREEN_SPIDER_ACHIEVEMENT",
+        "BLACK_YELLOW_SPIDER_ACHIEVEMENT",
+        "RED_GREEN_SPIDER_DAMAGE_ACHIEVEMENT",
+        "BLACK_YELLOW_SPIDER_DAMAGE_ACHIEVEMENT",
+        "ALL_SPIDERS_ACHIEVEMENT",
+        "ENTER_WEB_ACHIEVEMENT",
+        "ALL_WEBS_ACHIEVEMENT",
+        "DEATH_STORY_ACHIEVEMENT",
+        "RESPAWN_ACHIEVEMENT",
+        "LOAD_GAME_ACHIEVEMENT",
+        "GLJIVAN_SOUNDS_ACHIEVEMENT",
+        "EVERY_DAY_ACHIEVEMENT",
+        "MAZE_RUNNER_ACHIEVEMENT",
+        "OBSTACLE_COURSE_ACHIEVEMENT",
+        "JUMPING_JACK_ACHIEVEMENT",
+        "STICKY_KEYS_ACHIEVEMENT",
+        "ALL_COINS_DEMO_ACHIEVEMENT",
+        "DEMO_SPEED_ACHIEVEMENT",
+        "DIE_DEMO_ACHIEVEMENT"
+    };
     private void Start()
     {
         UnlockWelcomeAchievement();
+        CheckAllAchievementsUnlocked();
     }
 
     private static void SetAchievement(string ach_ID)
@@ -22,6 +125,7 @@ public class Achievements : MonoBehaviour
                 SteamUserStats.SetAchievement (ach_ID);
                 SteamUserStats.StoreStats();
                 Debug.Log("Achievement " + ach_ID + " unlocked!");
+                CheckAllAchievementsUnlocked();
             } else {
                // Debug.Log("Achievement " + ach_ID + " already unlocked.");
             }
@@ -434,5 +538,49 @@ public class Achievements : MonoBehaviour
         SetAchievement("STICKY_KEYS_ACHIEVEMENT");
     }
 
+    public static void UnlockAllCoinsDemoAchievement()  ///////////////////////////////////////////////////////////////////////
+    {
+        SetAchievement("ALL_COINS_DEMO_ACHIEVEMENT");
+    }
 
+    public static void UnlockDemoSpeedAchievement(){        ///////////////////////////////////////////////////////////////////////
+        SetAchievement("DEMO_SPEED_ACHIEVEMENT");
+    }
+    public static void UnlockDieDemoAchievement()   ///////////////////////////////////////////////////////////////////////
+    {
+        SetAchievement("DIE_DEMO_ACHIEVEMENT");
+    }
+
+    public static void UnlockAllAchievement()
+    {
+        SetAchievement("ALL_ACHIEVEMENT");
+    }
+
+    private static void CheckAllAchievementsUnlocked()
+    {
+        if (SteamManager.Initialized)
+        {
+            bool allUnlocked = true;
+            foreach (string achievementID in AllAchievementIDs)
+            {
+                bool achievementUnlocked;
+                SteamUserStats.GetAchievement(achievementID, out achievementUnlocked);
+                if (!achievementUnlocked)
+                {
+                    allUnlocked = false;
+                    Debug.Log(achievementID + " NOT UNLOCKED YET.");
+                    break;
+                }
+            }
+
+            if (allUnlocked)
+            {
+                UnlockAllAchievement();
+            }
+        }
+        else
+        {
+            Debug.LogError("Steamworks API is not initialized.");
+        }
+    }
 }

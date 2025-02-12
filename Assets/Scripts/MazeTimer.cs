@@ -11,22 +11,116 @@ public class MazeTimer : MonoBehaviour
     private bool hasStarted = false;
     private float startTime;
     private bool isComplete = false;
+    private bool isInStartArea = false;
+    private SpriteRenderer startPointSprite;
+    private SpriteRenderer endPointSprite;
+    private bool runWasSuccessful = false;
+    private float completionTime = 0f;
+
+    // Time thresholds for each level
+    private readonly float[] levelTimeThresholds = { 9f, 26f, 4f, 4f, 2f };
+
+    private void Start()
+    {
+        startPointSprite = startPoint.GetComponent<SpriteRenderer>();
+        endPointSprite = endPoint.GetComponent<SpriteRenderer>();
+        
+        // Initialize colors
+        if (startPointSprite != null)
+        {
+            startPointSprite.color = Color.red;
+        }
+        if (endPointSprite != null)
+        {
+            endPointSprite.color = Color.red;
+        }
+    }
 
     private void Update()
     {
-        // Get player position (assuming this script is attached to the player)
         Vector3 playerPos = transform.position;
+        bool currentlyInStartArea = IsAtPoint(playerPos, startPoint.position);
         
-        // Check if player is at start point and hasn't started yet
-        if (!hasStarted && !isComplete && IsAtPoint(playerPos, startPoint.position))
+        // Handle start area entry
+        if (currentlyInStartArea && !isInStartArea)
         {
-            StartTimer();
+            ResetTimer();
+            isInStartArea = true;
+        }
+        // Handle start area exit - only start timer if it was reset
+        else if (!currentlyInStartArea && isInStartArea)
+        {
+            if (!hasStarted)
+            {
+                StartTimer();
+            }
+            isInStartArea = false;
         }
         
-        // Check if player has reached end point after starting
         if (hasStarted && !isComplete && IsAtPoint(playerPos, endPoint.position))
         {
             CompleteRun();
+        }
+
+        UpdateColors(currentlyInStartArea);
+    }
+    
+    private void UpdateColors(bool playerInStartArea)
+    {
+        // Start point color logic
+        if (startPointSprite != null)
+        {
+            if (!hasStarted && playerInStartArea)
+            {
+                startPointSprite.color = Color.yellow;
+            }
+            else if (hasStarted)
+            {
+                startPointSprite.color = Color.green;
+            }
+            else
+            {
+                startPointSprite.color = Color.red;
+            }
+        }
+
+        // End point color logic
+        if (endPointSprite != null)
+        {
+            if (isComplete)
+            {
+                // Use completionTime instead of current time for the final color
+                //int seconds = Mathf.FloorToInt(completionTime % 60f);
+                bool withinTimeLimit = IsWithinTimeLimit(completionTime);
+                endPointSprite.color = withinTimeLimit ? Color.green : Color.red;
+                Debug.Log("Mjenjam");
+            }
+            else if (!hasStarted)
+            {
+                endPointSprite.color = Color.red;
+            }
+            else if(hasStarted)
+            {
+                // During active run
+                float currentTime = Time.time - startTime;
+                //int seconds = Mathf.FloorToInt(currentTime % 60f);
+                bool withinTimeLimit = IsWithinTimeLimit(currentTime);
+                endPointSprite.color = withinTimeLimit ? Color.yellow : Color.red;
+            }
+        }
+    }
+    
+    private bool IsWithinTimeLimit(float seconds)
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        switch (currentScene)
+        {
+            case "Level 1": return seconds <= 9f;
+            case "Level 2": return seconds <= 26f;
+            case "Level 3": return seconds <= 4f;
+            case "Bossfight": return seconds <= 4f;
+            case "DemoLevel": return seconds <= 2f;
+            default: return false;
         }
     }
     
@@ -39,64 +133,38 @@ public class MazeTimer : MonoBehaviour
     {
         hasStarted = true;
         startTime = Time.time;
+        runWasSuccessful = false;
+        completionTime = 0f;
         Debug.Log("Timer started!");
-        startPoint.gameObject.SetActive(false);
-        endPoint.gameObject.SetActive(false);
     }
     
     private void CompleteRun()
     {
-        float completionTime = Time.time - startTime;
+        completionTime = Time.time - startTime;
         isComplete = true;
         hasStarted = false;
+        runWasSuccessful = true;
         
-        // Convert to minutes and seconds
-        int minutes = Mathf.FloorToInt(completionTime / 60f);
-        int seconds = Mathf.FloorToInt(completionTime % 60f);
-        if(seconds <= 13 && SceneManager.GetActiveScene().name == "Level 1") Achievements.UnlockMazeRunnerAchievement();
-        if(seconds <= 33 && SceneManager.GetActiveScene().name == "Level 2") Achievements.UnlockObstacleCourseAchievement();
-        if(seconds <= 5 && SceneManager.GetActiveScene().name == "Level 3") Achievements.UnlockJumpingJackAchievement();
-        if(seconds <= 3 && SceneManager.GetActiveScene().name == "Bossfight") Achievements.UnlockStickyKeysAchievement();
-        Debug.Log($"Run completed! Time: {minutes:00}:{seconds:00}");
-        ResetTimer();
+        //int minutes = Mathf.FloorToInt(completionTime / 60f);
+        //int seconds = Mathf.FloorToInt(completionTime % 60f);
+        
+        // Achievement checks
+        if(completionTime <= 9f && SceneManager.GetActiveScene().name == "Level 1") Achievements.UnlockMazeRunnerAchievement();
+        if(completionTime <= 26f && SceneManager.GetActiveScene().name == "Level 2") Achievements.UnlockObstacleCourseAchievement();
+        if(completionTime <= 4f && SceneManager.GetActiveScene().name == "Level 3") Achievements.UnlockJumpingJackAchievement();
+        if(completionTime <= 4f && SceneManager.GetActiveScene().name == "Bossfight") Achievements.UnlockStickyKeysAchievement();
+        if(completionTime <= 2f && SceneManager.GetActiveScene().name == "DemoLevel") Achievements.UnlockDemoSpeedAchievement();
+        
+        //Debug.Log($"Run completed! Time: {minutes:00}:{seconds:00}");
+        Debug.Log($"Run completed! Time: {completionTime}");
     }
     
-    // Method to reset the timer
-    public void ResetTimer()
+    private void ResetTimer()
     {
         hasStarted = false;
         isComplete = false;
+        runWasSuccessful = false;
+        completionTime = 0f;
         Debug.Log("Timer reset and ready for new run");
-        startPoint.gameObject.SetActive(true);
-        endPoint.gameObject.SetActive(true);
-    }
-    
-    // Method to get current time if run is in progress
-    public string GetCurrentTime()
-    {
-        if (!hasStarted || isComplete)
-            return "00:00";
-            
-        float currentTime = Time.time - startTime;
-        int minutes = Mathf.FloorToInt(currentTime / 60f);
-        int seconds = Mathf.FloorToInt(currentTime % 60f);
-        
-        return $"{minutes:00}:{seconds:00}";
-    }
-    
-    // Optional: Draw detection radius in editor for easy setup
-    private void OnDrawGizmos()
-    {
-        if (startPoint != null)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(startPoint.position, detectionRadius);
-        }
-        
-        if (endPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(endPoint.position, detectionRadius);
-        }
     }
 }

@@ -42,7 +42,7 @@ public class Collectibles : MonoBehaviour
         }
        
     }
-
+    private bool demoSet = false;
     void Update()
     {
         if(Variables.gameMode == "Speedrun") {
@@ -52,6 +52,10 @@ public class Collectibles : MonoBehaviour
         }
         if(Variables.gameMode == "Demo"){
             collectiblesUI.text = (demoCounter) + "/" + totalCollectibles;
+            if(!demoSet && demoCounter == totalCollectibles){
+                demoSet = true;
+                Achievements.UnlockAllCoinsDemoAchievement();
+            }
         }
     }
 }
