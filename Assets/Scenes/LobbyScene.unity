@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1411943}
   - component: {fileID: 1411942}
   - component: {fileID: 1411941}
+  - component: {fileID: 1411944}
   m_Layer: 5
   m_Name: StartGameButton
   m_TagString: Untagged
@@ -256,6 +257,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411939}
   m_CullTransparentMesh: 1
+--- !u!114 &1411944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &6877230
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +283,7 @@ GameObject:
   - component: {fileID: 6877234}
   - component: {fileID: 6877233}
   - component: {fileID: 6877232}
+  - component: {fileID: 6877235}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -389,6 +405,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6877230}
   m_CullTransparentMesh: 1
+--- !u!114 &6877235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &93608499
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +673,68 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &113091332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23643795938376113, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752969320064663700, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+      propertyPath: m_Name
+      value: ButtonHover
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+--- !u!82 &113091333 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2866875205629258690, guid: 843ccbd144fbf4040bd653d0b637fc5e, type: 3}
+  m_PrefabInstance: {fileID: 113091332}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &195914143
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +1066,7 @@ GameObject:
   - component: {fileID: 381330165}
   - component: {fileID: 381330164}
   - component: {fileID: 381330163}
+  - component: {fileID: 381330166}
   m_Layer: 5
   m_Name: RightBtn
   m_TagString: Untagged
@@ -1107,6 +1200,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381330161}
   m_CullTransparentMesh: 1
+--- !u!114 &381330166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381330161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &388052127
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,6 +2767,7 @@ GameObject:
   - component: {fileID: 1303579800}
   - component: {fileID: 1303579799}
   - component: {fileID: 1303579798}
+  - component: {fileID: 1303579801}
   m_Layer: 5
   m_Name: ReadyButton
   m_TagString: Untagged
@@ -2781,6 +2889,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303579796}
   m_CullTransparentMesh: 1
+--- !u!114 &1303579801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303579796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &1335915173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,6 +3736,7 @@ GameObject:
   - component: {fileID: 1744769575}
   - component: {fileID: 1744769574}
   - component: {fileID: 1744769573}
+  - component: {fileID: 1744769576}
   m_Layer: 5
   m_Name: LeftBtn
   m_TagString: Untagged
@@ -3747,6 +3870,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744769571}
   m_CullTransparentMesh: 1
+--- !u!114 &1744769576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744769571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &1812365885
 GameObject:
   m_ObjectHideFlags: 0
@@ -3998,6 +4135,7 @@ GameObject:
   - component: {fileID: 1903456576}
   - component: {fileID: 1903456578}
   - component: {fileID: 1903456579}
+  - component: {fileID: 1903456580}
   m_Layer: 5
   m_Name: QuestionBtn
   m_TagString: Untagged
@@ -4138,6 +4276,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1903456580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903456574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4218d31829baf6b47bc32bec90d08ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 113091333}
+  hoverSound: {fileID: 8300000, guid: acc7a8453508de1449b0df4a0fd40f53, type: 3}
 --- !u!1 &2017709302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4265,3 +4417,4 @@ SceneRoots:
   - {fileID: 1812365888}
   - {fileID: 2068162384}
   - {fileID: 108234248}
+  - {fileID: 113091332}
