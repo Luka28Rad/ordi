@@ -114,6 +114,7 @@ public class ScenesController : MonoBehaviour
         PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
         PlayerPrefs.SetString("collectibles", "");
         PlayerPrefs.SetString("Level", "Level 1");
+        PlayerPrefs.SetString("StartedGame", "TRUE");
         StartCoroutine(LoadNewLevel("Level 1"));
     }
 
@@ -122,6 +123,9 @@ public class ScenesController : MonoBehaviour
         Variables.gameMode = "LoadGame";
         Achievements.UnlockLoadGameAchievement();
         string level = PlayerPrefs.GetString("Level", "Level 1");
+        if(PlayerPrefs.GetString("StartedGame", "FALSE") == "FALSE") {
+            SteamStatsManager.Instance.IncrementStat("GamesSP");
+        }
         StartCoroutine(LoadNewLevel(level));
     }
 

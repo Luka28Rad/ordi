@@ -90,7 +90,7 @@ public static long ConvertToMilliseconds(string timeString)
         string name = nameInputField.text;
         if(name == "") name = "Unknown";
         collectC = 0;
-        string collectiblesString = PlayerPrefs.GetString("collectiblesSpeedRun", "0");
+        string collectiblesString = PlayerPrefs.GetString("collectiblesSpeedRun", "");
         if (!string.IsNullOrEmpty(collectiblesString))
         {
         string[] collectiblesArray = collectiblesString.Split(','); 
@@ -104,11 +104,11 @@ public static long ConvertToMilliseconds(string timeString)
             if(rec<=0) {
                  resultsText.text = "Why are you cheating? :(";
                  return;
-            } else if(rec<=180000){
+            } else if(rec<=210000){
                 resultsText.text = "Why are you cheating? :(";
                 return;
-            } else if(rec<=300000){
-                resultsText.text = "A little suspicious but i will allow it!!! :(";
+            } else if(rec<=295686){
+                resultsText.text = "You defeated the ultimate developer time of 04:55.686 !!!";
                 SteamLeaderboardManager.UpdateScore((int)rec);
             } else {
                 //Debug.Log("REC JE " + rec);

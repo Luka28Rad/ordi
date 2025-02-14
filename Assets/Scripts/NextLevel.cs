@@ -83,6 +83,10 @@ public class NextLevel : MonoBehaviour
                         Achievements.UnlockGameFinishAchievement();
                         statStarted = true;
                     }
+                    PlayerPrefs.SetString("Checkpoint", "StartCheckpoint");
+                    PlayerPrefs.SetString("collectibles", "");
+                    PlayerPrefs.SetString("Level", "Level 1");
+                    PlayerPrefs.SetString("StartedGame", "FALSE");
                 } else if(Variables.gameMode == "Practice") {
                     Achievements.UnlockPracticeFinishAchievement();
                 }

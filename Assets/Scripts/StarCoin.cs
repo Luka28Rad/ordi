@@ -54,7 +54,8 @@ public class StarCoin : MonoBehaviour
             if (PlayerPrefs.HasKey("collectiblesSpeedRun"))
             {
                 string currentCollectibles = PlayerPrefs.GetString("collectiblesSpeedRun");
-                    currentCollectibles += "," + collectibleName;
+                    if(currentCollectibles != "") currentCollectibles += "," + collectibleName;
+                    else currentCollectibles = collectibleName;
                     PlayerPrefs.SetString("collectiblesSpeedRun", currentCollectibles);
             }
             else
